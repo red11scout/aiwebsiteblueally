@@ -1,12 +1,12 @@
 /**
  * Hero Section
- * Command Center aesthetic: Dark navy background with floating metric cards
- * Hemingway style: Direct, impactful copy
+ * CrewAI-inspired: massive lightweight typography, pill CTAs, clean layout
+ * Particle canvas background (kept), no image overlay
  */
 
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
-import { ArrowRight, TrendingUp, Shield, Zap } from "lucide-react";
+import { ArrowRight, TrendingUp, Zap, Shield } from "lucide-react";
 import AnimatedCounter from "@/components/AnimatedCounter";
 
 const stats = [
@@ -24,26 +24,19 @@ export default function HeroSection() {
   };
 
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden gradient-navy">
-      {/* Background Image */}
-      <div className="absolute inset-0 z-0">
-        <img
-          src="/images/hero-ai-network.png"
-          alt=""
-          className="w-full h-full object-cover opacity-40"
-        />
-        <div className="absolute inset-0 bg-gradient-to-b from-[#0A1628] via-transparent to-[#0A1628]" />
-      </div>
+    <section className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden">
+      {/* Gradient fade at bottom */}
+      <div className="absolute bottom-0 left-0 right-0 h-40 bg-gradient-to-t from-[#050A14] to-transparent z-10 pointer-events-none" />
 
       {/* Content */}
-      <div className="container relative z-10 pt-24 pb-16">
-        <div className="max-w-4xl mx-auto text-center">
+      <div className="container relative z-10 pt-28 pb-16">
+        <div className="max-w-5xl mx-auto text-center">
           <motion.div
-            initial={{ opacity: 0, y: 30 }}
+            initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
+            transition={{ duration: 0.8 }}
           >
-            <span className="inline-block px-4 py-2 mb-6 text-sm font-medium text-[#00B34A] bg-[#00B34A]/10 rounded-full border border-[#00B34A]/20">
+            <span className="inline-block px-5 py-2 mb-8 text-sm text-[#00A3E0] bg-[#00A3E0]/[0.08] rounded-full border border-[#00A3E0]/20">
               Enterprise AI Transformation
             </span>
           </motion.div>
@@ -51,8 +44,8 @@ export default function HeroSection() {
           <motion.h1
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.1 }}
-            className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-white leading-tight mb-6"
+            transition={{ duration: 0.8, delay: 0.1 }}
+            className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-light text-white leading-[1.1] mb-8 tracking-tight"
           >
             AI is not the future.
             <br />
@@ -60,67 +53,60 @@ export default function HeroSection() {
           </motion.h1>
 
           <motion.p
-            initial={{ opacity: 0, y: 30 }}
+            initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-            className="text-lg md:text-xl text-white/70 max-w-2xl mx-auto mb-8 leading-relaxed"
+            transition={{ duration: 0.8, delay: 0.2 }}
+            className="text-lg md:text-xl text-white/40 max-w-2xl mx-auto mb-12 leading-relaxed"
           >
-            Most AI initiatives fail. The technology is not the problem. 
-            The approach is. BlueAlly transforms how enterprises adopt AI—with 
+            Most AI initiatives fail. The technology is not the problem.
+            The approach is. BlueAlly transforms how enterprises adopt AI—with
             a proven framework that delivers results.
           </motion.p>
 
           <motion.div
-            initial={{ opacity: 0, y: 30 }}
+            initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.3 }}
+            transition={{ duration: 0.8, delay: 0.3 }}
             className="flex flex-col sm:flex-row gap-4 justify-center"
           >
             <Button
-              size="lg"
               onClick={() => scrollToSection("#cta")}
-              className="bg-[#00A3E0] hover:bg-[#0080B3] text-white text-lg px-8 py-6"
+              className="rounded-full h-12 px-8 bg-[#00A3E0] hover:bg-[#0090C8] text-white text-base gap-2"
             >
               Start Your Journey
-              <ArrowRight className="ml-2 h-5 w-5" />
+              <ArrowRight className="h-4 w-4" />
             </Button>
             <Button
-              size="lg"
               variant="outline"
               onClick={() => scrollToSection("#framework")}
-              className="border-white/20 text-white hover:bg-white/10 text-lg px-8 py-6"
+              className="rounded-full h-12 px-8 border-white/20 text-white/70 hover:bg-white/5 hover:text-white text-base"
             >
               Explore Our Framework
             </Button>
           </motion.div>
         </div>
 
-        {/* Floating Stats Cards */}
+        {/* Stats Strip — clean, minimal dividers */}
         <motion.div
-          initial={{ opacity: 0, y: 50 }}
+          initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.5 }}
-          className="mt-16 md:mt-24 grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6 max-w-4xl mx-auto"
+          transition={{ duration: 0.8, delay: 0.6 }}
+          className="mt-24 md:mt-32 flex flex-col md:flex-row items-center justify-center gap-8 md:gap-0 md:divide-x md:divide-white/10 max-w-3xl mx-auto"
         >
           {stats.map((stat, index) => (
             <motion.div
               key={stat.label}
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.6 + index * 0.1 }}
-              className="glass-card rounded-2xl p-6 text-center group hover:bg-white/12 transition-all duration-300"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.5, delay: 0.7 + index * 0.1 }}
+              className="text-center px-10"
             >
-              <div className="flex justify-center mb-3">
-                <div className="p-2 rounded-lg bg-[#00A3E0]/20">
-                  <stat.icon className="h-5 w-5 text-[#00A3E0]" />
-                </div>
-              </div>
-              <div className="text-3xl md:text-4xl font-bold text-white mb-1">
+              <div className="text-4xl md:text-5xl font-light text-white mb-2 tracking-tight">
                 {stat.prefix}
                 <AnimatedCounter value={stat.value} />
                 {stat.suffix}
               </div>
-              <div className="text-sm text-white/60">{stat.label}</div>
+              <div className="text-sm text-white/40">{stat.label}</div>
             </motion.div>
           ))}
         </motion.div>
@@ -131,17 +117,17 @@ export default function HeroSection() {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 1.5 }}
-        className="absolute bottom-8 left-1/2 -translate-x-1/2"
+        className="absolute bottom-12 left-1/2 -translate-x-1/2 z-10"
       >
         <motion.div
-          animate={{ y: [0, 10, 0] }}
+          animate={{ y: [0, 8, 0] }}
           transition={{ duration: 2, repeat: Infinity }}
-          className="w-6 h-10 rounded-full border-2 border-white/30 flex items-start justify-center p-2"
+          className="w-5 h-8 rounded-full border border-white/20 flex items-start justify-center p-1.5"
         >
           <motion.div
             animate={{ opacity: [1, 0, 1] }}
             transition={{ duration: 2, repeat: Infinity }}
-            className="w-1 h-2 bg-white/50 rounded-full"
+            className="w-0.5 h-1.5 bg-white/40 rounded-full"
           />
         </motion.div>
       </motion.div>

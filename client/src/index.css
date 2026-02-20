@@ -51,40 +51,40 @@
   --color-ba-medium-gray: #999999;
 }
 
-/* Dark-only theme */
+/* CrewAI-inspired dark theme — near-black, spacious, premium */
 :root {
   --radius: 0.75rem;
   --primary: #00A3E0;
   --primary-foreground: #FFFFFF;
-  --background: #0A1628;
+  --background: #050A14;
   --foreground: #F5F5F5;
-  --card: #0F2240;
+  --card: #0A1628;
   --card-foreground: #F5F5F5;
-  --popover: #0F2240;
+  --popover: #0A1628;
   --popover-foreground: #F5F5F5;
-  --secondary: #1A3050;
+  --secondary: #0D1829;
   --secondary-foreground: #F5F5F5;
-  --muted: #162D4A;
-  --muted-foreground: #999999;
+  --muted: #0D1829;
+  --muted-foreground: #808080;
   --accent: #00A3E0;
   --accent-foreground: #FFFFFF;
   --destructive: #DC2626;
   --destructive-foreground: #FFFFFF;
-  --border: #1E3A5F;
-  --input: #1E3A5F;
+  --border: #0F1D30;
+  --input: #0F1D30;
   --ring: #00A3E0;
   --chart-1: #00A3E0;
   --chart-2: #0080B3;
   --chart-3: #00B34A;
   --chart-4: #005C8A;
   --chart-5: #00B34A;
-  --sidebar: #0A1628;
+  --sidebar: #050A14;
   --sidebar-foreground: #F5F5F5;
   --sidebar-primary: #00A3E0;
   --sidebar-primary-foreground: #FFFFFF;
-  --sidebar-accent: #1A3050;
+  --sidebar-accent: #0D1829;
   --sidebar-accent-foreground: #F5F5F5;
-  --sidebar-border: #1E3A5F;
+  --sidebar-border: #0F1D30;
   --sidebar-ring: #00A3E0;
 }
 
@@ -95,6 +95,13 @@
   body {
     @apply bg-background text-foreground font-sans antialiased;
   }
+
+  /* CrewAI-inspired: lighter heading weights, tighter tracking */
+  h1, h2, h3, h4, h5, h6 {
+    font-weight: 400;
+    letter-spacing: -0.02em;
+  }
+
   button:not(:disabled),
   [role="button"]:not([aria-disabled="true"]),
   [type="button"]:not(:disabled),
@@ -133,13 +140,13 @@
     .container {
       padding-left: 2rem;
       padding-right: 2rem;
-      max-width: 1280px;
+      max-width: 1376px;
     }
   }
 
-  /* BlueAlly brand utilities */
+  /* Brand utilities — updated for deeper palette */
   .gradient-navy {
-    background: linear-gradient(135deg, #0A1628 0%, #003B73 100%);
+    background: linear-gradient(135deg, #050A14 0%, #0A1628 100%);
   }
 
   .gradient-blue {
@@ -153,32 +160,32 @@
     background-clip: text;
   }
 
+  /* Clean card — no glass morphism, subtle and minimal */
   .glass-card {
-    background: rgba(15, 34, 64, 0.6);
-    backdrop-filter: blur(12px);
-    border: 1px solid rgba(0, 163, 224, 0.1);
+    background: rgba(10, 22, 40, 0.5);
+    border: 1px solid rgba(255, 255, 255, 0.06);
   }
 
   .glass-card:hover {
-    border-color: rgba(0, 163, 224, 0.25);
+    border-color: rgba(255, 255, 255, 0.12);
   }
 }
 
-/* Custom scrollbar */
+/* Custom scrollbar — deeper to match new bg */
 ::-webkit-scrollbar {
-  width: 8px;
-  height: 8px;
+  width: 6px;
+  height: 6px;
 }
 
 ::-webkit-scrollbar-track {
-  background: #0A1628;
+  background: #050A14;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #1E3A5F;
-  border-radius: 4px;
+  background: #1A2A40;
+  border-radius: 3px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #2A4A6F;
+  background: #2A3A50;
 }

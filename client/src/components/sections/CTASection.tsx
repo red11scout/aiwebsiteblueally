@@ -94,7 +94,7 @@ export default function CTASection() {
   };
 
   return (
-    <section id="cta" className="py-20 md:py-32 gradient-navy" ref={ref}>
+    <section id="cta" className="py-24 md:py-40 gradient-navy" ref={ref}>
       <div className="container">
         <div className="grid lg:grid-cols-2 gap-12 items-start">
           {/* Left: Content */}
@@ -107,13 +107,13 @@ export default function CTASection() {
               Get Started
             </span>
             
-            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-6">
+            <h2 className="text-3xl md:text-4xl lg:text-5xl text-white mb-6">
               Ready to Transform
               <br />
               Your Enterprise?
             </h2>
             
-            <p className="text-lg text-white/70 mb-8 leading-relaxed">
+            <p className="text-lg text-white/40 mb-8 leading-relaxed">
               The best time to start was yesterday. The second best time is now. 
               Let's discuss how BlueAlly can accelerate your AI journey.
             </p>
@@ -141,8 +141,8 @@ export default function CTASection() {
             </div>
 
             {/* Trust Indicators */}
-            <div className="glass-card rounded-xl p-4">
-              <div className="flex flex-wrap gap-4 justify-center text-sm text-white/60">
+            <div className="bg-white/[0.03] border border-white/[0.06] rounded-xl p-4">
+              <div className="flex flex-wrap gap-4 justify-center text-sm text-white/40">
                 <span>✓ Response within 24 hours</span>
                 <span>✓ No obligation consultation</span>
                 <span>✓ Confidential discussion</span>
@@ -160,12 +160,12 @@ export default function CTASection() {
               <motion.div
                 initial={{ opacity: 0, scale: 0.95 }}
                 animate={{ opacity: 1, scale: 1 }}
-                className="bg-card rounded-2xl p-8 text-center"
+                className="bg-white/[0.03] border border-white/[0.06] rounded-2xl p-8 text-center"
               >
                 <div className="p-4 rounded-full bg-[#00B34A]/20 w-fit mx-auto mb-6">
                   <CheckCircle className="h-12 w-12 text-[#00B34A]" />
                 </div>
-                <h3 className="text-2xl font-bold text-foreground mb-4">
+                <h3 className="text-2xl text-foreground mb-4">
                   Thank You!
                 </h3>
                 <p className="text-muted-foreground mb-6">
@@ -174,6 +174,7 @@ export default function CTASection() {
                 </p>
                 <Button
                   variant="outline"
+                  className="rounded-full"
                   onClick={() => setIsSubmitted(false)}
                 >
                   Submit Another Inquiry
@@ -182,9 +183,9 @@ export default function CTASection() {
             ) : (
               <form
                 onSubmit={handleSubmit}
-                className="bg-card rounded-2xl p-6 md:p-8 shadow-2xl"
+                className="bg-white/[0.03] border border-white/[0.06] rounded-2xl p-6 md:p-8 shadow-2xl"
               >
-                <h3 className="text-xl font-semibold text-foreground mb-6">
+                <h3 className="text-xl font-medium text-foreground mb-6">
                   Start the Conversation
                 </h3>
 
@@ -294,7 +295,7 @@ export default function CTASection() {
                   <Button
                     type="submit"
                     size="lg"
-                    className="w-full bg-[#00A3E0] hover:bg-[#0080B3] text-white"
+                    className="w-full bg-[#00A3E0] hover:bg-[#0080B3] text-white rounded-full"
                     disabled={isSubmitting}
                   >
                     {isSubmitting ? (

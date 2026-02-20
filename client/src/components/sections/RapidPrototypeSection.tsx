@@ -52,7 +52,7 @@ export default function RapidPrototypeSection() {
   };
 
   return (
-    <section className="py-20 md:py-32 bg-background overflow-hidden" ref={ref}>
+    <section className="py-24 md:py-40 bg-background overflow-hidden" ref={ref}>
       <div className="container">
         <div className="grid lg:grid-cols-2 gap-12 items-center">
           {/* Left: Content */}
@@ -66,7 +66,7 @@ export default function RapidPrototypeSection() {
               Rapid Prototyping
             </span>
             
-            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-foreground mb-6">
+            <h2 className="text-3xl md:text-4xl lg:text-5xl text-foreground mb-6">
               From Idea to
               <br />
               <span className="text-gradient">Working Prototype</span>
@@ -82,19 +82,19 @@ export default function RapidPrototypeSection() {
 
             {/* Stats */}
             <div className="grid grid-cols-3 gap-4 mb-8">
-              <div className="text-center p-4 bg-card rounded-xl border border-border">
+              <div className="text-center p-4 bg-white/[0.03] rounded-xl border border-white/[0.06]">
                 <div className="text-3xl font-bold text-[#00A3E0]">
                   <AnimatedCounter value={10} />
                 </div>
                 <div className="text-sm text-muted-foreground">Days</div>
               </div>
-              <div className="text-center p-4 bg-card rounded-xl border border-border">
+              <div className="text-center p-4 bg-white/[0.03] rounded-xl border border-white/[0.06]">
                 <div className="text-3xl font-bold text-[#00B34A]">
                   <AnimatedCounter value={100} />+
                 </div>
                 <div className="text-sm text-muted-foreground">Prototypes Built</div>
               </div>
-              <div className="text-center p-4 bg-card rounded-xl border border-border">
+              <div className="text-center p-4 bg-white/[0.03] rounded-xl border border-white/[0.06]">
                 <div className="text-3xl font-bold text-[#00A3E0]">
                   <AnimatedCounter value={85} />%
                 </div>
@@ -105,7 +105,7 @@ export default function RapidPrototypeSection() {
             <Button
               size="lg"
               onClick={() => scrollToSection("#cta")}
-              className="bg-[#00B34A] hover:bg-[#009933] text-white"
+              className="bg-[#00B34A] hover:bg-[#009933] text-white rounded-full"
             >
               Start Your Prototype
               <ArrowRight className="ml-2 h-5 w-5" />
@@ -129,12 +129,12 @@ export default function RapidPrototypeSection() {
             </div>
 
             {/* Prototype Timeline Card */}
-            <div className="bg-card/80 backdrop-blur-xl rounded-3xl p-8 border border-border shadow-2xl">
+            <div className="bg-white/[0.03] backdrop-blur-xl rounded-3xl p-8 border border-white/[0.06] shadow-2xl">
               <div className="flex items-center gap-2 mb-6">
                 <div className="p-2 rounded-lg bg-[#00B34A]/20">
                   <Rocket className="h-5 w-5 text-[#00B34A]" />
                 </div>
-                <h3 className="text-xl font-semibold text-foreground">
+                <h3 className="text-xl font-medium text-foreground">
                   Prototype Timeline
                 </h3>
               </div>
@@ -172,7 +172,7 @@ export default function RapidPrototypeSection() {
                       />
                     </div>
                     <div className="flex-1">
-                      <div className="font-semibold text-foreground">
+                      <div className="font-medium text-foreground">
                         {step.label}
                       </div>
                       <div className="text-sm text-muted-foreground">

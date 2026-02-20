@@ -92,7 +92,7 @@ export default function JourneySection() {
   };
 
   return (
-    <section id="journey" className="py-20 md:py-32 bg-background" ref={ref}>
+    <section id="journey" className="py-24 md:py-40 bg-background" ref={ref}>
       <div className="container">
         {/* Section Header */}
         <motion.div
@@ -104,7 +104,7 @@ export default function JourneySection() {
           <span className="inline-block px-4 py-2 mb-4 text-sm font-medium text-[#00A3E0] bg-[#00A3E0]/10 rounded-full">
             Your Journey
           </span>
-          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-foreground mb-4">
+          <h2 className="text-3xl md:text-4xl lg:text-5xl text-foreground mb-4">
             Where Are You Today?
           </h2>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
@@ -151,7 +151,7 @@ export default function JourneySection() {
                         ? "bg-[#00A3E0] border-[#00A3E0] scale-110"
                         : selectedStage && selectedStage > stage.id
                         ? "bg-[#00B34A] border-[#00B34A]"
-                        : "bg-card border-border group-hover:border-[#00A3E0]/50"
+                        : "bg-white/[0.03] border-white/[0.06] group-hover:border-white/[0.12]"
                     )}
                   >
                     <stage.icon
@@ -188,7 +188,7 @@ export default function JourneySection() {
                   "flex flex-col items-center gap-2 p-4 rounded-xl transition-all",
                   selectedStage === stage.id
                     ? "bg-[#00A3E0] text-white"
-                    : "bg-card border border-border hover:border-[#00A3E0]/50"
+                    : "bg-white/[0.03] border border-white/[0.06] hover:border-white/[0.12]"
                 )}
               >
                 <stage.icon className="h-5 w-5" />
@@ -206,7 +206,7 @@ export default function JourneySection() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.4 }}
-              className="mt-12 bg-card rounded-2xl p-6 md:p-8 border border-border"
+              className="mt-12 bg-white/[0.03] rounded-2xl p-6 md:p-8 border border-white/[0.06]"
             >
               <div className="flex flex-col md:flex-row gap-6 items-start">
                 <div className="p-4 rounded-xl bg-[#00A3E0]/10 shrink-0">
@@ -219,7 +219,7 @@ export default function JourneySection() {
                   })()}
                 </div>
                 <div className="flex-1">
-                  <h3 className="text-2xl font-bold text-foreground mb-2">
+                  <h3 className="text-2xl text-foreground mb-2">
                     {journeyStages.find(s => s.id === selectedStage)?.title}
                   </h3>
                   <p className="text-muted-foreground mb-4">
@@ -227,14 +227,14 @@ export default function JourneySection() {
                   </p>
                   <div className="p-4 bg-[#00B34A]/10 rounded-xl border border-[#00B34A]/20">
                     <p className="text-foreground">
-                      <span className="font-semibold text-[#00B34A]">How we help: </span>
+                      <span className="font-medium text-[#00B34A]">How we help: </span>
                       {journeyStages.find(s => s.id === selectedStage)?.help}
                     </p>
                   </div>
                 </div>
                 <Button
                   onClick={() => scrollToSection("#cta")}
-                  className="bg-[#00A3E0] hover:bg-[#0080B3] text-white shrink-0"
+                  className="bg-[#00A3E0] hover:bg-[#0080B3] text-white shrink-0 rounded-full"
                 >
                   Let's Talk
                   <ChevronRight className="ml-2 h-4 w-4" />

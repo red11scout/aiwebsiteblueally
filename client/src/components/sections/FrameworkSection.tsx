@@ -176,7 +176,7 @@ export default function FrameworkSection() {
   const [activeId, setActiveId] = useState<number | null>(null);
 
   return (
-    <section id="framework" className="py-20 md:py-32 bg-background" ref={ref}>
+    <section id="framework" className="py-24 md:py-40 bg-background" ref={ref}>
       <div className="container">
         {/* Section Header */}
         <motion.div
@@ -188,7 +188,7 @@ export default function FrameworkSection() {
           <span className="inline-block px-4 py-2 mb-4 text-sm font-medium text-[#00A3E0] bg-[#00A3E0]/10 rounded-full">
             Our Approach
           </span>
-          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-foreground mb-4">
+          <h2 className="text-3xl md:text-4xl lg:text-5xl text-foreground mb-4">
             The 8-Part Framework
           </h2>
           <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
@@ -205,7 +205,7 @@ export default function FrameworkSection() {
             transition={{ duration: 0.5, delay: 0.2 }}
             className="bg-[#00A3E0]/10 rounded-xl p-4 border border-[#00A3E0]/20"
           >
-            <h3 className="text-lg font-bold text-[#00A3E0] mb-1">
+            <h3 className="text-lg font-medium text-[#00A3E0] mb-1">
               Foundation & Planning Stages
             </h3>
             <p className="text-sm text-muted-foreground">
@@ -218,7 +218,7 @@ export default function FrameworkSection() {
             transition={{ duration: 0.5, delay: 0.3 }}
             className="bg-[#00B34A]/10 rounded-xl p-4 border border-[#00B34A]/20"
           >
-            <h3 className="text-lg font-bold text-[#00B34A] mb-1">
+            <h3 className="text-lg font-medium text-[#00B34A] mb-1">
               Execution & Optimization Stages
             </h3>
             <p className="text-sm text-muted-foreground">
@@ -239,10 +239,10 @@ export default function FrameworkSection() {
               <button
                 onClick={() => setActiveId(activeId === part.id ? null : part.id)}
                 className={cn(
-                  "w-full text-left bg-card rounded-xl p-5 border transition-all duration-300",
+                  "w-full text-left bg-white/[0.03] rounded-xl p-5 border transition-all duration-300",
                   activeId === part.id
                     ? "border-[#00A3E0] shadow-lg"
-                    : "border-border hover:border-[#00A3E0]/50"
+                    : "border-white/[0.06] hover:border-white/[0.12]"
                 )}
               >
                 <div className="flex items-start gap-4">
@@ -271,7 +271,7 @@ export default function FrameworkSection() {
                         {part.timeline}
                       </div>
                     </div>
-                    <h4 className="font-bold text-foreground mb-1">
+                    <h4 className="font-medium text-foreground mb-1">
                       {part.title}
                     </h4>
                     <p className="text-sm text-muted-foreground">
@@ -296,9 +296,9 @@ export default function FrameworkSection() {
                   transition={{ duration: 0.3 }}
                   className="overflow-hidden"
                 >
-                  <div className="pt-4 mt-4 border-t border-border space-y-4">
+                  <div className="pt-4 mt-4 border-t border-white/[0.06] space-y-4">
                     <div>
-                      <h5 className="text-xs font-bold text-[#00A3E0] uppercase tracking-wide mb-2">
+                      <h5 className="text-xs font-medium text-[#00A3E0] uppercase tracking-wide mb-2">
                         Key Activities
                       </h5>
                       <ul className="space-y-1">
@@ -311,7 +311,7 @@ export default function FrameworkSection() {
                       </ul>
                     </div>
                     <div>
-                      <h5 className="text-xs font-bold text-[#00B34A] uppercase tracking-wide mb-2">
+                      <h5 className="text-xs font-medium text-[#00B34A] uppercase tracking-wide mb-2">
                         Deliverables
                       </h5>
                       <ul className="space-y-1">
@@ -337,7 +337,7 @@ export default function FrameworkSection() {
           transition={{ duration: 0.6, delay: 0.8 }}
           className="mt-12 bg-gradient-to-r from-[#00A3E0]/10 to-[#00B34A]/10 rounded-2xl p-6 md:p-8 border border-[#00A3E0]/20"
         >
-          <h3 className="text-xl font-bold text-foreground mb-3">
+          <h3 className="text-xl font-medium text-foreground mb-3">
             Single-Vendor Advantage
           </h3>
           <p className="text-muted-foreground leading-relaxed">

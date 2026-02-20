@@ -73,7 +73,7 @@ export default function IndustriesSection() {
   const [activeTab, setActiveTab] = useState("corporate");
 
   return (
-    <section id="industries" className="py-20 md:py-32 bg-background" ref={ref}>
+    <section id="industries" className="py-24 md:py-40 bg-background" ref={ref}>
       <div className="container">
         {/* Section Header */}
         <motion.div
@@ -85,7 +85,7 @@ export default function IndustriesSection() {
           <span className="inline-block px-4 py-2 mb-4 text-sm font-medium text-[#00A3E0] bg-[#00A3E0]/10 rounded-full">
             Industries
           </span>
-          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-foreground mb-4">
+          <h2 className="text-3xl md:text-4xl lg:text-5xl text-foreground mb-4">
             Industries We Serve
           </h2>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
@@ -122,7 +122,7 @@ export default function IndustriesSection() {
                 >
                   {/* Category Header */}
                   <div className="text-center mb-8">
-                    <h3 className="text-2xl font-bold text-foreground mb-2">
+                    <h3 className="text-2xl text-foreground mb-2">
                       {industry.label}
                     </h3>
                     <p className="text-muted-foreground">
@@ -138,12 +138,12 @@ export default function IndustriesSection() {
                         initial={{ opacity: 0, scale: 0.95 }}
                         animate={{ opacity: 1, scale: 1 }}
                         transition={{ duration: 0.3, delay: index * 0.05 }}
-                        className="bg-card rounded-xl p-5 border border-border hover:border-[#00A3E0]/50 transition-all duration-300 group cursor-pointer"
+                        className="bg-white/[0.03] rounded-xl p-5 border border-white/[0.06] hover:border-white/[0.12] transition-all duration-300 group cursor-pointer"
                       >
                         <div className="p-2 rounded-lg bg-[#00A3E0]/10 w-fit mb-3 group-hover:bg-[#00A3E0]/20 transition-colors">
                           <sub.icon className="h-5 w-5 text-[#00A3E0]" />
                         </div>
-                        <h4 className="font-semibold text-foreground mb-1">
+                        <h4 className="font-medium text-foreground mb-1">
                           {sub.name}
                         </h4>
                         <p className="text-sm text-muted-foreground">

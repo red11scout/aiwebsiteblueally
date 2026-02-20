@@ -556,7 +556,7 @@ function MetricCard({
       </div>
       <div
         className={cn(
-          "font-semibold text-[#F5F5F5] mt-1",
+          "font-medium text-[#F5F5F5] mt-1",
           large ? "text-base" : "text-sm"
         )}
       >
@@ -598,7 +598,7 @@ function PhaseTimeline({ phases }: { phases: Phase[] }) {
           {/* Dot on the timeline */}
           <div className="absolute -left-6 top-1 h-3.5 w-3.5 rounded-full border-2 border-[#00A3E0] bg-[#0F2240]" />
           <div>
-            <h5 className="text-sm font-semibold text-[#F5F5F5]">
+            <h5 className="text-sm font-medium text-[#F5F5F5]">
               {phase.name}
             </h5>
             <p className="text-xs text-[#999999] leading-relaxed mt-0.5">
@@ -645,7 +645,7 @@ function StoryDetailModal({
             </div>
             <div className="flex flex-col">
               <span
-                className="text-xs font-semibold uppercase tracking-wider"
+                className="text-xs font-medium uppercase tracking-wider"
                 style={{ color: story.industryColor }}
               >
                 {story.industry}
@@ -658,7 +658,7 @@ function StoryDetailModal({
               </div>
             </div>
           </div>
-          <DialogTitle className="text-2xl font-bold text-[#F5F5F5]">
+          <DialogTitle className="text-2xl text-[#F5F5F5]">
             {story.title}
           </DialogTitle>
           <DialogDescription className="text-sm text-[#999999]">
@@ -701,7 +701,7 @@ function StoryDetailModal({
               {story.background.overview}
             </p>
             <div>
-              <h4 className="text-xs font-semibold uppercase tracking-wider text-[#00A3E0] mb-3">
+              <h4 className="text-xs font-medium uppercase tracking-wider text-[#00A3E0] mb-3">
                 Scale & Scope
               </h4>
               <div className="flex flex-wrap gap-2">
@@ -720,7 +720,7 @@ function StoryDetailModal({
 
             {/* Pain Points */}
             <div>
-              <h4 className="text-xs font-semibold uppercase tracking-wider text-[#00A3E0] mb-3">
+              <h4 className="text-xs font-medium uppercase tracking-wider text-[#00A3E0] mb-3">
                 Pain Points
               </h4>
               <ul className="space-y-2">
@@ -738,7 +738,7 @@ function StoryDetailModal({
 
             {/* Previous Attempts Callout */}
             <div className="rounded-lg border border-amber-500/20 bg-amber-500/5 p-4">
-              <h5 className="text-xs font-semibold text-amber-400 uppercase tracking-wider mb-1.5">
+              <h5 className="text-xs font-medium text-amber-400 uppercase tracking-wider mb-1.5">
                 Previous Attempts
               </h5>
               <p className="text-sm text-[#999999] leading-relaxed">
@@ -748,7 +748,7 @@ function StoryDetailModal({
 
             {/* Business Impact Highlight */}
             <div className="rounded-lg border border-red-500/20 bg-red-500/5 p-4">
-              <h5 className="text-xs font-semibold text-red-400 uppercase tracking-wider mb-1.5">
+              <h5 className="text-xs font-medium text-red-400 uppercase tracking-wider mb-1.5">
                 Business Impact
               </h5>
               <p className="text-sm text-[#F5F5F5] font-medium leading-relaxed">
@@ -762,7 +762,7 @@ function StoryDetailModal({
             <div>
               <div className="flex items-center gap-2 mb-2">
                 <Lightbulb className="h-4 w-4 text-[#00A3E0]" />
-                <h4 className="text-xs font-semibold uppercase tracking-wider text-[#00A3E0]">
+                <h4 className="text-xs font-medium uppercase tracking-wider text-[#00A3E0]">
                   Approach
                 </h4>
               </div>
@@ -773,7 +773,7 @@ function StoryDetailModal({
 
             {/* Technology Badges */}
             <div>
-              <h4 className="text-xs font-semibold uppercase tracking-wider text-[#00A3E0] mb-3">
+              <h4 className="text-xs font-medium uppercase tracking-wider text-[#00A3E0] mb-3">
                 Technologies Deployed
               </h4>
               <div className="flex flex-wrap gap-2">
@@ -785,7 +785,7 @@ function StoryDetailModal({
 
             {/* Phased Timeline */}
             <div>
-              <h4 className="text-xs font-semibold uppercase tracking-wider text-[#00A3E0] mb-3">
+              <h4 className="text-xs font-medium uppercase tracking-wider text-[#00A3E0] mb-3">
                 Implementation Phases
               </h4>
               <PhaseTimeline phases={story.solutions.phases} />
@@ -811,7 +811,7 @@ function StoryDetailModal({
             <div className="rounded-xl border border-[#00B34A]/30 bg-[#00B34A]/5 p-4 flex items-center gap-3">
               <TrendingUp className="h-5 w-5 text-[#00B34A] shrink-0" />
               <div>
-                <h5 className="text-xs font-semibold text-[#00B34A] uppercase tracking-wider mb-0.5">
+                <h5 className="text-xs font-medium text-[#00B34A] uppercase tracking-wider mb-0.5">
                   Return on Investment
                 </h5>
                 <p className="text-sm text-[#F5F5F5] font-medium">
@@ -863,13 +863,13 @@ function StoryCard({
       initial={{ opacity: 0, y: 40 }}
       animate={isInView ? { opacity: 1, y: 0 } : {}}
       transition={{ duration: 0.5, delay: 0.15 + index * 0.12 }}
-      className="bg-[#0F2240] rounded-2xl border border-[#1E3A5F] overflow-hidden group hover:border-[#00A3E0]/40 transition-all duration-300 hover:shadow-[0_0_30px_rgba(0,163,224,0.08)]"
+      className="bg-[#0F2240] rounded-2xl border border-[#1E3A5F] overflow-hidden group hover:border-white/[0.12] transition-all duration-300 hover:shadow-[0_0_30px_rgba(0,163,224,0.08)]"
     >
       <div className="p-6">
         {/* Header Row: Industry badge + Timeline badge */}
         <div className="flex items-center justify-between mb-4">
           <span
-            className="inline-flex items-center gap-1.5 rounded-full px-3 py-1 text-xs font-semibold uppercase tracking-wider"
+            className="inline-flex items-center gap-1.5 rounded-full px-3 py-1 text-xs font-medium uppercase tracking-wider"
             style={{
               color: story.industryColor,
               backgroundColor: `${story.industryColor}15`,
@@ -886,7 +886,7 @@ function StoryCard({
         </div>
 
         {/* Title */}
-        <h3 className="text-lg font-bold text-[#F5F5F5] mb-2">
+        <h3 className="text-lg text-[#F5F5F5] mb-2">
           {story.title}
         </h3>
 
@@ -937,7 +937,7 @@ function StoryCard({
         {/* "Read Full Story" CTA button */}
         <Button
           variant="ghost"
-          className="w-full justify-between text-[#999999] hover:text-[#F5F5F5] hover:bg-[#003B73]/30 border border-[#1E3A5F] group/btn"
+          className="w-full justify-between rounded-full text-[#999999] hover:text-[#F5F5F5] hover:bg-[#003B73]/30 border border-[#1E3A5F] group/btn"
           onClick={onSelect}
         >
           <span className="text-sm font-medium">Read Full Story</span>
@@ -962,8 +962,8 @@ export default function SuccessStoriesSection() {
   return (
     <section
       id="success"
-      className="py-20 md:py-32"
-      style={{ backgroundColor: "#0A1628" }}
+      className="py-24 md:py-40"
+      style={{ backgroundColor: "#050A14" }}
       ref={ref}
     >
       <div className="container">
@@ -977,7 +977,7 @@ export default function SuccessStoriesSection() {
           <span className="inline-block px-4 py-2 mb-4 text-sm font-medium text-[#00B34A] bg-[#00B34A]/10 rounded-full border border-[#00B34A]/20">
             Proven Results
           </span>
-          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-[#F5F5F5] mb-4">
+          <h2 className="text-3xl md:text-4xl lg:text-5xl text-[#F5F5F5] mb-4">
             Success Stories
           </h2>
           <p className="text-lg text-[#999999] max-w-2xl mx-auto">

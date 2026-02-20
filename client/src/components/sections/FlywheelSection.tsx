@@ -96,7 +96,7 @@ export default function FlywheelSection() {
   const NODE_SIZE = 80;
 
   return (
-    <section id="flywheel" className="py-20 md:py-32 gradient-navy" ref={ref}>
+    <section id="flywheel" className="py-24 md:py-40 gradient-navy" ref={ref}>
       <div className="container">
         {/* Section Header */}
         <motion.div
@@ -108,7 +108,7 @@ export default function FlywheelSection() {
           <span className="inline-block px-4 py-2 mb-4 text-sm font-medium text-[#00B34A] bg-[#00B34A]/10 rounded-full border border-[#00B34A]/20">
             Continuous Transformation
           </span>
-          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white">
+          <h2 className="text-3xl md:text-4xl lg:text-5xl font-light text-white">
             The BlueAlly AI Flywheel
           </h2>
         </motion.div>
@@ -196,10 +196,10 @@ export default function FlywheelSection() {
                 {/* Pulsing glow */}
                 <div className="absolute inset-0 rounded-full bg-[#00A3E0]/20 animate-pulse-glow" />
                 <div className="relative text-center">
-                  <div className="text-sm font-bold text-white leading-tight">
+                  <div className="text-sm font-medium text-white leading-tight">
                     BlueAlly
                   </div>
-                  <div className="text-sm font-bold text-gradient leading-tight">
+                  <div className="text-sm font-medium text-gradient leading-tight">
                     AI
                   </div>
                 </div>
@@ -267,7 +267,7 @@ export default function FlywheelSection() {
                     </div>
                     <div
                       className={cn(
-                        "text-center mt-2 text-xs font-semibold transition-colors duration-300 whitespace-nowrap",
+                        "text-center mt-2 text-xs font-medium transition-colors duration-300 whitespace-nowrap",
                         isActive ? "text-[#00A3E0]" : "text-white/60",
                       )}
                     >
@@ -289,9 +289,9 @@ export default function FlywheelSection() {
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: -10 }}
                   transition={{ duration: 0.2 }}
-                  className="glass-card rounded-xl p-5 text-center"
+                  className="bg-white/[0.03] border border-white/[0.06] rounded-xl p-5 text-center"
                 >
-                  <h4 className="text-white font-bold mb-1 text-sm">
+                  <h4 className="text-white font-medium mb-1 text-sm">
                     {stages[activeIndex].label}
                   </h4>
                   <p className="text-white/70 text-sm leading-relaxed">
@@ -319,7 +319,7 @@ export default function FlywheelSection() {
                     setActiveIndex(isActive ? null : index)
                   }
                   className={cn(
-                    "glass-card rounded-xl p-4 text-center cursor-pointer transition-all duration-300",
+                    "bg-white/[0.03] border border-white/[0.06] rounded-xl p-4 text-center cursor-pointer transition-all duration-300",
                     isActive && "border-[#00A3E0]/40 bg-[#00A3E0]/5",
                   )}
                 >
@@ -342,7 +342,7 @@ export default function FlywheelSection() {
                   </div>
                   <h4
                     className={cn(
-                      "text-sm font-bold mb-1 transition-colors duration-300",
+                      "text-sm font-medium mb-1 transition-colors duration-300",
                       isActive ? "text-[#00A3E0]" : "text-white",
                     )}
                   >

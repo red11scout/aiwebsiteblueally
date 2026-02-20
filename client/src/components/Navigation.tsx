@@ -1,7 +1,6 @@
 /**
  * Navigation Component
- * Premium dark glass effect with smooth scroll navigation
- * Uses official BlueAlly logo with AI appended
+ * CrewAI-inspired: transparent, minimal, pill-shaped CTAs
  */
 
 import { useState, useEffect } from "react";
@@ -66,14 +65,14 @@ export default function Navigation() {
       initial={{ y: -100 }}
       animate={{ y: 0 }}
       transition={{ duration: 0.5, ease: "easeOut" }}
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
         scrolled
-          ? "bg-[#0A1628]/90 backdrop-blur-xl border-b border-[#1E3A5F] shadow-lg"
+          ? "bg-black/50 backdrop-blur-sm border-b border-white/[0.06]"
           : "bg-transparent"
       }`}
     >
       <div className="container">
-        <nav className="flex items-center justify-between h-16 md:h-20">
+        <nav className="flex items-center justify-between h-[72px] md:h-[84px]">
           {/* Logo */}
           <a
             href="#"
@@ -89,7 +88,7 @@ export default function Navigation() {
               className="h-6 md:h-8 w-auto"
             />
             <span
-              className="text-[#00B34A] font-bold text-xl md:text-2xl tracking-tight"
+              className="text-[#00A3E0] font-medium text-xl md:text-2xl tracking-tight"
               style={{ marginLeft: "2px" }}
             >
               AI
@@ -102,10 +101,10 @@ export default function Navigation() {
               <button
                 key={link.href}
                 onClick={() => scrollToSection(link.href)}
-                className={`px-3 py-2 text-sm font-medium transition-colors rounded-lg ${
+                className={`px-4 py-2 text-sm transition-colors ${
                   activeSection === link.href
-                    ? "text-[#00A3E0] bg-[#00A3E0]/10"
-                    : "text-[#999999] hover:text-[#F5F5F5] hover:bg-[#00A3E0]/5"
+                    ? "text-white"
+                    : "text-white/50 hover:text-white"
                 }`}
               >
                 {link.label}
@@ -113,18 +112,18 @@ export default function Navigation() {
             ))}
           </div>
 
-          {/* Actions */}
+          {/* Actions — pill-shaped buttons */}
           <div className="flex items-center gap-3">
             <Button
               variant="outline"
               onClick={() => scrollToSection("#framework")}
-              className="hidden md:flex border-[#1E3A5F] text-[#F5F5F5] hover:bg-[#1E3A5F] hover:text-white"
+              className="hidden md:flex rounded-full h-10 px-6 border-white/20 text-white/80 hover:bg-white/5 hover:text-white hover:border-white/40"
             >
               Explore Framework
             </Button>
             <Button
               onClick={() => scrollToSection("#cta")}
-              className="hidden sm:flex bg-[#00A3E0] hover:bg-[#0080B3] text-white gap-2"
+              className="hidden sm:flex rounded-full h-10 px-6 bg-[#00A3E0] hover:bg-[#0090C8] text-white gap-2"
             >
               Book a Consultation
               <ArrowRight className="h-4 w-4" />
@@ -133,20 +132,20 @@ export default function Navigation() {
             {/* Mobile Menu */}
             <Sheet open={mobileOpen} onOpenChange={setMobileOpen}>
               <SheetTrigger asChild>
-                <Button variant="ghost" size="icon" className="lg:hidden text-[#F5F5F5]">
+                <Button variant="ghost" size="icon" className="lg:hidden text-white/70 hover:text-white">
                   <Menu className="h-5 w-5" />
                 </Button>
               </SheetTrigger>
-              <SheetContent side="right" className="w-80 bg-[#0A1628] border-[#1E3A5F]">
-                <div className="flex flex-col gap-4 mt-8">
-                  <div className="flex items-center gap-1 mb-4 px-4">
+              <SheetContent side="right" className="w-80 bg-[#050A14] border-white/[0.06]">
+                <div className="flex flex-col gap-2 mt-8">
+                  <div className="flex items-center gap-1 mb-6 px-4">
                     <img
                       src="/images/blueally-logo.png"
                       alt="BlueAlly"
                       className="h-6 w-auto"
                     />
                     <span
-                      className="text-[#00B34A] font-bold text-xl tracking-tight"
+                      className="text-[#00A3E0] font-medium text-xl tracking-tight"
                       style={{ marginLeft: "2px" }}
                     >
                       AI
@@ -156,10 +155,10 @@ export default function Navigation() {
                     <button
                       key={link.href}
                       onClick={() => scrollToSection(link.href)}
-                      className={`text-left px-4 py-3 text-lg font-medium rounded-lg transition-colors ${
+                      className={`text-left px-4 py-3 text-lg transition-colors ${
                         activeSection === link.href
-                          ? "text-[#00A3E0] bg-[#00A3E0]/10"
-                          : "text-[#F5F5F5] hover:bg-[#1E3A5F]"
+                          ? "text-white"
+                          : "text-white/50 hover:text-white"
                       }`}
                     >
                       {link.label}
@@ -167,7 +166,7 @@ export default function Navigation() {
                   ))}
                   <Button
                     onClick={() => scrollToSection("#cta")}
-                    className="mt-4 bg-[#00A3E0] hover:bg-[#0080B3] text-white"
+                    className="mt-6 mx-4 rounded-full h-12 bg-[#00A3E0] hover:bg-[#0090C8] text-white"
                   >
                     Book a Consultation
                   </Button>

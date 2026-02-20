@@ -1,7 +1,6 @@
 /**
  * Social Proof Section
- * Partner logos in infinite CSS marquee animation + animated stat counters.
- * Uses inline SVG text logos styled in DM Sans bold, grayscale by default, white on hover.
+ * CrewAI-inspired: clean logo marquee strip, minimal stats with dividers
  */
 
 import { useRef } from "react";
@@ -30,7 +29,7 @@ function PartnerLogo({ name }: { name: string }) {
         width="160"
         height="40"
         viewBox="0 0 160 40"
-        className="opacity-40 hover:opacity-100 transition-opacity duration-300 grayscale hover:grayscale-0"
+        className="opacity-30 hover:opacity-70 transition-opacity duration-300"
         aria-label={name}
       >
         <text
@@ -38,10 +37,10 @@ function PartnerLogo({ name }: { name: string }) {
           y="26"
           textAnchor="middle"
           fontFamily="'DM Sans', system-ui, sans-serif"
-          fontWeight="700"
+          fontWeight="500"
           fontSize={name.length > 10 ? "14" : "18"}
           fill="#F5F5F5"
-          letterSpacing="0.05em"
+          letterSpacing="0.08em"
         >
           {name}
         </text>
@@ -52,73 +51,53 @@ function PartnerLogo({ name }: { name: string }) {
 
 export default function SocialProofSection() {
   const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, margin: "-100px" });
+  const isInView = useInView(ref, { once: true, margin: "-50px" });
 
   return (
-    <section ref={ref} className="py-16 md:py-24 bg-[#0A1628]">
+    <section ref={ref} className="py-12 md:py-20 border-y border-white/[0.06]">
       <div className="container">
-        {/* Section Header */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6 }}
-          className="text-center mb-12"
-        >
-          <span className="inline-block px-4 py-2 mb-4 text-sm font-medium text-[#00A3E0] bg-[#00A3E0]/10 rounded-full border border-[#00A3E0]/20">
-            Enterprise Partnerships
-          </span>
-          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white">
-            Trusted by Industry Leaders
-          </h2>
-        </motion.div>
-
         {/* Logo Marquee */}
         <motion.div
           initial={{ opacity: 0 }}
           animate={isInView ? { opacity: 1 } : {}}
-          transition={{ duration: 0.8, delay: 0.2 }}
-          className="relative overflow-hidden mb-16"
+          transition={{ duration: 0.8 }}
+          className="relative overflow-hidden mb-12 md:mb-16"
         >
           {/* Fade edges */}
-          <div className="absolute left-0 top-0 bottom-0 w-24 bg-gradient-to-r from-[#0A1628] to-transparent z-10 pointer-events-none" />
-          <div className="absolute right-0 top-0 bottom-0 w-24 bg-gradient-to-l from-[#0A1628] to-transparent z-10 pointer-events-none" />
+          <div className="absolute left-0 top-0 bottom-0 w-24 bg-gradient-to-r from-[#050A14] to-transparent z-10 pointer-events-none" />
+          <div className="absolute right-0 top-0 bottom-0 w-24 bg-gradient-to-l from-[#050A14] to-transparent z-10 pointer-events-none" />
 
           {/* Scrolling track */}
           <div className="flex animate-marquee">
-            {/* First set */}
             {partners.map((name) => (
               <PartnerLogo key={`a-${name}`} name={name} />
             ))}
-            {/* Duplicate for seamless loop */}
             {partners.map((name) => (
               <PartnerLogo key={`b-${name}`} name={name} />
             ))}
           </div>
         </motion.div>
 
-        {/* Stats Bar */}
+        {/* Stats with dividers */}
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
+          initial={{ opacity: 0, y: 20 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6, delay: 0.4 }}
-          className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8 max-w-3xl mx-auto"
+          transition={{ duration: 0.6, delay: 0.3 }}
+          className="flex flex-col md:flex-row items-center justify-center gap-8 md:gap-0 md:divide-x md:divide-white/10 max-w-2xl mx-auto"
         >
           {stats.map((stat) => (
-            <div
-              key={stat.label}
-              className="glass-card rounded-2xl p-6 text-center"
-            >
-              <div className="text-3xl md:text-4xl font-bold text-white mb-1">
+            <div key={stat.label} className="text-center px-10">
+              <div className="text-3xl md:text-4xl font-light text-white mb-1 tracking-tight">
                 <AnimatedCounter value={stat.value} />
                 {stat.suffix}
               </div>
-              <div className="text-sm text-white/60">{stat.label}</div>
+              <div className="text-sm text-white/40">{stat.label}</div>
             </div>
           ))}
         </motion.div>
       </div>
 
-      {/* Marquee keyframes (scoped via style tag) */}
+      {/* Marquee keyframes */}
       <style>{`
         @keyframes marquee {
           0% { transform: translateX(0); }

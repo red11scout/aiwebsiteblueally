@@ -120,7 +120,7 @@ export default function ProcessSection() {
   const [activeStep, setActiveStep] = useState(1);
 
   return (
-    <section id="process" className="py-20 md:py-32 gradient-navy" ref={ref}>
+    <section id="process" className="py-24 md:py-40 gradient-navy" ref={ref}>
       <div className="container">
         {/* Section Header */}
         <motion.div
@@ -132,7 +132,7 @@ export default function ProcessSection() {
           <span className="inline-block px-4 py-2 mb-4 text-sm font-medium text-[#00A3E0] bg-[#00A3E0]/10 rounded-full border border-[#00A3E0]/20">
             The Process
           </span>
-          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-4">
+          <h2 className="text-3xl md:text-4xl lg:text-5xl text-white mb-4">
             7-Step Use Case Methodology
           </h2>
           <p className="text-lg text-white/70 max-w-3xl mx-auto">
@@ -148,16 +148,16 @@ export default function ProcessSection() {
           transition={{ duration: 0.5, delay: 0.2 }}
           className="grid md:grid-cols-3 gap-4 mb-12"
         >
-          <div className="glass-card rounded-xl p-5 text-center">
-            <div className="text-[#00A3E0] font-bold text-lg mb-1">Strategic Alignment</div>
+          <div className="bg-white/[0.03] border border-white/[0.06] rounded-2xl p-5 text-center">
+            <div className="text-[#00A3E0] font-medium text-lg mb-1">Strategic Alignment</div>
             <p className="text-white/60 text-sm">Every AI initiative connects to core business objectives</p>
           </div>
-          <div className="glass-card rounded-xl p-5 text-center">
-            <div className="text-[#00B34A] font-bold text-lg mb-1">Measurable Value</div>
+          <div className="bg-white/[0.03] border border-white/[0.06] rounded-2xl p-5 text-center">
+            <div className="text-[#00B34A] font-medium text-lg mb-1">Measurable Value</div>
             <p className="text-white/60 text-sm">Technical improvements translated to financial impact</p>
           </div>
-          <div className="glass-card rounded-xl p-5 text-center">
-            <div className="text-[#00A3E0] font-bold text-lg mb-1">Objective Priority</div>
+          <div className="bg-white/[0.03] border border-white/[0.06] rounded-2xl p-5 text-center">
+            <div className="text-[#00A3E0] font-medium text-lg mb-1">Objective Priority</div>
             <p className="text-white/60 text-sm">Scoring based on value, feasibility, and strategic fit</p>
           </div>
         </motion.div>
@@ -224,7 +224,7 @@ export default function ProcessSection() {
                   key={step.id}
                   onClick={() => setActiveStep(step.id)}
                   className={cn(
-                    "w-10 h-10 rounded-full flex items-center justify-center transition-all duration-300 text-sm font-bold",
+                    "w-10 h-10 rounded-full flex items-center justify-center transition-all duration-300 text-sm font-medium",
                     activeStep === step.id
                       ? "bg-gradient-to-br from-[#00A3E0] to-[#00B34A] text-white scale-110"
                       : activeStep > step.id
@@ -255,19 +255,19 @@ export default function ProcessSection() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.4 }}
-            className="glass-card rounded-2xl p-6 md:p-8"
+            className="bg-white/[0.03] border border-white/[0.06] rounded-2xl p-6 md:p-8"
           >
             <div className="flex flex-col lg:flex-row gap-6">
               <div className="flex-1">
                 <div className="flex items-center gap-3 mb-4">
-                  <span className="text-sm font-bold text-[#00A3E0] bg-[#00A3E0]/10 px-3 py-1 rounded-full">
+                  <span className="text-sm font-medium text-[#00A3E0] bg-[#00A3E0]/10 px-3 py-1 rounded-full">
                     Step {activeStep}
                   </span>
                   <span className="text-sm text-white/50">
                     {processSteps[activeStep - 1].subtitle}
                   </span>
                 </div>
-                <h3 className="text-2xl md:text-3xl font-bold text-white mb-4">
+                <h3 className="text-2xl md:text-3xl text-white mb-4">
                   {processSteps[activeStep - 1].title}
                 </h3>
                 <p className="text-white/70 leading-relaxed mb-6">
@@ -283,7 +283,7 @@ export default function ProcessSection() {
               </div>
 
               <div className="lg:w-80 shrink-0">
-                <h4 className="text-sm font-semibold text-white/50 uppercase tracking-wider mb-4">
+                <h4 className="text-sm font-medium text-white/50 uppercase tracking-wider mb-4">
                   Key Activities
                 </h4>
                 <ul className="space-y-3">
@@ -293,7 +293,7 @@ export default function ProcessSection() {
                       className="flex items-start gap-3 text-white/80 text-sm"
                     >
                       <div className="w-5 h-5 rounded-full bg-[#00A3E0]/20 flex items-center justify-center shrink-0 mt-0.5">
-                        <span className="text-xs text-[#00A3E0] font-bold">{index + 1}</span>
+                        <span className="text-xs text-[#00A3E0] font-medium">{index + 1}</span>
                       </div>
                       {item}
                     </li>
