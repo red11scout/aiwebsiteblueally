@@ -6,6 +6,7 @@ import path from "path";
 import { fileURLToPath } from "url";
 import chatRouter from "./routes/chat.js";
 import contactRouter from "./routes/contact.js";
+import signupRouter from "./routes/signup.js";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -28,7 +29,7 @@ async function startServer() {
   // Security headers
   app.use((_req, res, next) => {
     res.setHeader("X-Content-Type-Options", "nosniff");
-    res.setHeader("X-Frame-Options", "DENY");
+    res.setHeader("X-Frame-Options", "SAMEORIGIN");
     res.setHeader("X-XSS-Protection", "1; mode=block");
     res.setHeader("Referrer-Policy", "strict-origin-when-cross-origin");
     next();
@@ -52,6 +53,7 @@ async function startServer() {
   // API routes
   app.use("/api/chat", chatRouter);
   app.use("/api/contact", contactRouter);
+  app.use("/api/signup", signupRouter);
 
   // Health check
   app.get("/api/health", (_req, res) => {

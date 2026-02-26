@@ -7,6 +7,7 @@
 import { motion } from "framer-motion";
 import { useInView } from "framer-motion";
 import { useRef, useState } from "react";
+import { Link } from "wouter";
 import {
   Building2,
   GraduationCap,
@@ -23,6 +24,7 @@ import {
   Heart,
   Shield,
   Globe,
+  ArrowRight,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -91,6 +93,11 @@ export default function IndustriesSection() {
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
             Deep expertise across sectors. We understand your challenges because we have solved them before.
           </p>
+          <Link href="/industries">
+            <a className="inline-flex items-center gap-2 mt-4 text-sm text-[#00A3E0] hover:text-[#00A3E0]/80 transition-colors font-medium">
+              View All Industry Assessments <ArrowRight className="h-4 w-4" />
+            </a>
+          </Link>
         </motion.div>
 
         {/* Industry Tabs */}
