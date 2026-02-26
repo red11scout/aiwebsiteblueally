@@ -35,14 +35,14 @@ const industries = {
     icon: Building2,
     description: "Enterprise solutions for private sector organizations",
     subcategories: [
-      { icon: Stethoscope, name: "Healthcare", description: "Hospitals, health systems, biotech" },
-      { icon: Briefcase, name: "Financial Services", description: "Banks, insurance, investment firms" },
-      { icon: Factory, name: "Manufacturing", description: "Industrial, automotive, aerospace" },
-      { icon: ShoppingCart, name: "Retail", description: "E-commerce, brick-and-mortar, CPG" },
-      { icon: Wifi, name: "Technology", description: "Software, hardware, telecom" },
-      { icon: Zap, name: "Energy & Utilities", description: "Oil & gas, power, renewables" },
-      { icon: Film, name: "Media & Entertainment", description: "Broadcasting, streaming, gaming" },
-      { icon: Scale, name: "Legal", description: "Law firms, legal services" },
+      { icon: Stethoscope, name: "Healthcare", description: "Hospitals, health systems, biotech", slug: "healthcare" },
+      { icon: Briefcase, name: "Financial Services", description: "Banks, insurance, investment firms", slug: "finance-insurance" },
+      { icon: Factory, name: "Manufacturing", description: "Industrial, automotive, aerospace", slug: "manufacturing" },
+      { icon: ShoppingCart, name: "Retail", description: "E-commerce, brick-and-mortar, CPG", slug: "retail" },
+      { icon: Wifi, name: "Technology", description: "Software, hardware, telecom", slug: "information" },
+      { icon: Zap, name: "Energy & Utilities", description: "Oil & gas, power, renewables", slug: "energy" },
+      { icon: Film, name: "Media & Entertainment", description: "Broadcasting, streaming, gaming", slug: "" },
+      { icon: Scale, name: "Legal", description: "Law firms, legal services", slug: "" },
     ],
   },
   public: {
@@ -50,10 +50,10 @@ const industries = {
     icon: GraduationCap,
     description: "Solutions for education and non-profit organizations",
     subcategories: [
-      { icon: GraduationCap, name: "Higher Education", description: "Universities, colleges, research institutions" },
-      { icon: GraduationCap, name: "K-12 Education", description: "School districts, educational technology" },
-      { icon: Heart, name: "Non-Profit", description: "Foundations, NGOs, charitable organizations" },
-      { icon: Stethoscope, name: "Healthcare Systems", description: "Public hospitals, health departments" },
+      { icon: GraduationCap, name: "Higher Education", description: "Universities, colleges, research institutions", slug: "education" },
+      { icon: GraduationCap, name: "K-12 Education", description: "School districts, educational technology", slug: "education" },
+      { icon: Heart, name: "Non-Profit", description: "Foundations, NGOs, charitable organizations", slug: "" },
+      { icon: Stethoscope, name: "Healthcare Systems", description: "Public hospitals, health departments", slug: "healthcare" },
     ],
   },
   government: {
@@ -61,10 +61,10 @@ const industries = {
     icon: Landmark,
     description: "Secure solutions for government agencies",
     subcategories: [
-      { icon: Landmark, name: "Federal Government", description: "Federal agencies, departments" },
-      { icon: Globe, name: "State & Local", description: "State agencies, municipalities" },
-      { icon: Shield, name: "Defense", description: "DoD, military, intelligence" },
-      { icon: Plane, name: "Aerospace", description: "NASA, FAA, space programs" },
+      { icon: Landmark, name: "Federal Government", description: "Federal agencies, departments", slug: "public-administration" },
+      { icon: Globe, name: "State & Local", description: "State agencies, municipalities", slug: "public-administration" },
+      { icon: Shield, name: "Defense", description: "DoD, military, intelligence", slug: "" },
+      { icon: Plane, name: "Aerospace", description: "NASA, FAA, space programs", slug: "" },
     ],
   },
 };
@@ -93,10 +93,8 @@ export default function IndustriesSection() {
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
             Deep expertise across sectors. We understand your challenges because we have solved them before.
           </p>
-          <Link href="/industries">
-            <a className="inline-flex items-center gap-2 mt-4 text-sm text-[#00A3E0] hover:text-[#00A3E0]/80 transition-colors font-medium">
-              View All Industry Assessments <ArrowRight className="h-4 w-4" />
-            </a>
+          <Link href="/industries" className="inline-flex items-center gap-2 mt-4 text-sm text-[#00A3E0] hover:text-[#00A3E0]/80 transition-colors font-medium">
+            View All Industry Assessments <ArrowRight className="h-4 w-4" />
           </Link>
         </motion.div>
 
@@ -140,23 +138,31 @@ export default function IndustriesSection() {
                   {/* Subcategory Grid */}
                   <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
                     {industry.subcategories.map((sub, index) => (
-                      <motion.div
+                      <Link
                         key={sub.name}
-                        initial={{ opacity: 0, scale: 0.95 }}
-                        animate={{ opacity: 1, scale: 1 }}
-                        transition={{ duration: 0.3, delay: index * 0.05 }}
-                        className="bg-white/[0.03] rounded-xl p-5 border border-white/[0.06] hover:border-white/[0.12] transition-all duration-300 group cursor-pointer"
+                        href={sub.slug ? `/industries/${sub.slug}` : "/industries"}
+                        className="block"
                       >
-                        <div className="p-2 rounded-lg bg-[#00A3E0]/10 w-fit mb-3 group-hover:bg-[#00A3E0]/20 transition-colors">
-                          <sub.icon className="h-5 w-5 text-[#00A3E0]" />
-                        </div>
-                        <h4 className="font-medium text-foreground mb-1">
-                          {sub.name}
-                        </h4>
-                        <p className="text-sm text-muted-foreground">
-                          {sub.description}
-                        </p>
-                      </motion.div>
+                        <motion.div
+                          initial={{ opacity: 0, scale: 0.95 }}
+                          animate={{ opacity: 1, scale: 1 }}
+                          transition={{ duration: 0.3, delay: index * 0.05 }}
+                          className="bg-white/[0.03] rounded-xl p-5 border border-white/[0.06] hover:border-[#00A3E0]/40 transition-all duration-300 group cursor-pointer h-full"
+                        >
+                          <div className="p-2 rounded-lg bg-[#00A3E0]/10 w-fit mb-3 group-hover:bg-[#00A3E0]/20 transition-colors">
+                            <sub.icon className="h-5 w-5 text-[#00A3E0]" />
+                          </div>
+                          <h4 className="font-medium text-foreground mb-1 group-hover:text-[#00A3E0] transition-colors">
+                            {sub.name}
+                          </h4>
+                          <p className="text-sm text-muted-foreground">
+                            {sub.description}
+                          </p>
+                          <span className="inline-flex items-center gap-1 mt-3 text-xs text-[#00A3E0] opacity-0 group-hover:opacity-100 transition-opacity">
+                            View Assessment <ArrowRight className="h-3 w-3" />
+                          </span>
+                        </motion.div>
+                      </Link>
                     ))}
                   </div>
                 </motion.div>

@@ -17,6 +17,7 @@ import ProcessSection from "@/components/sections/ProcessSection";
 import SuccessStoriesSection from "@/components/sections/SuccessStoriesSection";
 import DifferentiatorSection from "@/components/sections/DifferentiatorSection";
 import IndustriesSection from "@/components/sections/IndustriesSection";
+import AssessmentCTASection from "@/components/sections/AssessmentCTASection";
 import OfferingsSection from "@/components/sections/OfferingsSection";
 import JourneySection from "@/components/sections/JourneySection";
 import RapidPrototypeSection from "@/components/sections/RapidPrototypeSection";
@@ -38,6 +39,7 @@ export default function Home() {
         <SuccessStoriesSection />
         <DifferentiatorSection />
         <IndustriesSection />
+        <AssessmentCTASection />
         <OfferingsSection />
         <JourneySection />
         <RapidPrototypeSection />
