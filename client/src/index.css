@@ -49,10 +49,16 @@
   --color-ba-charcoal: #2C2C2C;
   --color-ba-light-gray: #F5F5F5;
   --color-ba-medium-gray: #999999;
+
+  /* Theme-aware surface colors */
+  --color-surface-subtle: var(--surface-subtle);
+  --color-surface-muted: var(--surface-muted);
+  --color-border-subtle: var(--border-subtle);
 }
 
-/* CrewAI-inspired dark theme — near-black, spacious, premium */
-:root {
+/* Dark theme (default) */
+:root,
+.dark {
   --radius: 0.75rem;
   --primary: #00A3E0;
   --primary-foreground: #FFFFFF;
@@ -86,6 +92,48 @@
   --sidebar-accent-foreground: #F5F5F5;
   --sidebar-border: #0F1D30;
   --sidebar-ring: #00A3E0;
+  --surface-subtle: rgba(255, 255, 255, 0.03);
+  --surface-muted: rgba(255, 255, 255, 0.05);
+  --border-subtle: rgba(255, 255, 255, 0.06);
+}
+
+/* Light theme */
+.light {
+  --primary: #00A3E0;
+  --primary-foreground: #FFFFFF;
+  --background: #FFFFFF;
+  --foreground: #1A1A2E;
+  --card: #F8F9FA;
+  --card-foreground: #1A1A2E;
+  --popover: #FFFFFF;
+  --popover-foreground: #1A1A2E;
+  --secondary: #F0F2F5;
+  --secondary-foreground: #1A1A2E;
+  --muted: #F0F2F5;
+  --muted-foreground: #64748B;
+  --accent: #00A3E0;
+  --accent-foreground: #FFFFFF;
+  --destructive: #DC2626;
+  --destructive-foreground: #FFFFFF;
+  --border: #E2E8F0;
+  --input: #E2E8F0;
+  --ring: #00A3E0;
+  --chart-1: #00A3E0;
+  --chart-2: #0080B3;
+  --chart-3: #00B34A;
+  --chart-4: #005C8A;
+  --chart-5: #00B34A;
+  --sidebar: #F8F9FA;
+  --sidebar-foreground: #1A1A2E;
+  --sidebar-primary: #00A3E0;
+  --sidebar-primary-foreground: #FFFFFF;
+  --sidebar-accent: #F0F2F5;
+  --sidebar-accent-foreground: #1A1A2E;
+  --sidebar-border: #E2E8F0;
+  --sidebar-ring: #00A3E0;
+  --surface-subtle: rgba(0, 0, 0, 0.02);
+  --surface-muted: rgba(0, 0, 0, 0.04);
+  --border-subtle: rgba(0, 0, 0, 0.06);
 }
 
 @layer base {
@@ -144,9 +192,9 @@
     }
   }
 
-  /* Brand utilities — updated for deeper palette */
+  /* Brand utilities */
   .gradient-navy {
-    background: linear-gradient(135deg, #050A14 0%, #0A1628 100%);
+    background: linear-gradient(135deg, var(--background) 0%, var(--card) 100%);
   }
 
   .gradient-blue {
@@ -160,33 +208,48 @@
     background-clip: text;
   }
 
-  /* Clean card — no glass morphism, subtle and minimal */
+  /* Clean card — theme-aware */
   .glass-card {
-    background: rgba(10, 22, 40, 0.5);
-    border: 1px solid rgba(255, 255, 255, 0.06);
+    background: var(--surface-subtle);
+    border: 1px solid var(--border-subtle);
   }
 
   .glass-card:hover {
-    border-color: rgba(255, 255, 255, 0.12);
+    border-color: var(--border);
   }
 }
 
-/* Custom scrollbar — deeper to match new bg */
+/* Custom scrollbar — theme-aware */
 ::-webkit-scrollbar {
   width: 6px;
   height: 6px;
 }
 
-::-webkit-scrollbar-track {
+.dark ::-webkit-scrollbar-track,
+:root:not(.light) ::-webkit-scrollbar-track {
   background: #050A14;
 }
 
-::-webkit-scrollbar-thumb {
+.dark ::-webkit-scrollbar-thumb,
+:root:not(.light) ::-webkit-scrollbar-thumb {
   background: #1A2A40;
   border-radius: 3px;
 }
 
-::-webkit-scrollbar-thumb:hover {
+.dark ::-webkit-scrollbar-thumb:hover,
+:root:not(.light) ::-webkit-scrollbar-thumb:hover {
   background: #2A3A50;
 }
 
+.light ::-webkit-scrollbar-track {
+  background: #F5F5F5;
+}
+
+.light ::-webkit-scrollbar-thumb {
+  background: #CBD5E1;
+  border-radius: 3px;
+}
+
+.light ::-webkit-scrollbar-thumb:hover {
+  background: #94A3B8;
+}

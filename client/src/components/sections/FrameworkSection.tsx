@@ -239,10 +239,10 @@ export default function FrameworkSection() {
               <button
                 onClick={() => setActiveId(activeId === part.id ? null : part.id)}
                 className={cn(
-                  "w-full text-left bg-white/[0.03] rounded-xl p-5 border transition-all duration-300",
+                  "w-full text-left bg-card rounded-xl p-5 border transition-all duration-300",
                   activeId === part.id
                     ? "border-[#00A3E0] shadow-lg"
-                    : "border-white/[0.06] hover:border-white/[0.12]"
+                    : "border-border hover:border-border"
                 )}
               >
                 <div className="flex items-start gap-4">
@@ -296,7 +296,7 @@ export default function FrameworkSection() {
                   transition={{ duration: 0.3 }}
                   className="overflow-hidden"
                 >
-                  <div className="pt-4 mt-4 border-t border-white/[0.06] space-y-4">
+                  <div className="pt-4 mt-4 border-t border-border space-y-4">
                     <div>
                       <h5 className="text-xs font-medium text-[#00A3E0] uppercase tracking-wide mb-2">
                         Key Activities

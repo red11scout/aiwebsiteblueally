@@ -82,7 +82,7 @@ export default function StakesSection() {
             initial={{ opacity: 0, x: -30 }}
             animate={isInView ? { opacity: 1, x: 0 } : {}}
             transition={{ duration: 0.6, delay: 0.2 }}
-            className="bg-white/[0.03] rounded-2xl p-6 md:p-8 border border-white/[0.06]"
+            className="bg-card rounded-2xl p-6 md:p-8 border border-border"
           >
             <div className="flex items-center gap-3 mb-6">
               <div className="p-2 rounded-lg bg-[#DC2626]/10">
@@ -111,10 +111,10 @@ export default function StakesSection() {
                   />
                   <Tooltip
                     contentStyle={{
-                      backgroundColor: "#0A1628",
-                      border: "1px solid rgba(255,255,255,0.06)",
+                      backgroundColor: "hsl(var(--card))",
+                      border: "1px solid hsl(var(--border))",
                       borderRadius: "8px",
-                      color: "#F5F5F5",
+                      color: "hsl(var(--foreground))",
                     }}
                     formatter={(value: number) => [`${value}%`, "Failure Rate"]}
                   />
@@ -140,7 +140,7 @@ export default function StakesSection() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={isInView ? { opacity: 1, y: 0 } : {}}
                 transition={{ duration: 0.5, delay: 0.3 + index * 0.1 }}
-                className="bg-white/[0.02] rounded-xl p-6 border border-white/[0.04] hover:border-white/[0.12] transition-all duration-300 group"
+                className="bg-card rounded-xl p-6 border border-border hover:border-border transition-all duration-300 group"
               >
                 <div className="p-2 rounded-lg bg-[#DC2626]/10 w-fit mb-4 group-hover:bg-[#00A3E0]/10 transition-colors">
                   <pitfall.icon className="h-5 w-5 text-[#DC2626] group-hover:text-[#00A3E0] transition-colors" />

@@ -82,19 +82,19 @@ export default function RapidPrototypeSection() {
 
             {/* Stats */}
             <div className="grid grid-cols-3 gap-4 mb-8">
-              <div className="text-center p-4 bg-white/[0.03] rounded-xl border border-white/[0.06]">
+              <div className="text-center p-4 bg-card rounded-xl border border-border">
                 <div className="text-3xl font-bold text-[#00A3E0]">
                   <AnimatedCounter value={10} />
                 </div>
                 <div className="text-sm text-muted-foreground">Days</div>
               </div>
-              <div className="text-center p-4 bg-white/[0.03] rounded-xl border border-white/[0.06]">
+              <div className="text-center p-4 bg-card rounded-xl border border-border">
                 <div className="text-3xl font-bold text-[#00B34A]">
                   <AnimatedCounter value={100} />+
                 </div>
                 <div className="text-sm text-muted-foreground">Prototypes Built</div>
               </div>
-              <div className="text-center p-4 bg-white/[0.03] rounded-xl border border-white/[0.06]">
+              <div className="text-center p-4 bg-card rounded-xl border border-border">
                 <div className="text-3xl font-bold text-[#00A3E0]">
                   <AnimatedCounter value={85} />%
                 </div>
@@ -129,7 +129,7 @@ export default function RapidPrototypeSection() {
             </div>
 
             {/* Prototype Timeline Card */}
-            <div className="bg-white/[0.03] backdrop-blur-xl rounded-3xl p-8 border border-white/[0.06] shadow-2xl">
+            <div className="bg-card backdrop-blur-xl rounded-3xl p-8 border border-border shadow-2xl">
               <div className="flex items-center gap-2 mb-6">
                 <div className="p-2 rounded-lg bg-[#00B34A]/20">
                   <Rocket className="h-5 w-5 text-[#00B34A]" />

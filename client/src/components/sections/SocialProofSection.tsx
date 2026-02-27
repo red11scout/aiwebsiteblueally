@@ -29,7 +29,7 @@ function PartnerLogo({ name }: { name: string }) {
         width="160"
         height="40"
         viewBox="0 0 160 40"
-        className="opacity-30 hover:opacity-70 transition-opacity duration-300"
+        className="opacity-30 hover:opacity-70 transition-opacity duration-300 text-foreground"
         aria-label={name}
       >
         <text
@@ -39,7 +39,7 @@ function PartnerLogo({ name }: { name: string }) {
           fontFamily="'DM Sans', system-ui, sans-serif"
           fontWeight="500"
           fontSize={name.length > 10 ? "14" : "18"}
-          fill="#F5F5F5"
+          fill="currentColor"
           letterSpacing="0.08em"
         >
           {name}
@@ -54,7 +54,7 @@ export default function SocialProofSection() {
   const isInView = useInView(ref, { once: true, margin: "-50px" });
 
   return (
-    <section ref={ref} className="py-12 md:py-20 border-y border-white/[0.06]">
+    <section ref={ref} className="py-12 md:py-20 border-y border-border">
       <div className="container">
         {/* Logo Marquee */}
         <motion.div
@@ -64,8 +64,8 @@ export default function SocialProofSection() {
           className="relative overflow-hidden mb-12 md:mb-16"
         >
           {/* Fade edges */}
-          <div className="absolute left-0 top-0 bottom-0 w-24 bg-gradient-to-r from-[#050A14] to-transparent z-10 pointer-events-none" />
-          <div className="absolute right-0 top-0 bottom-0 w-24 bg-gradient-to-l from-[#050A14] to-transparent z-10 pointer-events-none" />
+          <div className="absolute left-0 top-0 bottom-0 w-24 bg-gradient-to-r from-background to-transparent z-10 pointer-events-none" />
+          <div className="absolute right-0 top-0 bottom-0 w-24 bg-gradient-to-l from-background to-transparent z-10 pointer-events-none" />
 
           {/* Scrolling track */}
           <div className="flex animate-marquee">
@@ -83,15 +83,15 @@ export default function SocialProofSection() {
           initial={{ opacity: 0, y: 20 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6, delay: 0.3 }}
-          className="flex flex-col md:flex-row items-center justify-center gap-8 md:gap-0 md:divide-x md:divide-white/10 max-w-2xl mx-auto"
+          className="flex flex-col md:flex-row items-center justify-center gap-8 md:gap-0 md:divide-x md:divide-border max-w-2xl mx-auto"
         >
           {stats.map((stat) => (
             <div key={stat.label} className="text-center px-10">
-              <div className="text-3xl md:text-4xl font-light text-white mb-1 tracking-tight">
+              <div className="text-3xl md:text-4xl font-light text-foreground mb-1 tracking-tight">
                 <AnimatedCounter value={stat.value} />
                 {stat.suffix}
               </div>
-              <div className="text-sm text-white/40">{stat.label}</div>
+              <div className="text-sm text-muted-foreground">{stat.label}</div>
             </div>
           ))}
         </motion.div>

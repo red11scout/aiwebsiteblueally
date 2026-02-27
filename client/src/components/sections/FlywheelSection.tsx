@@ -108,7 +108,7 @@ export default function FlywheelSection() {
           <span className="inline-block px-4 py-2 mb-4 text-sm font-medium text-[#00B34A] bg-[#00B34A]/10 rounded-full border border-[#00B34A]/20">
             Continuous Transformation
           </span>
-          <h2 className="text-3xl md:text-4xl lg:text-5xl font-light text-white">
+          <h2 className="text-3xl md:text-4xl lg:text-5xl font-light text-foreground">
             The BlueAlly AI Flywheel
           </h2>
         </motion.div>
@@ -196,7 +196,7 @@ export default function FlywheelSection() {
                 {/* Pulsing glow */}
                 <div className="absolute inset-0 rounded-full bg-[#00A3E0]/20 animate-pulse-glow" />
                 <div className="relative text-center">
-                  <div className="text-sm font-medium text-white leading-tight">
+                  <div className="text-sm font-medium text-foreground leading-tight">
                     BlueAlly
                   </div>
                   <div className="text-sm font-medium text-gradient leading-tight">
@@ -242,7 +242,7 @@ export default function FlywheelSection() {
                     <div
                       className={cn(
                         "w-[80px] h-[80px] rounded-full flex items-center justify-center transition-all duration-300 cursor-pointer",
-                        "bg-[#0F2240] border-2",
+                        "bg-card border-2",
                         isActive
                           ? "scale-110 shadow-lg shadow-[#00A3E0]/30"
                           : "hover:scale-105",
@@ -252,7 +252,7 @@ export default function FlywheelSection() {
                         borderImageSlice: 1,
                         borderStyle: "solid",
                         // borderImage doesn't work with border-radius, use box-shadow fallback
-                        borderColor: isActive ? "#00A3E0" : "#1E3A5F",
+                        borderColor: isActive ? "#00A3E0" : "hsl(var(--border))",
                         boxShadow: isActive
                           ? "0 0 20px rgba(0, 163, 224, 0.3), inset 0 0 0 1px rgba(0, 179, 74, 0.3)"
                           : "none",
@@ -261,14 +261,14 @@ export default function FlywheelSection() {
                       <stage.icon
                         className={cn(
                           "h-7 w-7 transition-colors duration-300",
-                          isActive ? "text-[#00A3E0]" : "text-white/70",
+                          isActive ? "text-[#00A3E0]" : "text-muted-foreground",
                         )}
                       />
                     </div>
                     <div
                       className={cn(
                         "text-center mt-2 text-xs font-medium transition-colors duration-300 whitespace-nowrap",
-                        isActive ? "text-[#00A3E0]" : "text-white/60",
+                        isActive ? "text-[#00A3E0]" : "text-muted-foreground",
                       )}
                     >
                       {stage.label}
@@ -289,12 +289,12 @@ export default function FlywheelSection() {
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: -10 }}
                   transition={{ duration: 0.2 }}
-                  className="bg-white/[0.03] border border-white/[0.06] rounded-xl p-5 text-center"
+                  className="bg-card border border-border rounded-xl p-5 text-center"
                 >
-                  <h4 className="text-white font-medium mb-1 text-sm">
+                  <h4 className="text-foreground font-medium mb-1 text-sm">
                     {stages[activeIndex].label}
                   </h4>
-                  <p className="text-white/70 text-sm leading-relaxed">
+                  <p className="text-muted-foreground text-sm leading-relaxed">
                     {stages[activeIndex].description}
                   </p>
                 </motion.div>
@@ -319,7 +319,7 @@ export default function FlywheelSection() {
                     setActiveIndex(isActive ? null : index)
                   }
                   className={cn(
-                    "bg-white/[0.03] border border-white/[0.06] rounded-xl p-4 text-center cursor-pointer transition-all duration-300",
+                    "bg-card border border-border rounded-xl p-4 text-center cursor-pointer transition-all duration-300",
                     isActive && "border-[#00A3E0]/40 bg-[#00A3E0]/5",
                   )}
                 >
@@ -329,13 +329,13 @@ export default function FlywheelSection() {
                         "w-12 h-12 rounded-full flex items-center justify-center transition-colors duration-300",
                         isActive
                           ? "bg-[#00A3E0]/20"
-                          : "bg-white/5",
+                          : "bg-muted",
                       )}
                     >
                       <stage.icon
                         className={cn(
                           "h-5 w-5 transition-colors duration-300",
-                          isActive ? "text-[#00A3E0]" : "text-white/60",
+                          isActive ? "text-[#00A3E0]" : "text-muted-foreground",
                         )}
                       />
                     </div>
@@ -343,7 +343,7 @@ export default function FlywheelSection() {
                   <h4
                     className={cn(
                       "text-sm font-medium mb-1 transition-colors duration-300",
-                      isActive ? "text-[#00A3E0]" : "text-white",
+                      isActive ? "text-[#00A3E0]" : "text-foreground",
                     )}
                   >
                     {stage.label}
@@ -355,7 +355,7 @@ export default function FlywheelSection() {
                         animate={{ opacity: 1, height: "auto" }}
                         exit={{ opacity: 0, height: 0 }}
                         transition={{ duration: 0.2 }}
-                        className="text-white/60 text-xs leading-relaxed overflow-hidden"
+                        className="text-muted-foreground text-xs leading-relaxed overflow-hidden"
                       >
                         {stage.description}
                       </motion.p>

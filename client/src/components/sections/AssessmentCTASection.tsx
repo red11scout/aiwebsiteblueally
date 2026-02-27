@@ -113,7 +113,7 @@ export default function AssessmentCTASection() {
               <motion.div
                 initial={{ opacity: 0, scale: 0.95 }}
                 animate={{ opacity: 1, scale: 1 }}
-                className="bg-white/[0.03] border border-white/[0.06] rounded-2xl p-8 md:p-12 text-center"
+                className="bg-card border border-border rounded-2xl p-8 md:p-12 text-center"
               >
                 <div className="p-4 rounded-full bg-[#00B34A]/20 w-fit mx-auto mb-6">
                   <CheckCircle className="h-12 w-12 text-[#00B34A]" />
@@ -130,7 +130,7 @@ export default function AssessmentCTASection() {
             ) : (
               <form
                 onSubmit={handleSubmit}
-                className="bg-white/[0.03] border border-white/[0.06] rounded-2xl p-6 md:p-10"
+                className="bg-card border border-border rounded-2xl p-6 md:p-10"
               >
                 <div className="space-y-5">
                   {/* Industry selector — full width, prominent */}

@@ -530,8 +530,8 @@ function MetricCard({
   return (
     <div
       className={cn(
-        "rounded-xl border border-[#1E3A5F] p-4 text-center",
-        large ? "bg-[#0F2240] col-span-2 sm:col-span-1" : "bg-[#0A1628]/60"
+        "rounded-xl border border-border p-4 text-center",
+        large ? "bg-card col-span-2 sm:col-span-1" : "bg-background/60"
       )}
     >
       <div
@@ -556,14 +556,14 @@ function MetricCard({
       </div>
       <div
         className={cn(
-          "font-medium text-[#F5F5F5] mt-1",
+          "font-medium text-foreground mt-1",
           large ? "text-base" : "text-sm"
         )}
       >
         {label}
       </div>
       {context && (
-        <div className="text-xs text-[#999999] mt-1 leading-snug">
+        <div className="text-xs text-muted-foreground mt-1 leading-snug">
           {context}
         </div>
       )}
@@ -573,7 +573,7 @@ function MetricCard({
 
 function ScaleBadge({ text }: { text: string }) {
   return (
-    <span className="inline-flex items-center gap-1.5 rounded-full border border-[#1E3A5F] bg-[#0A1628] px-3 py-1.5 text-xs font-medium text-[#F5F5F5]">
+    <span className="inline-flex items-center gap-1.5 rounded-full border border-border bg-background px-3 py-1.5 text-xs font-medium text-foreground">
       <span className="h-1.5 w-1.5 rounded-full bg-[#00A3E0]" />
       {text}
     </span>
@@ -592,16 +592,16 @@ function PhaseTimeline({ phases }: { phases: Phase[] }) {
   return (
     <div className="relative space-y-4 pl-6">
       {/* Vertical connector line */}
-      <div className="absolute left-[7px] top-2 bottom-2 w-px bg-[#1E3A5F]" />
+      <div className="absolute left-[7px] top-2 bottom-2 w-px bg-border" />
       {phases.map((phase, idx) => (
         <div key={idx} className="relative">
           {/* Dot on the timeline */}
-          <div className="absolute -left-6 top-1 h-3.5 w-3.5 rounded-full border-2 border-[#00A3E0] bg-[#0F2240]" />
+          <div className="absolute -left-6 top-1 h-3.5 w-3.5 rounded-full border-2 border-[#00A3E0] bg-card" />
           <div>
-            <h5 className="text-sm font-medium text-[#F5F5F5]">
+            <h5 className="text-sm font-medium text-foreground">
               {phase.name}
             </h5>
-            <p className="text-xs text-[#999999] leading-relaxed mt-0.5">
+            <p className="text-xs text-muted-foreground leading-relaxed mt-0.5">
               {phase.description}
             </p>
           </div>
@@ -630,7 +630,7 @@ function StoryDetailModal({
 
   return (
     <Dialog open={open} onOpenChange={() => onClose()}>
-      <DialogContent className="max-w-3xl max-h-[90vh] overflow-y-auto bg-[#0F2240] border-[#1E3A5F]">
+      <DialogContent className="max-w-3xl max-h-[90vh] overflow-y-auto bg-card border-border">
         {/* Modal Header */}
         <DialogHeader>
           <div className="flex items-center gap-3 mb-2">
@@ -651,45 +651,45 @@ function StoryDetailModal({
                 {story.industry}
               </span>
               <div className="flex items-center gap-2 mt-0.5">
-                <Clock className="h-3 w-3 text-[#999999]" />
-                <span className="text-xs text-[#999999]">
+                <Clock className="h-3 w-3 text-muted-foreground" />
+                <span className="text-xs text-muted-foreground">
                   {story.timeline}
                 </span>
               </div>
             </div>
           </div>
-          <DialogTitle className="text-2xl text-[#F5F5F5]">
+          <DialogTitle className="text-2xl text-foreground">
             {story.title}
           </DialogTitle>
-          <DialogDescription className="text-sm text-[#999999]">
+          <DialogDescription className="text-sm text-muted-foreground">
             {story.heroMetric.value} {story.heroMetric.label}
           </DialogDescription>
         </DialogHeader>
 
         {/* Tabbed 4-Quadrant Content */}
         <Tabs defaultValue="background" className="mt-4">
-          <TabsList className="grid w-full grid-cols-4 bg-[#0A1628] border border-[#1E3A5F] rounded-lg h-10">
+          <TabsList className="grid w-full grid-cols-4 bg-background border border-border rounded-lg h-10">
             <TabsTrigger
               value="background"
-              className="text-xs sm:text-sm data-[state=active]:bg-[#003B73] data-[state=active]:text-[#F5F5F5] text-[#999999] rounded-md"
+              className="text-xs sm:text-sm data-[state=active]:bg-muted data-[state=active]:text-foreground text-muted-foreground rounded-md"
             >
               Background
             </TabsTrigger>
             <TabsTrigger
               value="challenges"
-              className="text-xs sm:text-sm data-[state=active]:bg-[#003B73] data-[state=active]:text-[#F5F5F5] text-[#999999] rounded-md"
+              className="text-xs sm:text-sm data-[state=active]:bg-muted data-[state=active]:text-foreground text-muted-foreground rounded-md"
             >
               Challenges
             </TabsTrigger>
             <TabsTrigger
               value="solutions"
-              className="text-xs sm:text-sm data-[state=active]:bg-[#003B73] data-[state=active]:text-[#F5F5F5] text-[#999999] rounded-md"
+              className="text-xs sm:text-sm data-[state=active]:bg-muted data-[state=active]:text-foreground text-muted-foreground rounded-md"
             >
               Solutions
             </TabsTrigger>
             <TabsTrigger
               value="outcomes"
-              className="text-xs sm:text-sm data-[state=active]:bg-[#003B73] data-[state=active]:text-[#F5F5F5] text-[#999999] rounded-md"
+              className="text-xs sm:text-sm data-[state=active]:bg-muted data-[state=active]:text-foreground text-muted-foreground rounded-md"
             >
               Outcomes
             </TabsTrigger>
@@ -697,7 +697,7 @@ function StoryDetailModal({
 
           {/* ---- Background Tab ---- */}
           <TabsContent value="background" className="mt-4 space-y-5">
-            <p className="text-sm text-[#999999] leading-relaxed">
+            <p className="text-sm text-muted-foreground leading-relaxed">
               {story.background.overview}
             </p>
             <div>
@@ -714,7 +714,7 @@ function StoryDetailModal({
 
           {/* ---- Challenges Tab ---- */}
           <TabsContent value="challenges" className="mt-4 space-y-5">
-            <p className="text-sm text-[#F5F5F5] font-medium">
+            <p className="text-sm text-foreground font-medium">
               {story.challenges.summary}
             </p>
 
@@ -727,7 +727,7 @@ function StoryDetailModal({
                 {story.challenges.painPoints.map((point, i) => (
                   <li
                     key={i}
-                    className="flex items-start gap-2.5 text-sm text-[#999999]"
+                    className="flex items-start gap-2.5 text-sm text-muted-foreground"
                   >
                     <AlertTriangle className="h-4 w-4 text-amber-400 mt-0.5 shrink-0" />
                     <span>{point}</span>
@@ -741,7 +741,7 @@ function StoryDetailModal({
               <h5 className="text-xs font-medium text-amber-400 uppercase tracking-wider mb-1.5">
                 Previous Attempts
               </h5>
-              <p className="text-sm text-[#999999] leading-relaxed">
+              <p className="text-sm text-muted-foreground leading-relaxed">
                 {story.challenges.previousAttempts}
               </p>
             </div>
@@ -751,7 +751,7 @@ function StoryDetailModal({
               <h5 className="text-xs font-medium text-red-400 uppercase tracking-wider mb-1.5">
                 Business Impact
               </h5>
-              <p className="text-sm text-[#F5F5F5] font-medium leading-relaxed">
+              <p className="text-sm text-foreground font-medium leading-relaxed">
                 {story.challenges.businessImpact}
               </p>
             </div>
@@ -766,7 +766,7 @@ function StoryDetailModal({
                   Approach
                 </h4>
               </div>
-              <p className="text-sm text-[#999999] leading-relaxed">
+              <p className="text-sm text-muted-foreground leading-relaxed">
                 {story.solutions.approach}
               </p>
             </div>
@@ -814,19 +814,19 @@ function StoryDetailModal({
                 <h5 className="text-xs font-medium text-[#00B34A] uppercase tracking-wider mb-0.5">
                   Return on Investment
                 </h5>
-                <p className="text-sm text-[#F5F5F5] font-medium">
+                <p className="text-sm text-foreground font-medium">
                   {story.outcomes.roi}
                 </p>
               </div>
             </div>
 
             {/* Executive Quote */}
-            <blockquote className="relative rounded-xl border border-[#1E3A5F] bg-[#0A1628] p-5">
+            <blockquote className="relative rounded-xl border border-border bg-background p-5">
               <Quote className="absolute top-3 left-3 h-5 w-5 text-[#00A3E0]/30" />
-              <p className="text-sm text-[#F5F5F5] italic leading-relaxed pl-6">
+              <p className="text-sm text-foreground italic leading-relaxed pl-6">
                 &ldquo;{story.outcomes.quote.text}&rdquo;
               </p>
-              <footer className="mt-3 pl-6 text-xs text-[#999999]">
+              <footer className="mt-3 pl-6 text-xs text-muted-foreground">
                 &mdash; {story.outcomes.quote.attribution}
               </footer>
             </blockquote>
@@ -863,7 +863,7 @@ function StoryCard({
       initial={{ opacity: 0, y: 40 }}
       animate={isInView ? { opacity: 1, y: 0 } : {}}
       transition={{ duration: 0.5, delay: 0.15 + index * 0.12 }}
-      className="bg-[#0F2240] rounded-2xl border border-[#1E3A5F] overflow-hidden group hover:border-white/[0.12] transition-all duration-300 hover:shadow-[0_0_30px_rgba(0,163,224,0.08)]"
+      className="bg-card rounded-2xl border border-border overflow-hidden group hover:border-border transition-all duration-300 hover:shadow-[0_0_30px_rgba(0,163,224,0.08)]"
     >
       <div className="p-6">
         {/* Header Row: Industry badge + Timeline badge */}
@@ -879,24 +879,24 @@ function StoryCard({
             <Icon className="h-3.5 w-3.5" />
             {story.industry}
           </span>
-          <span className="inline-flex items-center gap-1 rounded-full border border-[#1E3A5F] bg-[#0A1628] px-2.5 py-1 text-xs text-[#999999]">
+          <span className="inline-flex items-center gap-1 rounded-full border border-border bg-background px-2.5 py-1 text-xs text-muted-foreground">
             <Clock className="h-3 w-3" />
             {story.timeline}
           </span>
         </div>
 
         {/* Title */}
-        <h3 className="text-lg text-[#F5F5F5] mb-2">
+        <h3 className="text-lg font-medium text-foreground mb-2">
           {story.title}
         </h3>
 
         {/* Challenge Summary (1-2 lines) */}
-        <p className="text-sm text-[#999999] leading-relaxed mb-5 line-clamp-2">
+        <p className="text-sm text-muted-foreground leading-relaxed mb-5 line-clamp-2">
           {story.challenges.summary}
         </p>
 
         {/* Hero Metric — prominent display */}
-        <div className="text-center py-4 mb-4 rounded-xl bg-[#0A1628] border border-[#1E3A5F]">
+        <div className="text-center py-4 mb-4 rounded-xl bg-background border border-border">
           <div className="text-3xl md:text-4xl font-bold text-[#00B34A]">
             {heroMetricParsed.isAnimatable ? (
               <>
@@ -912,7 +912,7 @@ function StoryCard({
               story.heroMetric.value
             )}
           </div>
-          <div className="text-sm font-medium text-[#F5F5F5] mt-1">
+          <div className="text-sm font-medium text-foreground mt-1">
             {story.heroMetric.label}
           </div>
         </div>
@@ -922,12 +922,12 @@ function StoryCard({
           {additionalMetrics.map((metric, idx) => (
             <div
               key={idx}
-              className="text-center p-2.5 rounded-lg bg-[#0A1628]/60 border border-[#1E3A5F]/50"
+              className="text-center p-2.5 rounded-lg bg-background/60 border border-border/50"
             >
               <div className="text-base font-bold text-[#00A3E0]">
                 {metric.value}
               </div>
-              <div className="text-[10px] leading-tight text-[#999999] mt-0.5">
+              <div className="text-[10px] leading-tight text-muted-foreground mt-0.5">
                 {metric.label}
               </div>
             </div>
@@ -937,7 +937,7 @@ function StoryCard({
         {/* "Read Full Story" CTA button */}
         <Button
           variant="ghost"
-          className="w-full justify-between rounded-full text-[#999999] hover:text-[#F5F5F5] hover:bg-[#003B73]/30 border border-[#1E3A5F] group/btn"
+          className="w-full justify-between rounded-full text-muted-foreground hover:text-foreground hover:bg-muted border border-border group/btn"
           onClick={onSelect}
         >
           <span className="text-sm font-medium">Read Full Story</span>
@@ -962,8 +962,7 @@ export default function SuccessStoriesSection() {
   return (
     <section
       id="success"
-      className="py-24 md:py-40"
-      style={{ backgroundColor: "#050A14" }}
+      className="py-24 md:py-40 bg-background"
       ref={ref}
     >
       <div className="container">
@@ -977,10 +976,10 @@ export default function SuccessStoriesSection() {
           <span className="inline-block px-4 py-2 mb-4 text-sm font-medium text-[#00B34A] bg-[#00B34A]/10 rounded-full border border-[#00B34A]/20">
             Proven Results
           </span>
-          <h2 className="text-3xl md:text-4xl lg:text-5xl text-[#F5F5F5] mb-4">
+          <h2 className="text-3xl md:text-4xl lg:text-5xl text-foreground mb-4">
             Success Stories
           </h2>
-          <p className="text-lg text-[#999999] max-w-2xl mx-auto">
+          <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
             Real transformations. Real results. Names changed to protect the
             competitive advantage.
           </p>

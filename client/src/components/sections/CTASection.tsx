@@ -107,33 +107,33 @@ export default function CTASection() {
               Get Started
             </span>
             
-            <h2 className="text-3xl md:text-4xl lg:text-5xl text-white mb-6">
+            <h2 className="text-3xl md:text-4xl lg:text-5xl text-foreground mb-6">
               Ready to Transform
               <br />
               Your Enterprise?
             </h2>
-            
-            <p className="text-lg text-white/40 mb-8 leading-relaxed">
+
+            <p className="text-lg text-muted-foreground mb-8 leading-relaxed">
               The best time to start was yesterday. The second best time is now. 
               Let's discuss how BlueAlly can accelerate your AI journey.
             </p>
 
             {/* Contact Info */}
             <div className="space-y-4 mb-8">
-              <div className="flex items-center gap-4 text-white/80">
-                <div className="p-2 rounded-lg bg-white/10">
+              <div className="flex items-center gap-4 text-muted-foreground">
+                <div className="p-2 rounded-lg bg-muted">
                   <Phone className="h-5 w-5" />
                 </div>
                 <span>(800) 886-5369</span>
               </div>
-              <div className="flex items-center gap-4 text-white/80">
-                <div className="p-2 rounded-lg bg-white/10">
+              <div className="flex items-center gap-4 text-muted-foreground">
+                <div className="p-2 rounded-lg bg-muted">
                   <Mail className="h-5 w-5" />
                 </div>
                 <span>ai@blueally.com</span>
               </div>
-              <div className="flex items-center gap-4 text-white/80">
-                <div className="p-2 rounded-lg bg-white/10">
+              <div className="flex items-center gap-4 text-muted-foreground">
+                <div className="p-2 rounded-lg bg-muted">
                   <MapPin className="h-5 w-5" />
                 </div>
                 <span>Serving enterprises nationwide</span>
@@ -141,8 +141,8 @@ export default function CTASection() {
             </div>
 
             {/* Trust Indicators */}
-            <div className="bg-white/[0.03] border border-white/[0.06] rounded-xl p-4">
-              <div className="flex flex-wrap gap-4 justify-center text-sm text-white/40">
+            <div className="bg-card border border-border rounded-xl p-4">
+              <div className="flex flex-wrap gap-4 justify-center text-sm text-muted-foreground">
                 <span>✓ Response within 24 hours</span>
                 <span>✓ No obligation consultation</span>
                 <span>✓ Confidential discussion</span>
@@ -160,7 +160,7 @@ export default function CTASection() {
               <motion.div
                 initial={{ opacity: 0, scale: 0.95 }}
                 animate={{ opacity: 1, scale: 1 }}
-                className="bg-white/[0.03] border border-white/[0.06] rounded-2xl p-8 text-center"
+                className="bg-card border border-border rounded-2xl p-8 text-center"
               >
                 <div className="p-4 rounded-full bg-[#00B34A]/20 w-fit mx-auto mb-6">
                   <CheckCircle className="h-12 w-12 text-[#00B34A]" />
@@ -183,10 +183,11 @@ export default function CTASection() {
             ) : (
               <form
                 onSubmit={handleSubmit}
-                className="bg-white/[0.03] border border-white/[0.06] rounded-2xl p-6 md:p-8 shadow-2xl"
+                className="bg-card border border-border rounded-2xl p-6 md:p-8 shadow-2xl"
               >
                 <h3 className="text-xl font-medium text-foreground mb-6">
                   Start the Conversation
+
                 </h3>
 
                 <div className="space-y-4">

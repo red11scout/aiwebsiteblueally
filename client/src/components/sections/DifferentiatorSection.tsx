@@ -66,10 +66,10 @@ export default function DifferentiatorSection() {
           <span className="inline-block px-4 py-2 mb-4 text-sm font-medium text-[#00A3E0] bg-[#00A3E0]/10 rounded-full border border-[#00A3E0]/20">
             Why BlueAlly
           </span>
-          <h2 className="text-3xl md:text-4xl lg:text-5xl text-white mb-4">
+          <h2 className="text-3xl md:text-4xl lg:text-5xl text-foreground mb-4">
             We Are Different
           </h2>
-          <p className="text-lg text-white/40 max-w-2xl mx-auto">
+          <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
             Not another consulting firm. Not another vendor. 
             A true partner in your AI transformation.
           </p>
@@ -83,15 +83,15 @@ export default function DifferentiatorSection() {
               initial={{ opacity: 0, y: 30 }}
               animate={isInView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.5, delay: 0.2 + index * 0.1 }}
-              className="bg-white/[0.03] border border-white/[0.06] rounded-2xl p-6 group hover:bg-white/[0.05] transition-all duration-300"
+              className="bg-card border border-border rounded-2xl p-6 group hover:bg-muted transition-all duration-300"
             >
               <div className="p-3 rounded-xl bg-[#00A3E0]/20 w-fit mb-4 group-hover:bg-[#00A3E0]/30 transition-colors">
                 <diff.icon className="h-6 w-6 text-[#00A3E0]" />
               </div>
-              <h3 className="text-xl font-medium text-white mb-2">
+              <h3 className="text-xl font-medium text-foreground mb-2">
                 {diff.title}
               </h3>
-              <p className="text-white/40 leading-relaxed">
+              <p className="text-muted-foreground leading-relaxed">
                 {diff.description}
               </p>
             </motion.div>
@@ -103,16 +103,16 @@ export default function DifferentiatorSection() {
           initial={{ opacity: 0, y: 30 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6, delay: 0.6 }}
-          className="mt-16 bg-white/[0.03] border border-white/[0.06] rounded-2xl p-6 md:p-8"
+          className="mt-16 bg-card border border-border rounded-2xl p-6 md:p-8"
         >
-          <h4 className="text-sm font-medium text-white/50 uppercase tracking-wider mb-4 text-center">
+          <h4 className="text-sm font-medium text-muted-foreground uppercase tracking-wider mb-4 text-center">
             Enterprise Certifications
           </h4>
           <div className="flex flex-wrap justify-center gap-4 md:gap-8">
             {["SOC 1", "SOC 2", "ISO 27001", "ISO 42001", "CMMI", "PCI", "NERC-CIP"].map((cert) => (
               <div
                 key={cert}
-                className="px-4 py-2 bg-white/5 rounded-lg text-white/40 text-sm font-medium"
+                className="px-4 py-2 bg-muted rounded-lg text-muted-foreground text-sm font-medium"
               >
                 {cert}
               </div>

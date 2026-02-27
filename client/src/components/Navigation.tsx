@@ -1,6 +1,7 @@
 /**
  * Navigation Component
  * CrewAI-inspired: transparent, minimal, pill-shaped CTAs
+ * Theme-aware with day/night toggle
  */
 
 import { useState, useEffect } from "react";
@@ -8,6 +9,8 @@ import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { Menu, ArrowRight } from "lucide-react";
 import { motion } from "framer-motion";
+import { useLocation } from "wouter";
+import ThemeToggle from "./ThemeToggle";
 
 const navLinks = [
   { label: "Framework", href: "#framework" },
@@ -22,6 +25,8 @@ export default function Navigation() {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [activeSection, setActiveSection] = useState("");
+  const [location] = useLocation();
+  const isHome = location === "/";
 
   useEffect(() => {
     const handleScroll = () => {
@@ -33,6 +38,7 @@ export default function Navigation() {
 
   // Track active section
   useEffect(() => {
+    if (!isHome) return;
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
@@ -50,12 +56,16 @@ export default function Navigation() {
     });
 
     return () => observer.disconnect();
-  }, []);
+  }, [isHome]);
 
   const scrollToSection = (href: string) => {
-    const element = document.querySelector(href);
-    if (element) {
-      element.scrollIntoView({ behavior: "smooth" });
+    if (isHome) {
+      const element = document.querySelector(href);
+      if (element) {
+        element.scrollIntoView({ behavior: "smooth" });
+      }
+    } else {
+      window.location.href = `/${href}`;
     }
     setMobileOpen(false);
   };
@@ -67,7 +77,7 @@ export default function Navigation() {
       transition={{ duration: 0.5, ease: "easeOut" }}
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
         scrolled
-          ? "bg-black/50 backdrop-blur-sm border-b border-white/[0.06]"
+          ? "bg-background/80 backdrop-blur-sm border-b border-border"
           : "bg-transparent"
       }`}
     >
@@ -75,10 +85,12 @@ export default function Navigation() {
         <nav className="flex items-center justify-between h-[72px] md:h-[84px]">
           {/* Logo */}
           <a
-            href="#"
+            href="/"
             onClick={(e) => {
-              e.preventDefault();
-              window.scrollTo({ top: 0, behavior: "smooth" });
+              if (isHome) {
+                e.preventDefault();
+                window.scrollTo({ top: 0, behavior: "smooth" });
+              }
             }}
             className="flex items-center gap-1"
           >
@@ -103,8 +115,8 @@ export default function Navigation() {
                 onClick={() => scrollToSection(link.href)}
                 className={`px-4 py-2 text-sm transition-colors ${
                   activeSection === link.href
-                    ? "text-white"
-                    : "text-white/50 hover:text-white"
+                    ? "text-foreground"
+                    : "text-muted-foreground hover:text-foreground"
                 }`}
               >
                 {link.label}
@@ -112,12 +124,13 @@ export default function Navigation() {
             ))}
           </div>
 
-          {/* Actions — pill-shaped buttons */}
-          <div className="flex items-center gap-3">
+          {/* Actions */}
+          <div className="flex items-center gap-2">
+            <ThemeToggle />
             <Button
               variant="outline"
               onClick={() => scrollToSection("#framework")}
-              className="hidden md:flex rounded-full h-10 px-6 border-white/20 text-white/80 hover:bg-white/5 hover:text-white hover:border-white/40"
+              className="hidden md:flex rounded-full h-10 px-6 border-border text-muted-foreground hover:bg-muted hover:text-foreground hover:border-border"
             >
               Explore Framework
             </Button>
@@ -132,11 +145,11 @@ export default function Navigation() {
             {/* Mobile Menu */}
             <Sheet open={mobileOpen} onOpenChange={setMobileOpen}>
               <SheetTrigger asChild>
-                <Button variant="ghost" size="icon" className="lg:hidden text-white/70 hover:text-white">
+                <Button variant="ghost" size="icon" className="lg:hidden text-muted-foreground hover:text-foreground">
                   <Menu className="h-5 w-5" />
                 </Button>
               </SheetTrigger>
-              <SheetContent side="right" className="w-80 bg-[#050A14] border-white/[0.06]">
+              <SheetContent side="right" className="w-80 bg-background border-border">
                 <div className="flex flex-col gap-2 mt-8">
                   <div className="flex items-center gap-1 mb-6 px-4">
                     <img
@@ -157,16 +170,19 @@ export default function Navigation() {
                       onClick={() => scrollToSection(link.href)}
                       className={`text-left px-4 py-3 text-lg transition-colors ${
                         activeSection === link.href
-                          ? "text-white"
-                          : "text-white/50 hover:text-white"
+                          ? "text-foreground"
+                          : "text-muted-foreground hover:text-foreground"
                       }`}
                     >
                       {link.label}
                     </button>
                   ))}
+                  <div className="px-4 mt-4">
+                    <ThemeToggle className="mb-4" />
+                  </div>
                   <Button
                     onClick={() => scrollToSection("#cta")}
-                    className="mt-6 mx-4 rounded-full h-12 bg-[#00A3E0] hover:bg-[#0090C8] text-white"
+                    className="mt-2 mx-4 rounded-full h-12 bg-[#00A3E0] hover:bg-[#0090C8] text-white"
                   >
                     Book a Consultation
                   </Button>

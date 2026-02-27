@@ -46,7 +46,7 @@ export default function Footer() {
   };
 
   return (
-    <footer className="bg-[#020408] text-white">
+    <footer className="bg-background text-foreground">
       <div className="container py-16">
         <div className="grid md:grid-cols-2 lg:grid-cols-5 gap-8">
           {/* Brand Column */}
@@ -64,7 +64,7 @@ export default function Footer() {
                 AI
               </span>
             </div>
-            <p className="text-white/40 mb-6 max-w-sm leading-relaxed">
+            <p className="text-muted-foreground mb-6 max-w-sm leading-relaxed">
               Transforming enterprises with intelligent AI solutions.
               Your trusted partner in the AI revolution.
             </p>
@@ -76,10 +76,10 @@ export default function Footer() {
                   href={social.href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="p-2 rounded-lg bg-white/5 hover:bg-[#00A3E0]/20 transition-colors"
+                  className="p-2 rounded-lg bg-muted hover:bg-[#00A3E0]/20 transition-colors"
                   aria-label={social.label}
                 >
-                  <social.icon className="h-5 w-5 text-white/40 hover:text-[#00A3E0]" />
+                  <social.icon className="h-5 w-5 text-muted-foreground hover:text-[#00A3E0]" />
                 </a>
               ))}
             </div>
@@ -87,13 +87,13 @@ export default function Footer() {
 
           {/* Solutions */}
           <div>
-            <h4 className="font-medium text-white mb-4">Solutions</h4>
+            <h4 className="font-medium text-foreground mb-4">Solutions</h4>
             <ul className="space-y-3">
               {footerLinks.solutions.map((link) => (
                 <li key={link.label}>
                   <button
                     onClick={() => scrollToSection(link.href)}
-                    className="text-white/40 hover:text-[#00A3E0] transition-colors text-sm"
+                    className="text-muted-foreground hover:text-[#00A3E0] transition-colors text-sm"
                   >
                     {link.label}
                   </button>
@@ -104,13 +104,13 @@ export default function Footer() {
 
           {/* Company */}
           <div>
-            <h4 className="font-medium text-white mb-4">Company</h4>
+            <h4 className="font-medium text-foreground mb-4">Company</h4>
             <ul className="space-y-3">
               {footerLinks.company.map((link) => (
                 <li key={link.label}>
                   <button
                     onClick={() => scrollToSection(link.href)}
-                    className="text-white/40 hover:text-[#00A3E0] transition-colors text-sm"
+                    className="text-muted-foreground hover:text-[#00A3E0] transition-colors text-sm"
                   >
                     {link.label}
                   </button>
@@ -121,13 +121,13 @@ export default function Footer() {
 
           {/* Resources */}
           <div>
-            <h4 className="font-medium text-white mb-4">Resources</h4>
+            <h4 className="font-medium text-foreground mb-4">Resources</h4>
             <ul className="space-y-3">
               {footerLinks.resources.map((link) => (
                 <li key={link.label}>
                   <button
                     onClick={() => scrollToSection(link.href)}
-                    className="text-white/40 hover:text-[#00A3E0] transition-colors text-sm"
+                    className="text-muted-foreground hover:text-[#00A3E0] transition-colors text-sm"
                   >
                     {link.label}
                   </button>
@@ -138,17 +138,17 @@ export default function Footer() {
         </div>
 
         {/* Bottom Bar */}
-        <div className="mt-12 pt-8 border-t border-white/10">
+        <div className="mt-12 pt-8 border-t border-border">
           <div className="flex flex-col md:flex-row justify-between items-center gap-4">
-            <p className="text-sm text-white/50">
+            <p className="text-sm text-muted-foreground">
               © {new Date().getFullYear()} BlueAlly Technology Solutions. All rights reserved.
             </p>
-            <div className="flex gap-6 text-sm text-white/50">
+            <div className="flex gap-6 text-sm text-muted-foreground">
               <a
                 href="https://www.blueally.com/terms"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="hover:text-white transition-colors"
+                className="hover:text-foreground transition-colors"
               >
                 Terms of Service
               </a>
@@ -156,7 +156,7 @@ export default function Footer() {
                 href="https://www.blueally.com/privacy"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="hover:text-white transition-colors"
+                className="hover:text-foreground transition-colors"
               >
                 Privacy Policy
               </a>
@@ -164,7 +164,7 @@ export default function Footer() {
                 href="https://www.blueally.com/trust"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="hover:text-white transition-colors"
+                className="hover:text-foreground transition-colors"
               >
                 Trust Center
               </a>
@@ -174,10 +174,10 @@ export default function Footer() {
       </div>
 
       {/* Contact Bar */}
-      <div className="bg-white/[0.03] border-t border-white/[0.06]">
+      <div className="bg-card border-t border-border">
         <div className="container py-4">
           <div className="flex flex-col sm:flex-row justify-between items-center gap-2 text-sm">
-            <span className="text-white/40">
+            <span className="text-muted-foreground">
               Ready to start your AI journey?
             </span>
             <a

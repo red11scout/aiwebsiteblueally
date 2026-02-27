@@ -59,10 +59,10 @@ export default function OpportunitySection() {
           <span className="inline-block px-4 py-2 mb-4 text-sm font-medium text-[#00B34A] bg-[#00B34A]/10 rounded-full border border-[#00B34A]/20">
             The Opportunity
           </span>
-          <h2 className="text-3xl md:text-4xl lg:text-5xl text-white mb-4">
+          <h2 className="text-3xl md:text-4xl lg:text-5xl text-foreground mb-4">
             The Upside Is Enormous
           </h2>
-          <p className="text-lg text-white/40 max-w-2xl mx-auto">
+          <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
             Done right, AI transforms everything. Operations. Customer experience. 
             Revenue. The question is not if, but how.
           </p>
@@ -76,21 +76,21 @@ export default function OpportunitySection() {
               initial={{ opacity: 0, y: 30 }}
               animate={isInView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.5, delay: 0.2 + index * 0.1 }}
-              className="bg-white/[0.03] border border-white/[0.06] rounded-2xl p-6 text-center group hover:border-white/[0.12] transition-all duration-300"
+              className="bg-card border border-border rounded-2xl p-6 text-center group hover:border-border transition-all duration-300"
             >
               <div className="flex justify-center mb-4">
                 <div className="p-3 rounded-xl bg-[#00B34A]/20 group-hover:bg-[#00B34A]/30 transition-colors">
                   <opp.icon className="h-6 w-6 text-[#00B34A]" />
                 </div>
               </div>
-              <div className="text-4xl md:text-5xl font-light text-white mb-2 tracking-tight">
+              <div className="text-4xl md:text-5xl font-light text-foreground mb-2 tracking-tight">
                 <AnimatedCounter value={opp.value} />
                 {opp.suffix}
               </div>
-              <h4 className="text-lg font-medium text-white mb-2">
+              <h4 className="text-lg font-medium text-foreground mb-2">
                 {opp.label}
               </h4>
-              <p className="text-sm text-white/60">
+              <p className="text-sm text-muted-foreground">
                 {opp.description}
               </p>
             </motion.div>
@@ -104,11 +104,11 @@ export default function OpportunitySection() {
           transition={{ duration: 0.6, delay: 0.6 }}
           className="mt-16 text-center"
         >
-          <p className="text-xl md:text-2xl text-white/80 max-w-3xl mx-auto leading-relaxed">
-            The difference between success and failure is not luck. 
+          <p className="text-xl md:text-2xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
+            The difference between success and failure is not luck.
             It is <span className="text-[#00A3E0] font-semibold">method</span>.
-            It is <span className="text-[#00B34A] font-semibold">experience</span>. 
-            It is <span className="text-white font-semibold">BlueAlly</span>.
+            It is <span className="text-[#00B34A] font-semibold">experience</span>.
+            It is <span className="text-foreground font-semibold">BlueAlly</span>.
           </p>
         </motion.div>
       </div>

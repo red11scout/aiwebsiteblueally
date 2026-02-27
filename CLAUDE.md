@@ -22,13 +22,20 @@ npm run start   # Production server
 - Charcoal: `#2C2C2C` (body text on light backgrounds)
 - Light Gray: `#F5F5F5` (foreground text on dark backgrounds)
 - Medium Gray: `#999999` (secondary text, muted)
-- Background: `#0A1628` (page background)
-- Card: `#0F2240` (card surfaces)
-- Border: `#1E3A5F` (borders, dividers)
+
+## Theme System
+- Day/night mode via ThemeContext (`client/src/contexts/ThemeContext.tsx`)
+- Toggle component: `client/src/components/ThemeToggle.tsx`
+- CSS variables in `client/src/index.css` — `:root` / `.dark` for dark, `.light` for light
+- Default: dark mode. Persisted in localStorage key `blueally-theme`.
+- NEVER use `bg-white/[0.03]` or similar opacity whites/blacks. Use semantic tokens:
+  - `bg-card`, `bg-background`, `bg-muted` for surfaces
+  - `border-border` for borders
+  - `text-foreground`, `text-muted-foreground` for text
+  - `glass-card` CSS class for subtle cards (theme-aware)
 
 ## IMPORTANT Rules
 - NEVER use oklch() colors. Always use hex from official palette above.
-- Dark mode only. No light/dark toggle. The `<html>` tag has `class="dark"` permanently.
 - DM Sans font exclusively. No font substitution.
 - All API calls go through Express routes in server/
 - Claude API key must be in ANTHROPIC_API_KEY env var
@@ -36,14 +43,32 @@ npm run start   # Production server
 
 ## Project Structure
 ```
-client/src/pages/              # Home page
-client/src/components/         # Section components, Navigation, Footer
-client/src/components/sections/# HeroSection, SuccessStoriesSection, FlywheelSection, etc.
-client/src/components/ui/      # shadcn/ui components
-client/src/hooks/              # Custom hooks
-server/                        # Express API
-server/routes/                 # Chat, contact endpoints
+client/src/pages/                # Home, IndustryReport, NotFound
+client/src/components/           # Navigation, Footer, ThemeToggle
+client/src/components/sections/  # HeroSection, IndustriesSection, etc. (14 sections)
+client/src/components/report/    # Native report rendering (ReportPage, ValueDriverCards, etc.)
+client/src/components/ui/        # shadcn/ui components (50+)
+client/src/contexts/             # ThemeContext
+client/src/data/                 # industries.ts, report-types.ts
+client/src/data/reports/         # Per-industry report data (energy-utilities.ts, entertainment.ts)
+client/src/hooks/                # Custom hooks
+server/                          # Express API
+server/routes/                   # Chat, contact, signup endpoints
 ```
+
+## Industries (14)
+Single source of truth: `client/src/data/industries.ts`
+Categories: corporate, public, government (for tab display)
+Reports live in `client/src/data/reports/` — add new `.ts` files and register in `reports/index.ts`
+
+Currently with live reports: Energy & Utilities, Entertainment
+Coming soon: Construction, Manufacturing, Retail, Transportation, Technology & Information,
+Finance & Insurance, Real Estate, Professional Services, Education, Healthcare, State & Local, Federal
+
+## Routes
+- `/` — Home page (14 sections, includes Industries tab section)
+- `/industries/:slug` — Industry report page (native render or coming-soon)
+- `/industries` — Redirects to `/#industries`
 
 ## Environment Variables
 - `ANTHROPIC_API_KEY` — Claude API for chat widget
