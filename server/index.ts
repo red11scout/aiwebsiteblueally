@@ -28,8 +28,29 @@ async function startServer() {
   const app = express();
   const server = createServer(app);
 
-  // ---------- Health check (before ALL middleware) ----------
-  // Replit health checks hit / — respond instantly, no middleware overhead
+  // ---------- Pre-load index.html into memory ----------
+  const staticPath =
+    process.env.NODE_ENV === "production"
+      ? path.resolve(__dirname, "public")
+      : path.resolve(__dirname, "..", "dist", "public");
+
+  const indexPath = path.join(staticPath, "index.html");
+  const indexExists = fs.existsSync(indexPath);
+  const indexHtml = indexExists
+    ? fs.readFileSync(indexPath, "utf8")
+    : "<!DOCTYPE html><html><body>OK</body></html>";
+
+  console.log(`Static path: ${staticPath}`);
+  console.log(`Index exists: ${indexExists} (${indexPath})`);
+  console.log(`Index HTML size: ${indexHtml.length} bytes`);
+
+  // ---------- Root health check — BEFORE all middleware ----------
+  // Replit health checks hit GET /  — respond from memory, zero I/O
+  app.get("/", (_req, res) => {
+    res.status(200).type("html").send(indexHtml);
+  });
+
+  // API health check (also before middleware)
   app.get("/api/health", (_req, res) => {
     res.json({ status: "ok", timestamp: Date.now() });
   });
@@ -71,32 +92,12 @@ async function startServer() {
   app.use("/api/contact", contactRouter);
   app.use("/api/signup", signupRouter);
 
-  // ---------- Static files ----------
-  const staticPath =
-    process.env.NODE_ENV === "production"
-      ? path.resolve(__dirname, "public")
-      : path.resolve(__dirname, "..", "dist", "public");
-
-  const indexPath = path.join(staticPath, "index.html");
-  const indexExists = fs.existsSync(indexPath);
-
-  console.log(`Static path: ${staticPath}`);
-  console.log(`Index exists: ${indexExists} (${indexPath})`);
-
+  // ---------- Static assets (JS, CSS, images) ----------
   app.use(express.static(staticPath));
 
-  // SPA fallback: serve index.html for all non-API routes
+  // ---------- SPA fallback — serve pre-loaded HTML for all other routes ----------
   app.get("*", (_req, res) => {
-    if (indexExists) {
-      res.sendFile(indexPath, (err) => {
-        if (err && !res.headersSent) {
-          console.error("sendFile error:", err);
-          res.status(200).type("html").send("<!DOCTYPE html><html><body>Loading...</body></html>");
-        }
-      });
-    } else {
-      res.status(200).type("html").send("<!DOCTYPE html><html><body>OK</body></html>");
-    }
+    res.status(200).type("html").send(indexHtml);
   });
 
   // Global error handler
@@ -115,7 +116,6 @@ async function startServer() {
   );
 
   // ---------- Listen ----------
-  // Default to 5000 to match Replit's [[ports]] localPort config
   const port = parseInt(process.env.PORT || "5000", 10);
   console.log(`Attempting to listen on 0.0.0.0:${port}...`);
 
