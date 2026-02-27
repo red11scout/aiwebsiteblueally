@@ -97,7 +97,7 @@ export const industries: Industry[] = [
       "Customer support tickets require manual triage across 10+ product lines",
       "Technical documentation is perpetually outdated and incomplete",
     ],
-    hasReport: false,
+    hasReport: true,
     category: "corporate",
   },
   {

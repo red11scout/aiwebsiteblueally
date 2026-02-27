@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, lazy, Suspense } from "react";
 import { Toaster } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import NotFound from "@/pages/NotFound";
@@ -6,19 +6,30 @@ import { Route, Switch, Redirect } from "wouter";
 import ErrorBoundary from "./components/ErrorBoundary";
 import { ThemeProvider } from "./contexts/ThemeContext";
 import Home from "./pages/Home";
-import IndustryReport from "./pages/IndustryReport";
+
+const IndustryReport = lazy(() => import("./pages/IndustryReport"));
+
+function ReportLoader() {
+  return (
+    <div className="min-h-screen flex items-center justify-center bg-background">
+      <div className="animate-pulse text-muted-foreground">Loading report...</div>
+    </div>
+  );
+}
 
 function Router() {
   return (
-    <Switch>
-      <Route path={"/"} component={Home} />
-      <Route path={"/industries/:slug"} component={IndustryReport} />
-      <Route path={"/industries"}>
-        <Redirect to="/#industries" />
-      </Route>
-      <Route path={"/404"} component={NotFound} />
-      <Route component={NotFound} />
-    </Switch>
+    <Suspense fallback={<ReportLoader />}>
+      <Switch>
+        <Route path={"/"} component={Home} />
+        <Route path={"/industries/:slug"} component={IndustryReport} />
+        <Route path={"/industries"}>
+          <Redirect to="/#industries" />
+        </Route>
+        <Route path={"/404"} component={NotFound} />
+        <Route component={NotFound} />
+      </Switch>
+    </Suspense>
   );
 }
 
