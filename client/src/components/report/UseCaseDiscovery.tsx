@@ -281,9 +281,9 @@ function UseCaseCard({ useCase }: { useCase: UseCase }) {
         <div className="text-right">
           <p className="text-xs text-muted-foreground">Annual Value</p>
           <p className="text-lg font-bold text-[#00B34A]">
-            ${useCase.annualValue >= 1_000_000
-              ? `${(useCase.annualValue / 1_000_000).toFixed(1)}M`
-              : `${(useCase.annualValue / 1_000).toFixed(0)}K`}
+            ${useCase.annualValue >= 1_000
+              ? `${(useCase.annualValue / 1_000).toFixed(1)}B`
+              : `${useCase.annualValue.toFixed(1)}M`}
           </p>
         </div>
       </div>
@@ -312,9 +312,9 @@ function ThemeAccordion({
   );
 
   const formattedValue =
-    totalValue >= 1_000_000
-      ? `$${(totalValue / 1_000_000).toFixed(1)}M`
-      : `$${(totalValue / 1_000).toFixed(0)}K`;
+    totalValue >= 1_000
+      ? `$${(totalValue / 1_000).toFixed(1)}B`
+      : `$${totalValue.toFixed(1)}M`;
 
   return (
     <div className="glass-card rounded-xl overflow-hidden">

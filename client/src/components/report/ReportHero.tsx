@@ -16,12 +16,12 @@ interface ReportHeroProps {
   useCaseCount: number;
 }
 
-/** Format dollar value: <1B shows "$XXX.XM", >=1B shows "$X.XB" */
-function formatTotalValue(value: number): { number: number; suffix: string; decimals: number } {
-  if (value >= 1_000_000_000) {
-    return { number: value / 1_000_000_000, suffix: "B", decimals: 1 };
+/** Format dollar value (input is in millions): <1000M shows "$XXX.XM", >=1000M shows "$X.XB" */
+function formatTotalValue(valueInMillions: number): { number: number; suffix: string; decimals: number } {
+  if (valueInMillions >= 1_000) {
+    return { number: valueInMillions / 1_000, suffix: "B", decimals: 1 };
   }
-  return { number: value / 1_000_000, suffix: "M", decimals: 1 };
+  return { number: valueInMillions, suffix: "M", decimals: 1 };
 }
 
 export default function ReportHero({

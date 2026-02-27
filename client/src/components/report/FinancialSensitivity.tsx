@@ -15,31 +15,19 @@ interface FinancialSensitivityProps {
   scenarios: FinancialScenario[];
 }
 
-/** Format large currency: $1.2M, $14.5M, etc. */
-function formatCurrency(value: number): string {
-  if (value >= 1_000_000_000) {
-    return `$${(value / 1_000_000_000).toFixed(1)}B`;
+/** Format large currency (input is in millions): $436.5M, $1.1B, etc. */
+function formatCurrency(valueInMillions: number): string {
+  if (valueInMillions >= 1_000) {
+    return `$${(valueInMillions / 1_000).toFixed(1)}B`;
   }
-  if (value >= 1_000_000) {
-    return `$${(value / 1_000_000).toFixed(1)}M`;
-  }
-  if (value >= 1_000) {
-    return `$${(value / 1_000).toFixed(0)}K`;
-  }
-  return `$${value.toLocaleString()}`;
+  return `$${valueInMillions.toFixed(1)}M`;
 }
 
-function formatForCounter(value: number): { num: number; suffix: string; decimals: number } {
-  if (value >= 1_000_000_000) {
-    return { num: value / 1_000_000_000, suffix: "B", decimals: 1 };
+function formatForCounter(valueInMillions: number): { num: number; suffix: string; decimals: number } {
+  if (valueInMillions >= 1_000) {
+    return { num: valueInMillions / 1_000, suffix: "B", decimals: 1 };
   }
-  if (value >= 1_000_000) {
-    return { num: value / 1_000_000, suffix: "M", decimals: 1 };
-  }
-  if (value >= 1_000) {
-    return { num: value / 1_000, suffix: "K", decimals: 0 };
-  }
-  return { num: value, suffix: "", decimals: 0 };
+  return { num: valueInMillions, suffix: "M", decimals: 1 };
 }
 
 /** Scenario accent colors by name */

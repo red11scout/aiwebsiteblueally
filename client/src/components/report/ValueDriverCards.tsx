@@ -22,15 +22,12 @@ const driverIcons: Record<ValueDriver["name"], LucideIcon> = {
   "Risk Mitigation": ShieldCheck,
 };
 
-/** Format dollar amounts: $1.2M, $340K, etc. */
-function formatAmount(amount: number): { value: number; suffix: string; decimals: number } {
-  if (amount >= 1_000_000) {
-    return { value: amount / 1_000_000, suffix: "M", decimals: 1 };
+/** Format dollar amounts (input is in millions): $128.6M, $1.2B, etc. */
+function formatAmount(amountInMillions: number): { value: number; suffix: string; decimals: number } {
+  if (amountInMillions >= 1_000) {
+    return { value: amountInMillions / 1_000, suffix: "B", decimals: 1 };
   }
-  if (amount >= 1_000) {
-    return { value: amount / 1_000, suffix: "K", decimals: 0 };
-  }
-  return { value: amount, suffix: "", decimals: 0 };
+  return { value: amountInMillions, suffix: "M", decimals: 1 };
 }
 
 export default function ValueDriverCards({ drivers }: ValueDriverCardsProps) {
