@@ -1,12 +1,47 @@
-import express from "express";
-import cors from "cors";
-import rateLimit from "express-rate-limit";
+import http from "http";
 import fs from "fs";
 import path from "path";
 import { fileURLToPath } from "url";
-import chatRouter from "./routes/chat.js";
-import contactRouter from "./routes/contact.js";
-import signupRouter from "./routes/signup.js";
+import type { Request, Response, NextFunction } from "express";
+
+// ---------- Instant startup: bind port BEFORE loading Express ----------
+const port = parseInt(process.env.PORT || "5000", 10);
+let expressReady = false;
+let expressApp: any = null;
+
+// Minimal HTML for health check response during startup
+const STARTUP_HTML = "<!DOCTYPE html><html><body>OK</body></html>";
+
+const server = http.createServer((req, res) => {
+  if (expressReady && expressApp) {
+    // Hand off to Express once it's ready
+    expressApp(req, res);
+  } else {
+    // Respond immediately during startup — passes health checks
+    res.writeHead(200, { "Content-Type": "text/html" });
+    res.end(STARTUP_HTML);
+  }
+});
+
+server.listen(port, "0.0.0.0", () => {
+  console.log(`Health check server listening on port ${port}`);
+  console.log(`Environment: ${process.env.NODE_ENV || "development"}`);
+});
+
+server.on("error", (err: NodeJS.ErrnoException) => {
+  console.error(`Server listen error: ${err.code} — ${err.message}`);
+  process.exit(1);
+});
+
+// ---------- Now load Express and set up the full app ----------
+// (This runs synchronously in the same tick, but server is already bound)
+
+const { default: express } = await import("express");
+const { default: cors } = await import("cors");
+const { default: rateLimit } = await import("express-rate-limit");
+const { default: chatRouter } = await import("./routes/chat.js");
+const { default: contactRouter } = await import("./routes/contact.js");
+const { default: signupRouter } = await import("./routes/signup.js");
 
 // Top-level crash handlers
 process.on("uncaughtException", (err) => {
@@ -40,9 +75,8 @@ console.log(`Index HTML size: ${Buffer.byteLength(indexHtml)} bytes`);
 // ---------- Express app ----------
 const app = express();
 
-// Health check FIRST — before any middleware that could interfere
+// Health check / root route FIRST — before any middleware
 app.get("/", (_req, res) => {
-  console.log(`[${new Date().toISOString()}] GET / — serving index.html`);
   res.status(200).type("html").send(indexHtml);
 });
 
@@ -94,9 +128,9 @@ app.get("*", (_req, res) => {
 app.use(
   (
     err: Error,
-    _req: express.Request,
-    res: express.Response,
-    _next: express.NextFunction
+    _req: Request,
+    res: Response,
+    _next: NextFunction
   ) => {
     console.error("Unhandled error:", err);
     if (!res.headersSent) {
@@ -105,18 +139,10 @@ app.use(
   }
 );
 
-// ---------- Listen ----------
-const port = parseInt(process.env.PORT || "5000", 10);
-
-const server = app.listen(port, "0.0.0.0", () => {
-  console.log(`Server running on http://0.0.0.0:${port}/`);
-  console.log(`Environment: ${process.env.NODE_ENV || "development"}`);
-});
-
-server.on("error", (err: NodeJS.ErrnoException) => {
-  console.error(`Server listen error: ${err.code} — ${err.message}`);
-  process.exit(1);
-});
+// ---------- Activate Express ----------
+expressApp = app;
+expressReady = true;
+console.log(`Express app ready — full server running on http://0.0.0.0:${port}/`);
 
 // Graceful shutdown
 const shutdown = () => {
