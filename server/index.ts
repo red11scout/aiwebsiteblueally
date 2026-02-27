@@ -1,7 +1,7 @@
 import express from "express";
 import cors from "cors";
 import rateLimit from "express-rate-limit";
-import { createServer } from "http";
+import { createServer, IncomingMessage, ServerResponse } from "http";
 import fs from "fs";
 import path from "path";
 import { fileURLToPath } from "url";
@@ -9,7 +9,7 @@ import chatRouter from "./routes/chat.js";
 import contactRouter from "./routes/contact.js";
 import signupRouter from "./routes/signup.js";
 
-// Top-level crash handlers — catches import/module errors before startServer()
+// Top-level crash handlers
 process.on("uncaughtException", (err) => {
   console.error("UNCAUGHT EXCEPTION:", err);
   process.exit(1);
@@ -19,15 +19,10 @@ process.on("unhandledRejection", (reason) => {
   process.exit(1);
 });
 
-console.log("=== Server module loaded ===");
-
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 async function startServer() {
-  const app = express();
-  const server = createServer(app);
-
   // ---------- Pre-load index.html into memory ----------
   const staticPath =
     process.env.NODE_ENV === "production"
@@ -42,20 +37,10 @@ async function startServer() {
 
   console.log(`Static path: ${staticPath}`);
   console.log(`Index exists: ${indexExists} (${indexPath})`);
-  console.log(`Index HTML size: ${indexHtml.length} bytes`);
 
-  // ---------- Root health check — BEFORE all middleware ----------
-  // Replit health checks hit GET /  — respond from memory, zero I/O
-  app.get("/", (_req, res) => {
-    res.status(200).type("html").send(indexHtml);
-  });
+  // ---------- Express app ----------
+  const app = express();
 
-  // API health check (also before middleware)
-  app.get("/api/health", (_req, res) => {
-    res.json({ status: "ok", timestamp: Date.now() });
-  });
-
-  // ---------- Middleware ----------
   app.use(
     cors({
       origin:
@@ -76,7 +61,6 @@ async function startServer() {
 
   app.use(express.json({ limit: "1mb" }));
 
-  // API rate limiter: 100 requests per 15 minutes per IP
   const apiLimiter = rateLimit({
     windowMs: 15 * 60 * 1000,
     max: 100,
@@ -87,20 +71,21 @@ async function startServer() {
 
   app.use("/api", apiLimiter);
 
-  // ---------- API routes ----------
   app.use("/api/chat", chatRouter);
   app.use("/api/contact", contactRouter);
   app.use("/api/signup", signupRouter);
 
-  // ---------- Static assets (JS, CSS, images) ----------
+  app.get("/api/health", (_req, res) => {
+    res.json({ status: "ok", timestamp: Date.now() });
+  });
+
   app.use(express.static(staticPath));
 
-  // ---------- SPA fallback — serve pre-loaded HTML for all other routes ----------
+  // SPA fallback for non-root routes
   app.get("*", (_req, res) => {
     res.status(200).type("html").send(indexHtml);
   });
 
-  // Global error handler
   app.use(
     (
       err: Error,
@@ -115,9 +100,28 @@ async function startServer() {
     }
   );
 
+  // ---------- HTTP Server with raw health check handler ----------
+  // Health checks bypass Express entirely — raw Node.js HTTP response
+  const server = createServer((req: IncomingMessage, res: ServerResponse) => {
+    if (
+      req.method === "GET" &&
+      (req.url === "/" || req.url?.startsWith("/?"))
+    ) {
+      // Health check / root — raw 200, no Express, nothing can fail
+      res.writeHead(200, {
+        "Content-Type": "text/html; charset=utf-8",
+        "Content-Length": Buffer.byteLength(indexHtml),
+      });
+      res.end(indexHtml);
+      return;
+    }
+
+    // Everything else through Express
+    app(req, res);
+  });
+
   // ---------- Listen ----------
   const port = parseInt(process.env.PORT || "5000", 10);
-  console.log(`Attempting to listen on 0.0.0.0:${port}...`);
 
   server.on("error", (err: NodeJS.ErrnoException) => {
     console.error(`Server listen error: ${err.code} — ${err.message}`);
