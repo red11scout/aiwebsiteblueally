@@ -6,7 +6,7 @@
  * Mobile: horizontal scroll with sticky first column.
  */
 
-import { useRef } from "react";
+import { Fragment, useRef } from "react";
 import { motion, useInView } from "framer-motion";
 import { Database, Cpu, Users, Shield, Clock } from "lucide-react";
 import type { Theme } from "@/data/report-types";
@@ -95,10 +95,9 @@ export default function ReadinessTable({ themes }: ReadinessTableProps) {
               </thead>
               <tbody>
                 {themes.map((theme, themeIndex) => (
-                  <>
+                  <Fragment key={`theme-${theme.id ?? themeIndex}`}>
                     {/* Theme header row */}
                     <tr
-                      key={`theme-${theme.id ?? themeIndex}`}
                       className="bg-[#003B73]/20 border-b border-border-subtle"
                     >
                       <td
@@ -174,7 +173,7 @@ export default function ReadinessTable({ themes }: ReadinessTableProps) {
                         </tr>
                       );
                     })}
-                  </>
+                  </Fragment>
                 ))}
               </tbody>
             </table>
