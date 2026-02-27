@@ -16,7 +16,13 @@ async function startServer() {
   const app = express();
   const server = createServer(app);
 
-  // CORS middleware
+  // ---------- Health check (before ALL middleware) ----------
+  // Replit health checks hit / — respond instantly, no middleware overhead
+  app.get("/api/health", (_req, res) => {
+    res.json({ status: "ok", timestamp: Date.now() });
+  });
+
+  // ---------- Middleware ----------
   app.use(
     cors({
       origin:
@@ -27,7 +33,6 @@ async function startServer() {
     })
   );
 
-  // Security headers
   app.use((_req, res, next) => {
     res.setHeader("X-Content-Type-Options", "nosniff");
     res.setHeader("X-Frame-Options", "SAMEORIGIN");
@@ -36,7 +41,6 @@ async function startServer() {
     next();
   });
 
-  // JSON body parser
   app.use(express.json({ limit: "1mb" }));
 
   // API rate limiter: 100 requests per 15 minutes per IP
@@ -48,20 +52,14 @@ async function startServer() {
     message: { error: "Too many requests, please try again later." },
   });
 
-  // Apply rate limiter to all API routes
   app.use("/api", apiLimiter);
 
-  // API routes
+  // ---------- API routes ----------
   app.use("/api/chat", chatRouter);
   app.use("/api/contact", contactRouter);
   app.use("/api/signup", signupRouter);
 
-  // Health check
-  app.get("/api/health", (_req, res) => {
-    res.json({ status: "ok", timestamp: Date.now() });
-  });
-
-  // Serve static files from dist/public in production
+  // ---------- Static files ----------
   const staticPath =
     process.env.NODE_ENV === "production"
       ? path.resolve(__dirname, "public")
@@ -79,13 +77,12 @@ async function startServer() {
   app.get("*", (_req, res) => {
     if (indexExists) {
       res.sendFile(indexPath, (err) => {
-        if (err) {
+        if (err && !res.headersSent) {
           console.error("sendFile error:", err);
           res.status(200).type("html").send("<!DOCTYPE html><html><body>Loading...</body></html>");
         }
       });
     } else {
-      // Fallback so health checks pass even if static files are missing
       res.status(200).type("html").send("<!DOCTYPE html><html><body>OK</body></html>");
     }
   });
@@ -99,14 +96,24 @@ async function startServer() {
       _next: express.NextFunction
     ) => {
       console.error("Unhandled error:", err);
-      res.status(500).json({ error: "Internal server error" });
+      if (!res.headersSent) {
+        res.status(500).json({ error: "Internal server error" });
+      }
     }
   );
 
-  const port = process.env.PORT || 3000;
+  // ---------- Listen ----------
+  // Default to 5000 to match Replit's [[ports]] localPort config
+  const port = parseInt(process.env.PORT || "5000", 10);
+  console.log(`Attempting to listen on 0.0.0.0:${port}...`);
 
-  server.listen(port, () => {
-    console.log(`Server running on http://localhost:${port}/`);
+  server.on("error", (err: NodeJS.ErrnoException) => {
+    console.error(`Server listen error: ${err.code} — ${err.message}`);
+    process.exit(1);
+  });
+
+  server.listen(port, "0.0.0.0", () => {
+    console.log(`Server running on http://0.0.0.0:${port}/`);
     console.log(`Environment: ${process.env.NODE_ENV || "development"}`);
   });
 
@@ -118,7 +125,6 @@ async function startServer() {
       process.exit(0);
     });
 
-    // Force exit after 10 seconds
     setTimeout(() => {
       console.error("Forced shutdown after timeout");
       process.exit(1);
