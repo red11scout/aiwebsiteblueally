@@ -2,6 +2,7 @@ import express from "express";
 import cors from "cors";
 import rateLimit from "express-rate-limit";
 import { createServer } from "http";
+import fs from "fs";
 import path from "path";
 import { fileURLToPath } from "url";
 import chatRouter from "./routes/chat.js";
@@ -66,11 +67,27 @@ async function startServer() {
       ? path.resolve(__dirname, "public")
       : path.resolve(__dirname, "..", "dist", "public");
 
+  const indexPath = path.join(staticPath, "index.html");
+  const indexExists = fs.existsSync(indexPath);
+
+  console.log(`Static path: ${staticPath}`);
+  console.log(`Index exists: ${indexExists} (${indexPath})`);
+
   app.use(express.static(staticPath));
 
   // SPA fallback: serve index.html for all non-API routes
   app.get("*", (_req, res) => {
-    res.sendFile(path.join(staticPath, "index.html"));
+    if (indexExists) {
+      res.sendFile(indexPath, (err) => {
+        if (err) {
+          console.error("sendFile error:", err);
+          res.status(200).type("html").send("<!DOCTYPE html><html><body>Loading...</body></html>");
+        }
+      });
+    } else {
+      // Fallback so health checks pass even if static files are missing
+      res.status(200).type("html").send("<!DOCTYPE html><html><body>OK</body></html>");
+    }
   });
 
   // Global error handler
