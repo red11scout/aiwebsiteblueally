@@ -8,11 +8,13 @@ import type { IndustryReport } from "../report-types";
 import { report as energyUtilities } from "./energy-utilities";
 import { report as entertainment } from "./entertainment";
 import { report as technologyInformation } from "./technology-information";
+import { report as manufacturing } from "./manufacturing";
 
 const reports: Record<string, IndustryReport> = {
   "energy-utilities": energyUtilities,
   "entertainment": entertainment,
   "technology-information": technologyInformation,
+  "manufacturing": manufacturing,
 };
 
 export function getReportBySlug(slug: string): IndustryReport | undefined {

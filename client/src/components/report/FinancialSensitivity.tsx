@@ -2,25 +2,17 @@
  * Financial Sensitivity Analysis
  * 3-column scenario comparison: Conservative, Base Case, Optimistic.
  * Base Case elevated with "Recommended" badge.
- * Animated number counters on scroll.
+ * Simplified layout matching workshop style: multiplier + annual benefit + NPV.
  */
 
 import { useRef } from "react";
 import { motion, useInView } from "framer-motion";
-import { Star, Clock, Target, TrendingUp, BarChart3 } from "lucide-react";
+import { Star, TrendingUp, BarChart3 } from "lucide-react";
 import AnimatedCounter from "@/components/AnimatedCounter";
 import type { FinancialScenario } from "@/data/report-types";
 
 interface FinancialSensitivityProps {
   scenarios: FinancialScenario[];
-}
-
-/** Format large currency (input is in millions): $436.5M, $1.1B, etc. */
-function formatCurrency(valueInMillions: number): string {
-  if (valueInMillions >= 1_000) {
-    return `$${(valueInMillions / 1_000).toFixed(1)}B`;
-  }
-  return `$${valueInMillions.toFixed(1)}M`;
 }
 
 function formatForCounter(valueInMillions: number): { num: number; suffix: string; decimals: number } {
@@ -30,30 +22,16 @@ function formatForCounter(valueInMillions: number): { num: number; suffix: strin
   return { num: valueInMillions, suffix: "M", decimals: 1 };
 }
 
-/** Scenario accent colors by name */
 const scenarioStyle: Record<FinancialScenario["name"], { border: string; badge: string; bg: string }> = {
-  Conservative: {
-    border: "border-border",
-    badge: "",
-    bg: "",
-  },
-  "Base Case": {
-    border: "border-[#00A3E0]/40",
-    badge: "bg-[#00A3E0]",
-    bg: "bg-[#00A3E0]/5",
-  },
-  Optimistic: {
-    border: "border-border",
-    badge: "",
-    bg: "",
-  },
+  Conservative: { border: "border-border", badge: "", bg: "" },
+  "Base Case": { border: "border-[#00A3E0]/40", badge: "bg-[#00A3E0]", bg: "bg-[#00A3E0]/5" },
+  Optimistic: { border: "border-border", badge: "", bg: "" },
 };
 
 export default function FinancialSensitivity({ scenarios }: FinancialSensitivityProps) {
   const ref = useRef<HTMLDivElement>(null);
   const isInView = useInView(ref, { once: true, margin: "-80px" });
 
-  // Ensure Base Case is in the middle
   const sorted = [...scenarios].sort((a, b) => {
     const order: Record<string, number> = { Conservative: 0, "Base Case": 1, Optimistic: 2 };
     return (order[a.name] ?? 1) - (order[b.name] ?? 1);
@@ -102,43 +80,20 @@ export default function FinancialSensitivity({ scenarios }: FinancialSensitivity
                 )}
 
                 <div className={`p-6 ${isBase ? "" : "pt-6"}`}>
-                  {/* Scenario name */}
-                  <h3 className={`text-lg font-bold mb-1 ${isBase ? "text-[#00A3E0]" : "text-foreground"}`}>
-                    {scenario.name}
-                  </h3>
-                  <p className="text-sm text-muted-foreground mb-5 leading-relaxed">
-                    {scenario.description}
-                  </p>
-
-                  {/* Key metrics */}
-                  <div className="space-y-4">
-                    <div className="flex items-start gap-3">
-                      <Target className="h-4 w-4 text-muted-foreground mt-0.5 flex-shrink-0" />
-                      <div>
-                        <p className="text-xs text-muted-foreground">Adoption Rate</p>
-                        <p className="text-sm font-medium text-foreground">{scenario.adoptionRate}</p>
-                      </div>
-                    </div>
-
-                    <div className="flex items-start gap-3">
-                      <Clock className="h-4 w-4 text-muted-foreground mt-0.5 flex-shrink-0" />
-                      <div>
-                        <p className="text-xs text-muted-foreground">Timeline</p>
-                        <p className="text-sm font-medium text-foreground">{scenario.timeline}</p>
-                      </div>
-                    </div>
-
-                    <div className="flex items-start gap-3">
-                      <TrendingUp className="h-4 w-4 text-muted-foreground mt-0.5 flex-shrink-0" />
-                      <div>
-                        <p className="text-xs text-muted-foreground">Realization</p>
-                        <p className="text-sm font-medium text-foreground">{scenario.realization}</p>
-                      </div>
-                    </div>
+                  {/* Scenario name + multiplier */}
+                  <div className="flex items-center gap-2 mb-4">
+                    <h3 className={`text-lg font-bold ${isBase ? "text-[#00A3E0]" : "text-foreground"}`}>
+                      {scenario.name}
+                    </h3>
+                    {scenario.multiplier && (
+                      <span className="text-xs px-2 py-0.5 rounded-full bg-card border border-border-subtle text-muted-foreground font-medium">
+                        {scenario.multiplier}
+                      </span>
+                    )}
                   </div>
 
                   {/* Financial results */}
-                  <div className="mt-6 pt-5 border-t border-border-subtle space-y-4">
+                  <div className="space-y-5">
                     <div>
                       <div className="flex items-center gap-2 mb-1">
                         <BarChart3 className="h-3.5 w-3.5 text-muted-foreground" />

@@ -1,7 +1,7 @@
 /**
- * Use Case Discovery
- * Accordion layout for themes. Each theme expands to show its use cases in rich detail.
- * First 2 themes expanded by default. Animated expand/collapse via Framer Motion.
+ * Strategic Analysis by Theme
+ * Accordion layout for themes. Each theme expands to show current/target state,
+ * KPIs, rich friction points, and detailed use case cards with financial breakdowns.
  */
 
 import { useState, useRef, useMemo } from "react";
@@ -11,18 +11,22 @@ import {
   AlertTriangle,
   Bot,
   Shield,
-  Clock,
   DollarSign,
-  Gauge,
   CheckCircle2,
   Database,
   Plug,
-  Tag,
   Layers,
   Cpu,
-  Workflow,
+  TrendingDown,
+  TrendingUp,
+  ArrowRight,
+  Clock,
+  Target,
+  BarChart3,
+  Banknote,
+  ShieldCheck,
 } from "lucide-react";
-import type { Theme, UseCase } from "@/data/report-types";
+import type { Theme, UseCase, FrictionPoint, ThemeKPI, WorkflowTransformation } from "@/data/report-types";
 
 interface UseCaseDiscoveryProps {
   themes: Theme[];
@@ -40,43 +44,18 @@ const tierStyle: Record<UseCase["priorityTier"], { color: string; bg: string }> 
 };
 
 // ------------------------------------------------------------------
-// Score gauge: small circular progress
+// Format helpers
 // ------------------------------------------------------------------
 
-function ScoreGauge({ value, max, label, color }: { value: number; max: number; label: string; color: string }) {
-  const pct = Math.min(100, (value / max) * 100);
-  const r = 16;
-  const circumference = 2 * Math.PI * r;
-  const dashOffset = circumference * (1 - pct / 100);
-
-  return (
-    <div className="flex flex-col items-center gap-1">
-      <svg width={40} height={40} viewBox="0 0 40 40">
-        <circle cx={20} cy={20} r={r} fill="none" stroke="var(--border)" strokeWidth={3} />
-        <circle
-          cx={20}
-          cy={20}
-          r={r}
-          fill="none"
-          stroke={color}
-          strokeWidth={3}
-          strokeDasharray={circumference}
-          strokeDashoffset={dashOffset}
-          strokeLinecap="round"
-          transform="rotate(-90 20 20)"
-          style={{ transition: "stroke-dashoffset 0.8s ease" }}
-        />
-        <text x={20} y={24} textAnchor="middle" fill="var(--foreground)" fontSize={11} fontWeight={700}>
-          {value}
-        </text>
-      </svg>
-      <span className="text-[10px] text-muted-foreground leading-tight text-center">{label}</span>
-    </div>
-  );
+function fmtMil(val: number): string {
+  if (val >= 1_000) return `$${(val / 1_000).toFixed(1)}B`;
+  if (val >= 1) return `$${val.toFixed(1)}M`;
+  if (val > 0) return `$${(val * 1_000).toFixed(0)}K`;
+  return "$0";
 }
 
 // ------------------------------------------------------------------
-// Collapsible detail section
+// Collapsible section (reused inside use case cards)
 // ------------------------------------------------------------------
 
 function CollapsibleSection({
@@ -100,9 +79,7 @@ function CollapsibleSection({
       >
         <Icon className="h-3.5 w-3.5 flex-shrink-0" />
         <span className="font-medium">{title}</span>
-        <ChevronDown
-          className={`h-3 w-3 ml-auto transition-transform ${open ? "rotate-180" : ""}`}
-        />
+        <ChevronDown className={`h-3 w-3 ml-auto transition-transform ${open ? "rotate-180" : ""}`} />
       </button>
       <AnimatePresence>
         {open && (
@@ -122,6 +99,256 @@ function CollapsibleSection({
 }
 
 // ------------------------------------------------------------------
+// Current State / Target State boxes
+// ------------------------------------------------------------------
+
+function StateComparison({ currentState, targetState }: { currentState: string; targetState: string }) {
+  return (
+    <div className="grid md:grid-cols-2 gap-4 mb-5">
+      <div className="p-4 rounded-lg border-l-4 border-[#EF4444] bg-[#EF4444]/5">
+        <p className="text-xs font-semibold text-[#EF4444] uppercase tracking-wider mb-2">Current State</p>
+        <p className="text-sm text-foreground leading-relaxed">{currentState}</p>
+      </div>
+      <div className="p-4 rounded-lg border-l-4 border-[#00B34A] bg-[#00B34A]/5">
+        <p className="text-xs font-semibold text-[#00B34A] uppercase tracking-wider mb-2">Target State</p>
+        <p className="text-sm text-foreground leading-relaxed">{targetState}</p>
+      </div>
+    </div>
+  );
+}
+
+// ------------------------------------------------------------------
+// KPI cards
+// ------------------------------------------------------------------
+
+function KPICards({ kpis }: { kpis?: ThemeKPI[] }) {
+  if (!kpis || kpis.length === 0) return null;
+
+  return (
+    <div className="mb-5">
+      <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wider mb-3 flex items-center gap-1.5">
+        <BarChart3 className="h-3.5 w-3.5" /> Key Performance Indicators
+      </p>
+      <div className="grid sm:grid-cols-2 gap-3">
+        {kpis.map((kpi) => (
+          <div key={kpi.id} className="glass-card rounded-lg p-3">
+            <div className="flex items-center gap-2 mb-2">
+              <span className="text-[10px] px-1.5 py-0.5 rounded bg-[#00A3E0]/10 text-[#00A3E0] font-medium">
+                {kpi.function}
+              </span>
+              <span className="text-[10px] text-muted-foreground">{kpi.subFunction}</span>
+            </div>
+            <p className="text-xs font-medium text-foreground mb-2">{kpi.kpiName}</p>
+            <div className="flex items-center gap-2 text-xs">
+              <span className="text-muted-foreground">{kpi.baselineValue}</span>
+              <ArrowRight className="h-3 w-3 text-[#00A3E0]" />
+              <span className="text-[#00B34A] font-medium">{kpi.targetValue}</span>
+              <span className="text-muted-foreground ml-auto">{kpi.timeframe}</span>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+// ------------------------------------------------------------------
+// Rich friction points
+// ------------------------------------------------------------------
+
+function RichFrictionPoints({ frictionPoints }: { frictionPoints: FrictionPoint[] }) {
+  if (!frictionPoints || frictionPoints.length === 0) return null;
+
+  return (
+    <div className="mb-5">
+      <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wider mb-3 flex items-center gap-1.5">
+        <AlertTriangle className="h-3.5 w-3.5 text-[#F59E0B]" /> Friction Points
+      </p>
+      <div className="space-y-2">
+        {frictionPoints.map((fp) => (
+          <div key={fp.id} className="glass-card rounded-lg p-3">
+            <div className="flex flex-wrap items-center gap-2 mb-1.5">
+              <span
+                className={`text-[10px] px-1.5 py-0.5 rounded font-semibold ${
+                  fp.severity === "Critical"
+                    ? "bg-[#EF4444]/10 text-[#EF4444]"
+                    : fp.severity === "High"
+                      ? "bg-[#F59E0B]/10 text-[#F59E0B]"
+                      : "bg-[#6B7280]/10 text-[#6B7280]"
+                }`}
+              >
+                {fp.severity}
+              </span>
+              <span className="text-[10px] text-muted-foreground">{fp.role}</span>
+            </div>
+            <p className="text-sm text-foreground mb-2">{fp.frictionPoint}</p>
+            <div className="flex flex-wrap items-center gap-4 text-xs text-muted-foreground">
+              <span className="flex items-center gap-1">
+                <DollarSign className="h-3 w-3 text-[#EF4444]" />
+                <span className="text-[#EF4444] font-medium">{fmtMil(fp.estimatedAnnualCost)}/yr</span>
+              </span>
+              <span className="flex items-center gap-1">
+                <Clock className="h-3 w-3" />
+                {fp.annualHours.toLocaleString()} hrs/yr
+              </span>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+// ------------------------------------------------------------------
+// Financial breakdown row (per use case)
+// ------------------------------------------------------------------
+
+function FinancialBreakdown({ breakdown }: { breakdown: UseCase["benefitBreakdown"] }) {
+  if (!breakdown) return null;
+
+  const items = [
+    { label: "Cost Savings", value: breakdown.costSavings, color: "#00A3E0", icon: TrendingDown },
+    { label: "Revenue", value: breakdown.revenue, color: "#00B34A", icon: TrendingUp },
+    { label: "Risk Mitigation", value: breakdown.riskMitigation, color: "#F59E0B", icon: ShieldCheck },
+    { label: "Cash Flow", value: breakdown.cashFlow, color: "#8B5CF6", icon: Banknote },
+  ];
+
+  return (
+    <div className="grid grid-cols-2 md:grid-cols-4 gap-2 mb-4">
+      {items.map(({ label, value, color, icon: Icon }) => (
+        <div key={label} className="glass-card rounded-lg p-2.5 text-center">
+          <Icon className="h-3.5 w-3.5 mx-auto mb-1" style={{ color }} />
+          <p className="text-xs text-muted-foreground">{label}</p>
+          <p className="text-sm font-bold" style={{ color }}>{fmtMil(value)}</p>
+        </div>
+      ))}
+    </div>
+  );
+}
+
+// ------------------------------------------------------------------
+// Priority info card
+// ------------------------------------------------------------------
+
+function PriorityInfoCard({ useCase }: { useCase: UseCase }) {
+  const tier = tierStyle[useCase.priorityTier];
+
+  return (
+    <div className="flex flex-wrap items-center gap-3 mb-4 p-3 rounded-lg bg-card border border-border-subtle">
+      <span
+        className="text-xs font-semibold px-2.5 py-1 rounded-full"
+        style={{ color: tier.color, backgroundColor: tier.bg }}
+      >
+        {useCase.priorityTier}
+      </span>
+      {useCase.priority && (
+        <>
+          <span className="text-xs text-muted-foreground">
+            Priority: <span className="text-foreground font-medium">{useCase.priority.priorityScore.toFixed(1)}</span>
+          </span>
+          <span className="text-xs text-muted-foreground">
+            Phase: <span className="text-foreground font-medium">{useCase.priority.recommendedPhase}</span>
+          </span>
+        </>
+      )}
+      <span className="text-xs text-muted-foreground">
+        Readiness: <span className="text-foreground font-medium">{useCase.readinessScore.toFixed(1)}/10</span>
+      </span>
+      <span className="text-xs text-muted-foreground ml-auto">
+        Annual: <span className="text-[#00B34A] font-bold">{fmtMil(useCase.annualValue)}</span>
+      </span>
+    </div>
+  );
+}
+
+// ------------------------------------------------------------------
+// Workflow transformation (collapsible)
+// ------------------------------------------------------------------
+
+function WorkflowSection({ workflow }: { workflow: WorkflowTransformation }) {
+  const m = workflow.comparisonMetrics;
+
+  return (
+    <div className="space-y-3">
+      {/* Comparison metrics */}
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-2">
+        {[
+          { label: "Time", ...m.timeReduction },
+          { label: "Cost", ...m.costReduction },
+          { label: "Quality", ...m.qualityImprovement },
+          { label: "Throughput", ...m.throughputIncrease },
+        ].map((metric) => (
+          <div key={metric.label} className="glass-card rounded-lg p-2.5 text-center">
+            <p className="text-[10px] text-muted-foreground">{metric.label}</p>
+            <p className="text-xs text-muted-foreground line-through">{metric.before}</p>
+            <p className="text-sm font-bold text-[#00B34A]">{metric.after}</p>
+            <p className="text-[10px] text-[#00A3E0] font-medium">{metric.improvement}</p>
+          </div>
+        ))}
+      </div>
+
+      {/* Steps comparison */}
+      <div className="grid md:grid-cols-2 gap-3">
+        {/* Current state */}
+        <div>
+          <p className="text-xs font-semibold text-[#EF4444] mb-2">Current Process</p>
+          <div className="space-y-1.5">
+            {workflow.currentState.map((step) => (
+              <div key={step.stepNumber} className="flex items-start gap-2 text-xs">
+                <span className="w-5 h-5 rounded-full bg-[#EF4444]/10 text-[#EF4444] flex items-center justify-center flex-shrink-0 text-[10px] font-bold">
+                  {step.stepNumber}
+                </span>
+                <div className="flex-1 min-w-0">
+                  <p className="font-medium text-foreground">{step.name}</p>
+                  <div className="flex items-center gap-2 text-muted-foreground">
+                    <span>{step.actorName}</span>
+                    <span>{step.duration}</span>
+                    {step.isBottleneck && <span className="text-[#EF4444] font-medium">Bottleneck</span>}
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+        {/* Target state */}
+        <div>
+          <p className="text-xs font-semibold text-[#00B34A] mb-2">AI-Enabled Process</p>
+          <div className="space-y-1.5">
+            {workflow.targetState.map((step) => (
+              <div key={step.stepNumber} className="flex items-start gap-2 text-xs">
+                <span
+                  className={`w-5 h-5 rounded-full flex items-center justify-center flex-shrink-0 text-[10px] font-bold ${
+                    step.actorType === "ai_agent"
+                      ? "bg-[#00A3E0]/10 text-[#00A3E0]"
+                      : "bg-[#00B34A]/10 text-[#00B34A]"
+                  }`}
+                >
+                  {step.stepNumber}
+                </span>
+                <div className="flex-1 min-w-0">
+                  <p className="font-medium text-foreground">
+                    {step.name}
+                    {step.actorType === "ai_agent" && (
+                      <span className="ml-1.5 text-[10px] px-1.5 py-0.5 rounded bg-[#00A3E0]/10 text-[#00A3E0] font-medium">
+                        AI
+                      </span>
+                    )}
+                  </p>
+                  <div className="flex items-center gap-2 text-muted-foreground">
+                    <span>{step.actorName}</span>
+                    <span>{step.duration}</span>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+// ------------------------------------------------------------------
 // Single use case card
 // ------------------------------------------------------------------
 
@@ -130,7 +357,7 @@ function UseCaseCard({ useCase }: { useCase: UseCase }) {
 
   return (
     <div className="glass-card rounded-lg p-5">
-      {/* Header row: ID badge, title, tier */}
+      {/* Header: ID, title, tags, tier */}
       <div className="flex flex-wrap items-start gap-3 mb-3">
         <span className="text-xs font-bold px-2 py-1 rounded bg-[#00A3E0]/10 text-[#00A3E0] flex-shrink-0">
           {useCase.id}
@@ -155,9 +382,7 @@ function UseCaseCard({ useCase }: { useCase: UseCase }) {
       </div>
 
       {/* Description */}
-      <p className="text-sm text-muted-foreground leading-relaxed mb-4">
-        {useCase.description}
-      </p>
+      <p className="text-sm text-muted-foreground leading-relaxed mb-4">{useCase.description}</p>
 
       {/* Target friction */}
       <div className="flex items-start gap-2 mb-4 p-3 rounded-lg bg-[#F59E0B]/5 border border-[#F59E0B]/15">
@@ -168,14 +393,20 @@ function UseCaseCard({ useCase }: { useCase: UseCase }) {
         </div>
       </div>
 
+      {/* Financial breakdown */}
+      <FinancialBreakdown breakdown={useCase.benefitBreakdown} />
+
+      {/* Priority info */}
+      <PriorityInfoCard useCase={useCase} />
+
       {/* Capabilities */}
       <div className="mb-4">
         <p className="text-xs font-medium text-muted-foreground mb-2 flex items-center gap-1.5">
-          <Cpu className="h-3.5 w-3.5" /> Capabilities
+          <Cpu className="h-3.5 w-3.5" /> AI Capabilities
         </p>
         <div className="flex flex-wrap gap-1.5">
           {useCase.capabilities.map((cap) => (
-            <span key={cap} className="text-xs px-2 py-0.5 rounded-full bg-card border border-border-subtle text-foreground">
+            <span key={cap} className="text-xs px-2 py-0.5 rounded-full bg-[#00B34A]/10 text-[#00B34A] font-medium">
               {cap}
             </span>
           ))}
@@ -219,20 +450,17 @@ function UseCaseCard({ useCase }: { useCase: UseCase }) {
         <p className="text-xs font-medium text-muted-foreground mb-2 flex items-center gap-1.5">
           <CheckCircle2 className="h-3.5 w-3.5" /> Desired Outcomes
         </p>
-        <div className="space-y-2">
+        <div className="space-y-1.5">
           {useCase.desiredOutcomes.map((o, i) => (
             <div key={i} className="flex items-start gap-2">
               <CheckCircle2 className="h-3.5 w-3.5 text-[#00B34A] mt-0.5 flex-shrink-0" />
-              <div>
-                <span className="text-sm text-foreground">{o.outcome}</span>
-                <span className="block text-xs text-muted-foreground mt-0.5">Metric: {o.metric}</span>
-              </div>
+              <span className="text-sm text-foreground">{o.outcome}</span>
             </div>
           ))}
         </div>
       </div>
 
-      {/* Data types & integrations — collapsible */}
+      {/* Data & integrations — collapsible */}
       <CollapsibleSection title="Data & Integrations" icon={Database}>
         <div className="space-y-3">
           <div>
@@ -262,31 +490,23 @@ function UseCaseCard({ useCase }: { useCase: UseCase }) {
         </div>
       </CollapsibleSection>
 
-      {/* HITL requirement */}
-      <div className="border-t border-border-subtle pt-3 mt-0 flex items-start gap-2">
-        <Shield className="h-4 w-4 text-muted-foreground mt-0.5 flex-shrink-0" />
-        <div>
-          <p className="text-xs font-medium text-muted-foreground">Human-in-the-Loop</p>
-          <p className="text-sm text-foreground">{useCase.hitlRequirement}</p>
+      {/* HITL — yellow callout */}
+      <div className="border-t border-border-subtle pt-3 mt-0">
+        <div className="flex items-start gap-2 p-3 rounded-lg bg-[#F59E0B]/5 border border-[#F59E0B]/15">
+          <Shield className="h-4 w-4 text-[#F59E0B] mt-0.5 flex-shrink-0" />
+          <div>
+            <p className="text-xs font-medium text-[#F59E0B] mb-0.5">Human-in-the-Loop</p>
+            <p className="text-sm text-foreground">{useCase.hitlRequirement}</p>
+          </div>
         </div>
       </div>
 
-      {/* Score gauges + annual value */}
-      <div className="border-t border-border-subtle pt-4 mt-3 flex flex-wrap items-end justify-between gap-4">
-        <div className="flex items-center gap-4">
-          <ScoreGauge value={useCase.valueScore} max={10} label="Value" color="#00B34A" />
-          <ScoreGauge value={useCase.readinessScore} max={10} label="Readiness" color="#00A3E0" />
-          <ScoreGauge value={useCase.timeToValue} max={24} label="TTV (mo)" color="#F59E0B" />
-        </div>
-        <div className="text-right">
-          <p className="text-xs text-muted-foreground">Annual Value</p>
-          <p className="text-lg font-bold text-[#00B34A]">
-            ${useCase.annualValue >= 1_000
-              ? `${(useCase.annualValue / 1_000).toFixed(1)}B`
-              : `${useCase.annualValue.toFixed(1)}M`}
-          </p>
-        </div>
-      </div>
+      {/* Workflow transformation — collapsible */}
+      {useCase.workflow && (
+        <CollapsibleSection title="Workflow Transformation" icon={Target}>
+          <WorkflowSection workflow={useCase.workflow} />
+        </CollapsibleSection>
+      )}
     </div>
   );
 }
@@ -311,11 +531,6 @@ function ThemeAccordion({
     [theme.useCases],
   );
 
-  const formattedValue =
-    totalValue >= 1_000
-      ? `$${(totalValue / 1_000).toFixed(1)}B`
-      : `$${totalValue.toFixed(1)}M`;
-
   return (
     <div className="glass-card rounded-xl overflow-hidden">
       {/* Header */}
@@ -323,16 +538,18 @@ function ThemeAccordion({
         onClick={() => setOpen(!open)}
         className="w-full flex items-center gap-4 p-5 text-left hover:bg-surface-muted transition-colors"
       >
-        <div
-          className="flex items-center justify-center w-8 h-8 rounded-lg text-sm font-bold bg-[#00A3E0]/10 text-[#00A3E0] flex-shrink-0"
-        >
+        <div className="flex items-center justify-center w-8 h-8 rounded-lg text-sm font-bold bg-[#00A3E0]/10 text-[#00A3E0] flex-shrink-0">
           {index + 1}
         </div>
         <div className="flex-1 min-w-0">
           <h3 className="text-base font-semibold text-foreground truncate">{theme.name}</h3>
-          <div className="flex items-center gap-3 text-xs text-muted-foreground mt-0.5">
+          <div className="flex flex-wrap items-center gap-3 text-xs text-muted-foreground mt-0.5">
             <span>{theme.useCases.length} use cases</span>
-            <span className="text-[#00B34A] font-medium">{formattedValue}/yr</span>
+            {theme.kpis && theme.kpis.length > 0 && <span>{theme.kpis.length} KPIs</span>}
+            {theme.frictionPoints && theme.frictionPoints.length > 0 && (
+              <span>{theme.frictionPoints.length} friction points</span>
+            )}
+            <span className="text-[#00B34A] font-medium">{fmtMil(totalValue)}/yr</span>
           </div>
         </div>
         <ChevronDown
@@ -350,29 +567,24 @@ function ThemeAccordion({
             transition={{ duration: 0.3 }}
             className="overflow-hidden"
           >
-            <div className="px-5 pb-5 space-y-5">
-              {/* Friction points */}
-              {theme.frictionPoints.length > 0 && (
-                <div className="p-3 rounded-lg bg-card border border-border-subtle">
-                  <p className="text-xs font-medium text-muted-foreground mb-2 flex items-center gap-1.5">
-                    <AlertTriangle className="h-3.5 w-3.5 text-[#F59E0B]" />
-                    Key Friction Points
-                  </p>
-                  <ul className="space-y-1">
-                    {theme.frictionPoints.map((fp, i) => (
-                      <li key={i} className="flex items-start gap-2 text-sm text-foreground">
-                        <span className="text-[#F59E0B] mt-1 flex-shrink-0">-</span>
-                        {fp}
-                      </li>
-                    ))}
-                  </ul>
-                </div>
+            <div className="px-5 pb-5 space-y-1">
+              {/* Current/Target State */}
+              {theme.currentState && theme.targetState && (
+                <StateComparison currentState={theme.currentState} targetState={theme.targetState} />
               )}
 
+              {/* KPIs */}
+              <KPICards kpis={theme.kpis} />
+
+              {/* Rich friction points (filter out legacy string entries) */}
+              <RichFrictionPoints frictionPoints={theme.frictionPoints.filter((fp): fp is FrictionPoint => typeof fp !== "string")} />
+
               {/* Use case cards */}
-              {theme.useCases.map((uc) => (
-                <UseCaseCard key={uc.id} useCase={uc} />
-              ))}
+              <div className="space-y-5">
+                {theme.useCases.map((uc) => (
+                  <UseCaseCard key={uc.id} useCase={uc} />
+                ))}
+              </div>
             </div>
           </motion.div>
         )}
@@ -401,7 +613,7 @@ export default function UseCaseDiscovery({ themes }: UseCaseDiscoveryProps) {
           className="text-center mb-10"
         >
           <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-3">
-            Use Case Discovery
+            Strategic Analysis by Theme
           </h2>
           <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
             {totalUseCases} opportunities across {themes.length} themes. Each one analyzed, scored, and ready for action.
@@ -416,11 +628,7 @@ export default function UseCaseDiscovery({ themes }: UseCaseDiscoveryProps) {
               animate={isInView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.4, delay: 0.08 * index }}
             >
-              <ThemeAccordion
-                theme={theme}
-                index={index}
-                defaultOpen={index < 2}
-              />
+              <ThemeAccordion theme={theme} index={index} defaultOpen={index < 2} />
             </motion.div>
           ))}
         </div>

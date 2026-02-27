@@ -1,7 +1,21 @@
 /**
  * Report Page — Orchestrator
- * Renders all native report sections in order. Receives a typed IndustryReport
- * and industry display name. Replaces the iframe embed approach.
+ * Renders all native report sections in the new workshop-style order.
+ * Receives a typed IndustryReport and industry display name.
+ *
+ * Section order:
+ * 1. Hero
+ * 2. AssessmentGuide (collapsible)
+ * 3. ExecutiveSummary (if data present)
+ * 4. ValueDriverCards
+ * 5. FinancialSensitivity
+ * 6. ValueReadinessMatrix
+ * 7. TierBreakdownCards
+ * 8. FrictionRecoveryDashboard
+ * 9. UseCaseDiscovery ("Strategic Analysis by Theme")
+ * 10. ReadinessTable
+ * 11. Methodology (collapsible, inline)
+ * 12. ReportCTA (flywheel variant)
  */
 
 import { useState, useRef, useMemo } from "react";
@@ -10,10 +24,15 @@ import { ChevronDown, BookOpen, CheckCircle2 } from "lucide-react";
 import type { IndustryReport } from "@/data/report-types";
 
 import ReportHero from "./ReportHero";
+import AssessmentGuide from "./AssessmentGuide";
+import ExecutiveSummarySection from "./ExecutiveSummarySection";
 import ValueDriverCards from "./ValueDriverCards";
 import FinancialSensitivity from "./FinancialSensitivity";
 import ValueReadinessMatrix from "./ValueReadinessMatrix";
+import TierBreakdownCards from "./TierBreakdownCards";
+import FrictionRecoveryDashboard from "./FrictionRecoveryDashboard";
 import UseCaseDiscovery from "./UseCaseDiscovery";
+import ReadinessTable from "./ReadinessTable";
 import ReportCTA from "./ReportCTA";
 
 interface ReportPageProps {
@@ -91,7 +110,7 @@ function MethodologySection({ framework, assumptions }: { framework: string; ass
 // ------------------------------------------------------------------
 
 export default function ReportPage({ report, industryName }: ReportPageProps) {
-  // Flatten all use cases for the matrix
+  // Flatten all use cases for the matrix and tier breakdown
   const allUseCases = useMemo(
     () => report.themes.flatMap((theme) => theme.useCases),
     [report.themes],
@@ -99,6 +118,18 @@ export default function ReportPage({ report, industryName }: ReportPageProps) {
 
   const totalUseCases = allUseCases.length;
   const totalThemes = report.themes.length;
+
+  // Count rich friction points (FrictionPoint objects, not legacy strings)
+  const totalFrictionPoints = useMemo(
+    () => report.themes.reduce((sum, t) => {
+      const rich = (t.frictionPoints ?? []).filter((fp) => typeof fp !== "string");
+      return sum + rich.length;
+    }, 0),
+    [report.themes],
+  );
+
+  // Check if we have rich data (new schema with readiness dimensions, etc.)
+  const hasRichData = allUseCases.some((uc) => uc.readinessDimensions);
 
   return (
     <div className="bg-background">
@@ -109,30 +140,55 @@ export default function ReportPage({ report, industryName }: ReportPageProps) {
         industryName={industryName}
         themeCount={totalThemes}
         useCaseCount={totalUseCases}
+        frictionPointCount={totalFrictionPoints > 0 ? totalFrictionPoints : undefined}
       />
 
-      {/* 2. Value Drivers */}
+      {/* 2. Assessment Guide (collapsible) */}
+      <AssessmentGuide />
+
+      {/* 3. Executive Summary (if data present) */}
+      {report.executiveSummary && (
+        <ExecutiveSummarySection summary={report.executiveSummary} />
+      )}
+
+      {/* 4. Value Drivers */}
       <ValueDriverCards drivers={report.valueDrivers} />
 
-      {/* 3. Financial Sensitivity */}
+      {/* 5. Financial Sensitivity */}
       <FinancialSensitivity scenarios={report.financialScenarios} />
 
-      {/* 4. Value vs Readiness Matrix */}
+      {/* 6. Value vs Readiness Matrix */}
       <ValueReadinessMatrix useCases={allUseCases} />
 
-      {/* 5. Use Case Discovery (themes + friction) */}
+      {/* 7. Tier Breakdown */}
+      <TierBreakdownCards useCases={allUseCases} />
+
+      {/* 8. Friction Recovery Dashboard (only if rich friction data) */}
+      {totalFrictionPoints > 0 && (
+        <FrictionRecoveryDashboard themes={report.themes} useCases={allUseCases} />
+      )}
+
+      {/* 9. Use Case Discovery (themes + friction) */}
       <UseCaseDiscovery themes={report.themes} />
 
-      {/* 6. Methodology */}
+      {/* 10. Readiness Table (only if rich data) */}
+      {hasRichData && (
+        <ReadinessTable themes={report.themes} />
+      )}
+
+      {/* 11. Methodology */}
       <MethodologySection
         framework={report.methodology.framework}
         assumptions={report.methodology.assumptions}
       />
 
-      {/* 7. CTA */}
+      {/* 12. CTA (flywheel variant) */}
       <ReportCTA
         industrySlug={report.industrySlug}
         industryName={industryName}
+        totalValue={report.totalValueOpportunity}
+        useCaseCount={totalUseCases}
+        variant="flywheel"
       />
     </div>
   );

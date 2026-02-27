@@ -5,7 +5,7 @@
  */
 
 import { motion } from "framer-motion";
-import { TrendingUp, Layers, BarChart3 } from "lucide-react";
+import { TrendingUp, Layers, BarChart3, AlertTriangle } from "lucide-react";
 import AnimatedCounter from "@/components/AnimatedCounter";
 
 interface ReportHeroProps {
@@ -14,6 +14,7 @@ interface ReportHeroProps {
   industryName: string;
   themeCount: number;
   useCaseCount: number;
+  frictionPointCount?: number;
 }
 
 /** Format dollar value (input is in millions): <1000M shows "$XXX.XM", >=1000M shows "$X.XB" */
@@ -30,6 +31,7 @@ export default function ReportHero({
   industryName,
   themeCount,
   useCaseCount,
+  frictionPointCount,
 }: ReportHeroProps) {
   const formatted = formatTotalValue(totalValue);
 
@@ -86,10 +88,25 @@ export default function ReportHero({
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.3 }}
-            className="text-lg md:text-xl text-white/70 leading-relaxed max-w-3xl mx-auto mb-10"
+            className="text-lg md:text-xl text-white/70 leading-relaxed max-w-3xl mx-auto mb-4"
           >
             {companyDescription}
           </motion.p>
+
+          {/* Subtitle with friction mapping info */}
+          {frictionPointCount != null && frictionPointCount > 0 && (
+            <motion.p
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.4 }}
+              className="text-sm text-white/50 mb-8"
+            >
+              Across {useCaseCount} AI use cases spanning {themeCount} strategic themes, with{" "}
+              {frictionPointCount}/{frictionPointCount} friction points mapped to recovery pathways.
+            </motion.p>
+          )}
+
+          {!frictionPointCount && <div className="mb-6" />}
 
           {/* Stats row */}
           <motion.div
@@ -122,15 +139,27 @@ export default function ReportHero({
 
             <div className="hidden sm:block w-px h-10 bg-white/15" />
 
-            <div className="flex items-center gap-3">
-              <div className="p-2 rounded-lg bg-[#00A3E0]/15">
-                <TrendingUp className="h-5 w-5 text-[#00A3E0]" />
+            {frictionPointCount != null && frictionPointCount > 0 ? (
+              <div className="flex items-center gap-3">
+                <div className="p-2 rounded-lg bg-[#F59E0B]/15">
+                  <AlertTriangle className="h-5 w-5 text-[#F59E0B]" />
+                </div>
+                <div className="text-left">
+                  <p className="text-2xl font-bold text-white">{frictionPointCount}</p>
+                  <p className="text-sm text-white/50">Friction Points</p>
+                </div>
               </div>
-              <div className="text-left">
-                <p className="text-2xl font-bold text-white">4</p>
-                <p className="text-sm text-white/50">Value Drivers</p>
+            ) : (
+              <div className="flex items-center gap-3">
+                <div className="p-2 rounded-lg bg-[#00A3E0]/15">
+                  <TrendingUp className="h-5 w-5 text-[#00A3E0]" />
+                </div>
+                <div className="text-left">
+                  <p className="text-2xl font-bold text-white">4</p>
+                  <p className="text-sm text-white/50">Value Drivers</p>
+                </div>
               </div>
-            </div>
+            )}
           </motion.div>
         </div>
       </div>
