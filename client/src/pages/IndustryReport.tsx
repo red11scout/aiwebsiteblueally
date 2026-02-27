@@ -4,7 +4,7 @@
  * Route: /industries/:slug
  */
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { Link, useParams } from "wouter";
 import {
@@ -12,10 +12,11 @@ import {
   Users, Layers, Clock, Handshake,
   Zap, HardHat, Factory, ShoppingCart, Truck, Monitor,
   Landmark, Building2, Briefcase, GraduationCap, Stethoscope,
-  Film, Globe, Shield, Target, AlertTriangle, Send,
+  Film, Globe, Shield, Target, AlertTriangle, Send, Loader2,
 } from "lucide-react";
 import { getIndustryBySlug } from "@/data/industries";
-import { getReportBySlug } from "@/data/reports";
+import { hasReportData, loadReport } from "@/data/reports";
+import type { IndustryReport as IndustryReportType } from "@/data/report-types";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import ReportPage from "@/components/report/ReportPage";
@@ -81,8 +82,24 @@ const frameworkSteps = [
 
 export default function IndustryReport() {
   const params = useParams<{ slug: string }>();
-  const industry = getIndustryBySlug(params.slug || "");
-  const report = getReportBySlug(params.slug || "");
+  const slug = params.slug || "";
+  const industry = getIndustryBySlug(slug);
+
+  const [report, setReport] = useState<IndustryReportType | null>(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    setLoading(true);
+    setReport(null);
+    if (industry && hasReportData(slug)) {
+      loadReport(slug).then((r) => {
+        setReport(r ?? null);
+        setLoading(false);
+      });
+    } else {
+      setLoading(false);
+    }
+  }, [slug, industry]);
 
   if (!industry) {
     return (
@@ -134,7 +151,7 @@ export default function IndustryReport() {
                 </div>
               </div>
 
-              {report ? (
+              {report || loading ? (
                 <p className="text-lg text-muted-foreground leading-relaxed">
                   A real-world AI Use Case Workshop assessment for the {industry.name.toLowerCase()} sector.
                   Validated ROI, prioritized use cases, and an implementation roadmap built using
@@ -150,8 +167,14 @@ export default function IndustryReport() {
           </div>
         </section>
 
-        {/* Report Content or Coming Soon */}
-        {report ? (
+        {/* Report Content, Loading, or Coming Soon */}
+        {loading ? (
+          <section className="py-16 md:py-24">
+            <div className="container flex justify-center">
+              <Loader2 className="h-8 w-8 text-[#00A3E0] animate-spin" />
+            </div>
+          </section>
+        ) : report ? (
           <ReportPage report={report} industryName={industry.name} />
         ) : (
           <ComingSoon industry={industry} IconComponent={IconComponent} />

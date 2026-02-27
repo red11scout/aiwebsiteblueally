@@ -204,4 +204,6 @@ export interface IndustryReport {
     assumptions: string[];
   };
   executiveSummary?: ExecutiveSummary;
+  /** Link to the interactive workshop report */
+  workshopUrl?: string;
 }

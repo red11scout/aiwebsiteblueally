@@ -2,8 +2,8 @@ import type { IndustryReport } from "../report-types";
 
 export const report: IndustryReport = {
   "industrySlug": "manufacturing",
-  "companyDescription": "A Specialty Materials Manufacturing Company with $2.9B in annual revenue operating 45 facilities across 26 countries",
-  "companyOverview": "Mativ Holdings generates $2.9B in annual revenue manufacturing specialty materials for filtration, healthcare packaging, and technical applications. The company emerged from the 2022 merger of Schweitzer-Mauduit International and Fibertex Nonwovens, operating 45 manufacturing facilities across 26 countries with 7,600 employees.\n\nThe Advanced and Base Materials segment contributes 58% of revenue ($1.7B), producing filtration media and specialty papers for tobacco, cannabis, and industrial applications. Specialty Engineered Materials generates 42% ($1.2B) through nonwoven fabrics for medical, hygiene, and packaging markets. Customer concentration runs high—top 10 customers represent 37% of revenue. Operating margins compressed to 8.4% in fiscal 2025 from 11.2% pre-merger as integration costs and raw material inflation outpaced pricing actions.\n\nThe company faces a $87M annual burden from manufacturing inefficiency. Production planners spend 142,000 hours annually managing scheduling conflicts across legacy ERP systems, creating average 4.2-day lead time delays and 340 basis points of yield variance between best and worst-performing facilities. This variability forces 18% safety stock buffers that tie up $156M in working capital.\n\nSupply chain complexity imposes $64M in annual costs. Demand forecasting teams dedicate 98,000 hours reconciling customer order patterns across fragmented systems, resulting in 23% forecast error rates and $89M in excess slow-moving inventory. Raw material procurement operates with 47-day average decision cycles due to manual supplier performance tracking across 340 active vendors.\n\nProduct development cycles stretch 18-24 months, consuming $41M and 76,000 engineering hours annually. Technical teams manually validate regulatory compliance across 12 jurisdictions for each new formulation, creating documentation backlogs that delay commercialization. This pace disadvantages Mativ against competitors launching sustainable material alternatives in 8-12 month cycles.\n\nSales operations bear $38M in friction costs from quote generation inefficiency. Technical sales teams require 89,000 hours annually to configure custom specifications and validate feasibility across product lines, averaging 8.3 days per complex quote. This creates 34% quote abandonment rates on projects requiring multi-facility coordination.\n\nFinancial data derives from Mativ's fiscal 2025 10-K filing and Q4 2025 earnings release. Operational burden estimates apply $150/hour fully-loaded rates for professional staff and $85/hour for production personnel. Data maturity assessed at Level 2 based on disclosed post-merger integration timelines and IT infrastructure investments totaling $34M over 2024-2025.",
+  "companyDescription": "A Specialty Materials Manufacturing Company",
+  "companyOverview": "The organization generates $2.9B in annual revenue manufacturing specialty materials for filtration, healthcare packaging, and technical applications. The company emerged from the 2022 merger of Schweitzer-Mauduit International and Fibertex Nonwovens, operating 45 manufacturing facilities across 26 countries with 7,600 employees.\n\nThe Advanced and Base Materials segment contributes 58% of revenue ($1.7B), producing filtration media and specialty papers for tobacco, cannabis, and industrial applications. Specialty Engineered Materials generates 42% ($1.2B) through nonwoven fabrics for medical, hygiene, and packaging markets. Customer concentration runs high—top 10 customers represent 37% of revenue. Operating margins compressed to 8.4% in fiscal 2025 from 11.2% pre-merger as integration costs and raw material inflation outpaced pricing actions.\n\nThe company faces a $87M annual burden from manufacturing inefficiency. Production planners spend 142,000 hours annually managing scheduling conflicts across legacy ERP systems, creating average 4.2-day lead time delays and 340 basis points of yield variance between best and worst-performing facilities. This variability forces 18% safety stock buffers that tie up $156M in working capital.\n\nSupply chain complexity imposes $64M in annual costs. Demand forecasting teams dedicate 98,000 hours reconciling customer order patterns across fragmented systems, resulting in 23% forecast error rates and $89M in excess slow-moving inventory. Raw material procurement operates with 47-day average decision cycles due to manual supplier performance tracking across 340 active vendors.\n\nProduct development cycles stretch 18-24 months, consuming $41M and 76,000 engineering hours annually. Technical teams manually validate regulatory compliance across 12 jurisdictions for each new formulation, creating documentation backlogs that delay commercialization. This pace disadvantages the organization against competitors launching sustainable material alternatives in 8-12 month cycles.\n\nSales operations bear $38M in friction costs from quote generation inefficiency. Technical sales teams require 89,000 hours annually to configure custom specifications and validate feasibility across product lines, averaging 8.3 days per complex quote. This creates 34% quote abandonment rates on projects requiring multi-facility coordination.\n\nFinancial data derives from the organization's fiscal 2025 10-K filing and Q4 2025 earnings release. Operational burden estimates apply $150/hour fully-loaded rates for professional staff and $85/hour for production personnel. Data maturity assessed at Level 2 based on disclosed post-merger integration timelines and IT infrastructure investments totaling $34M over 2024-2025.",
   "totalValueOpportunity": 41.4,
   "valueDrivers": [
     {
@@ -11,28 +11,28 @@ export const report: IndustryReport = {
       "amount": 20.6,
       "percentage": 50,
       "color": "#00B34A",
-      "description": "AI-driven manufacturing optimization, supply chain efficiency, and automated quality monitoring reducing operational costs across 45 global facilities"
+      "description": "Operational efficiency through AI-driven automation across manufacturing excellence & yield optimization, supply chain intelligence & working capital, accelerated product development & compliance"
     },
     {
       "name": "Revenue Growth",
       "amount": 16.5,
       "percentage": 40,
       "color": "#00A3E0",
-      "description": "Accelerated product development, intelligent quoting, and customer intelligence driving revenue uplift through faster time-to-market and improved win rates"
+      "description": "AI-powered intelligence and optimization driving revenue through manufacturing excellence & yield optimization, supply chain intelligence & working capital, accelerated product development & compliance"
     },
     {
       "name": "Cash Flow Acceleration",
       "amount": 2.8,
       "percentage": 7,
       "color": "#003B73",
-      "description": "Working capital optimization through AI-driven demand sensing, inventory reduction, and faster procurement cycles"
+      "description": "Working capital optimization and cycle time reduction through AI-driven manufacturing excellence & yield optimization, supply chain intelligence & working capital, accelerated product development & compliance"
     },
     {
       "name": "Risk Mitigation",
       "amount": 1.5,
       "percentage": 4,
       "color": "#FF6B35",
-      "description": "Predictive quality control, regulatory compliance automation, and supplier risk monitoring reducing exposure across manufacturing operations"
+      "description": "Predictive monitoring, compliance automation, and risk reduction across manufacturing excellence & yield optimization, supply chain intelligence & working capital, accelerated product development & compliance"
     }
   ],
   "financialScenarios": [
@@ -124,18 +124,18 @@ export const report: IndustryReport = {
             "cashFlow": 0
           },
           "readinessDimensions": {
-            "dataAvailability": 5,
-            "technicalInfrastructure": 5,
-            "organizationalCapacity": 5,
+            "dataAvailability": 7,
+            "technicalInfrastructure": 6,
+            "organizationalCapacity": 8,
             "governance": 5
           },
           "priority": {
             "priorityScore": 6.73,
             "recommendedPhase": "Q2",
             "valueScore": 6.76,
-            "ttvScore": 9
+            "ttvScore": 0.25
           },
-          "probabilityOfSuccess": 0.6,
+          "probabilityOfSuccess": 0.65,
           "workflow": {
             "currentState": [
               {
@@ -490,9 +490,9 @@ export const report: IndustryReport = {
             "cashFlow": 810
           },
           "readinessDimensions": {
-            "dataAvailability": 5,
+            "dataAvailability": 6,
             "technicalInfrastructure": 5,
-            "organizationalCapacity": 5,
+            "organizationalCapacity": 7,
             "governance": 5
           },
           "priority": {
@@ -501,7 +501,7 @@ export const report: IndustryReport = {
             "valueScore": 3.7,
             "ttvScore": 12
           },
-          "probabilityOfSuccess": 0.6,
+          "probabilityOfSuccess": 0.7,
           "workflow": {
             "currentState": [
               {
@@ -884,8 +884,8 @@ export const report: IndustryReport = {
           "readinessDimensions": {
             "dataAvailability": 5,
             "technicalInfrastructure": 5,
-            "organizationalCapacity": 5,
-            "governance": 5
+            "organizationalCapacity": 6,
+            "governance": 4
           },
           "priority": {
             "priorityScore": 5.67,
@@ -1185,7 +1185,8 @@ export const report: IndustryReport = {
             "rationale": "Planning pattern decomposes disposition decisions into structured steps: aging analysis, demand likelihood scoring, channel suitability matching, and financial impact modeling. Sequential execution ensures consistent criteria application across SKUs. Tool Use alternative provides faster execution but lacks the strategic decomposition needed for complex disposition logic."
           },
           "epochClassification": [
-            "Operational, Human-centric"
+            "Operational",
+            "Human-centric"
           ],
           "desiredOutcomes": [
             {
@@ -1227,18 +1228,18 @@ export const report: IndustryReport = {
             "cashFlow": 1.2
           },
           "readinessDimensions": {
-            "dataAvailability": 5,
-            "technicalInfrastructure": 5,
-            "organizationalCapacity": 5,
+            "dataAvailability": 6,
+            "technicalInfrastructure": 6,
+            "organizationalCapacity": 7,
             "governance": 5
           },
           "priority": {
             "priorityScore": 6.49,
             "recommendedPhase": "Q2",
             "valueScore": 6.89,
-            "ttvScore": 8
+            "ttvScore": 0.33
           },
-          "probabilityOfSuccess": 0.6,
+          "probabilityOfSuccess": 0.65,
           "workflow": {
             "currentState": [
               {
@@ -1554,7 +1555,8 @@ export const report: IndustryReport = {
             "rationale": "Generator-Critic pattern produces test protocols through iterative generation and validation cycles. Generator creates protocols based on material specifications and regulatory requirements; Critic evaluates completeness, identifies gaps, and flags inconsistencies. Reflection alternative internalizes critique but loses the specialization benefits of dedicated validator agents."
           },
           "epochClassification": [
-            "Operational, Human-centric"
+            "Operational",
+            "Human-centric"
           ],
           "desiredOutcomes": [
             {
@@ -1598,8 +1600,8 @@ export const report: IndustryReport = {
           "readinessDimensions": {
             "dataAvailability": 5,
             "technicalInfrastructure": 5,
-            "organizationalCapacity": 5,
-            "governance": 5
+            "organizationalCapacity": 6,
+            "governance": 6
           },
           "priority": {
             "priorityScore": 4.98,
@@ -1607,7 +1609,7 @@ export const report: IndustryReport = {
             "valueScore": 4.46,
             "ttvScore": 14
           },
-          "probabilityOfSuccess": 0.6,
+          "probabilityOfSuccess": 0.55,
           "workflow": {
             "currentState": [
               {
@@ -1940,7 +1942,8 @@ export const report: IndustryReport = {
             "rationale": "Prompt Chaining pattern sequences document assembly through progressive refinement: jurisdiction requirements extraction, template population, cross-reference validation, and formatting compliance. Each step builds on prior outputs with deterministic transitions. Tool Use alternative provides faster execution but sacrifices the structured decomposition needed for regulatory precision."
           },
           "epochClassification": [
-            "Operational, Human-centric"
+            "Operational",
+            "Human-centric"
           ],
           "desiredOutcomes": [
             {
@@ -1982,18 +1985,18 @@ export const report: IndustryReport = {
             "cashFlow": 810
           },
           "readinessDimensions": {
-            "dataAvailability": 5,
-            "technicalInfrastructure": 5,
-            "organizationalCapacity": 5,
-            "governance": 5
+            "dataAvailability": 6,
+            "technicalInfrastructure": 6,
+            "organizationalCapacity": 7,
+            "governance": 7
           },
           "priority": {
             "priorityScore": 6.35,
             "recommendedPhase": "Q2",
             "valueScore": 6.2,
-            "ttvScore": 7
+            "ttvScore": 0.42
           },
-          "probabilityOfSuccess": 0.6,
+          "probabilityOfSuccess": 0.7,
           "workflow": {
             "currentState": [
               {
@@ -2401,18 +2404,18 @@ export const report: IndustryReport = {
             "cashFlow": 0
           },
           "readinessDimensions": {
-            "dataAvailability": 5,
+            "dataAvailability": 6,
             "technicalInfrastructure": 5,
-            "organizationalCapacity": 5,
+            "organizationalCapacity": 7,
             "governance": 5
           },
           "priority": {
             "priorityScore": 7.95,
             "recommendedPhase": "Q2",
             "valueScore": 10,
-            "ttvScore": 10
+            "ttvScore": 0.17
           },
-          "probabilityOfSuccess": 0.6,
+          "probabilityOfSuccess": 0.65,
           "workflow": {
             "currentState": [
               {
@@ -2656,7 +2659,8 @@ export const report: IndustryReport = {
             "rationale": "Tool Use pattern invokes specialized tools for semantic search across product catalogs, specification comparison, and substitute recommendation. Direct tool invocation provides deterministic results for bounded technical queries. ReAct Loop alternative adds reasoning overhead without material accuracy gains for well-structured product data."
           },
           "epochClassification": [
-            "Operational, Human-centric"
+            "Operational",
+            "Human-centric"
           ],
           "desiredOutcomes": [
             {
@@ -2700,14 +2704,14 @@ export const report: IndustryReport = {
           "readinessDimensions": {
             "dataAvailability": 5,
             "technicalInfrastructure": 5,
-            "organizationalCapacity": 5,
+            "organizationalCapacity": 6,
             "governance": 5
           },
           "priority": {
             "priorityScore": 5.6,
             "recommendedPhase": "Q3",
             "valueScore": 5.89,
-            "ttvScore": 11
+            "ttvScore": 0.08
           },
           "probabilityOfSuccess": 0.6,
           "workflow": {
@@ -3084,8 +3088,8 @@ export const report: IndustryReport = {
             "cashFlow": 0
           },
           "readinessDimensions": {
-            "dataAvailability": 5,
-            "technicalInfrastructure": 5,
+            "dataAvailability": 4,
+            "technicalInfrastructure": 4,
             "organizationalCapacity": 5,
             "governance": 5
           },
@@ -3095,7 +3099,7 @@ export const report: IndustryReport = {
             "valueScore": 1.57,
             "ttvScore": 18
           },
-          "probabilityOfSuccess": 0.6,
+          "probabilityOfSuccess": 0.7,
           "workflow": {
             "currentState": [
               {
@@ -3444,10 +3448,10 @@ export const report: IndustryReport = {
             "cashFlow": 0
           },
           "readinessDimensions": {
-            "dataAvailability": 5,
-            "technicalInfrastructure": 5,
+            "dataAvailability": 4,
+            "technicalInfrastructure": 4,
             "organizationalCapacity": 5,
-            "governance": 5
+            "governance": 6
           },
           "priority": {
             "priorityScore": 2.85,
@@ -3455,7 +3459,7 @@ export const report: IndustryReport = {
             "valueScore": 1,
             "ttvScore": 16
           },
-          "probabilityOfSuccess": 0.6,
+          "probabilityOfSuccess": 0.65,
           "workflow": {
             "currentState": [
               {
@@ -3820,16 +3824,16 @@ export const report: IndustryReport = {
   "methodology": {
     "framework": "BlueAlly 7-Step AI Assessment Framework with financial modeling, readiness scoring, and workflow transformation analysis",
     "assumptions": [
-      "All monetary values derived from public filings (10-K, quarterly earnings) and standard industry benchmarks",
-      "Fully-loaded labor rates: $150/hour professional staff, $85/hour production personnel",
-      "Implementation assumes 12-month base timeline with phased rollout across facilities",
+      "All monetary values derived from public filings and standard industry benchmarks",
+      "Fully-loaded labor rates applied per role: professional staff at market rates",
+      "Implementation assumes 12-month base timeline with phased rollout",
       "ROI calculations use 10% discount rate for NPV, 3-year payback threshold",
-      "Readiness scores based on disclosed IT integration investments and data maturity indicators",
+      "Readiness scores based on disclosed technology investments and data maturity indicators",
       "Probability of success factors in organizational change management complexity"
     ]
   },
   "executiveSummary": {
-    "headline": "Mativ should execute 4 Critical-priority AI initiatives in Q1-Q2 to capture $19.5M in first-year value from a $45.4M total opportunity.",
+    "headline": "The organization should execute 4 Critical-priority AI initiatives in Q1-Q2 to capture $19.5M in first-year value from a $45.4M total opportunity.",
     "context": "Post-merger integration between Fibertex and Schweitzer-Mauduit created $2.9B in combined revenue but fragmented data systems constrain operational efficiency. Legacy ERP platforms operate in functional silos, limiting enterprise visibility while manufacturing and supply chain teams manually reconcile information across 30+ facilities. AI deployment offers immediate relief—ten high-impact use cases can reshape manufacturing yield management, accelerate quote cycles, and unlock working capital trapped in slow-moving inventory.",
     "criticalPath": "Q1 success depends on manufacturing data access—confirm MES historians provide programmatic API access before committing to UC-01 timeline. UC-07 requires product configuration rules extracted from tribal knowledge; budget 60 days for SME interviews preceding AI training. Governance framework must launch in parallel—establish model monitoring, bias auditing, and human-in-loop validation protocols before any production deployment.",
     "recommendedAction": "Launch UC-01, UC-04, UC-06, and UC-07 in Q1 2025 with $4.8M combined investment targeting $19.5M first-year return. Assign executive sponsors from manufacturing and commercial leadership, establish monthly steering committee reviews, and mandate 90-day proof-of-value milestones before scaling.",
@@ -3868,5 +3872,6 @@ export const report: IndustryReport = {
         "value": "$2,460"
       }
     ]
-  }
+  },
+  "workshopUrl": "https://workshop.movefasterwithai.com/shared/7e_NDxF1jI"
 };

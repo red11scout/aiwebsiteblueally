@@ -24,6 +24,7 @@ interface ReportCTAProps {
   totalValue?: number;
   useCaseCount?: number;
   variant?: "form" | "flywheel";
+  workshopUrl?: string;
 }
 
 /** Free email domains to block */
@@ -52,12 +53,14 @@ function FlywheelCTA({
   industryName,
   totalValue,
   useCaseCount,
+  workshopUrl,
   sectionRef,
   isInView,
 }: {
   industryName: string;
   totalValue?: number;
   useCaseCount?: number;
+  workshopUrl?: string;
   sectionRef: React.RefObject<HTMLDivElement | null>;
   isInView: boolean;
 }) {
@@ -105,6 +108,19 @@ function FlywheelCTA({
         Learn More
         <Send className="h-5 w-5" />
       </a>
+
+      {workshopUrl && (
+        <div className="mt-4">
+          <a
+            href={workshopUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-sm text-[#00A3E0]/70 hover:text-[#00A3E0] transition-colors underline underline-offset-4"
+          >
+            Explore the interactive workshop report &rarr;
+          </a>
+        </div>
+      )}
     </motion.div>
   );
 }
@@ -295,6 +311,7 @@ export default function ReportCTA({
   totalValue,
   useCaseCount,
   variant = "flywheel",
+  workshopUrl,
 }: ReportCTAProps) {
   const sectionRef = useRef<HTMLDivElement>(null);
   const isInView = useInView(sectionRef, { once: true, margin: "-80px" });
@@ -313,6 +330,7 @@ export default function ReportCTA({
             industryName={industryName}
             totalValue={totalValue}
             useCaseCount={useCaseCount}
+            workshopUrl={workshopUrl}
             sectionRef={sectionRef}
             isInView={isInView}
           />

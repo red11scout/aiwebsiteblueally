@@ -189,6 +189,7 @@ export default function ReportPage({ report, industryName }: ReportPageProps) {
         totalValue={report.totalValueOpportunity}
         useCaseCount={totalUseCases}
         variant="flywheel"
+        workshopUrl={report.workshopUrl}
       />
     </div>
   );

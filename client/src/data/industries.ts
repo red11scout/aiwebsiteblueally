@@ -41,7 +41,7 @@ export const industries: Industry[] = [
       "Safety incident reports are filed but never analyzed for patterns",
       "Subcontractor coordination wastes 4+ hours/day per project manager",
     ],
-    hasReport: false,
+    hasReport: true,
     category: "corporate",
   },
   {
@@ -55,7 +55,7 @@ export const industries: Industry[] = [
       "Production scheduling ignores real-time machine health and supply chain signals",
       "Maintenance teams respond to breakdowns instead of predicting them",
     ],
-    hasReport: false,
+    hasReport: true,
     category: "corporate",
   },
   {
@@ -69,7 +69,7 @@ export const industries: Industry[] = [
       "Customer service teams handle 80% repetitive queries that AI could resolve instantly",
       "Pricing decisions lag competitor changes by days or weeks",
     ],
-    hasReport: false,
+    hasReport: true,
     category: "corporate",
   },
   {
@@ -83,7 +83,7 @@ export const industries: Industry[] = [
       "Driver compliance documentation is manual and error-prone",
       "Freight pricing is reactive — AI can predict market rates 2 weeks ahead",
     ],
-    hasReport: false,
+    hasReport: true,
     category: "corporate",
   },
   {
@@ -111,7 +111,7 @@ export const industries: Industry[] = [
       "Claims processing takes 15+ days with manual document review",
       "Regulatory reporting consumes entire compliance teams for weeks each quarter",
     ],
-    hasReport: false,
+    hasReport: true,
     category: "corporate",
   },
   {
@@ -125,7 +125,7 @@ export const industries: Industry[] = [
       "Lease abstraction and due diligence is a manual, multi-week process",
       "Tenant screening processes miss patterns visible in unstructured data",
     ],
-    hasReport: false,
+    hasReport: true,
     category: "corporate",
   },
   {
@@ -139,7 +139,7 @@ export const industries: Industry[] = [
       "Knowledge management systems are graveyards — nobody searches them",
       "Client deliverable quality varies wildly between teams and offices",
     ],
-    hasReport: false,
+    hasReport: true,
     category: "corporate",
   },
   {
@@ -153,7 +153,7 @@ export const industries: Industry[] = [
       "Research grant applications duplicate effort across departments",
       "Institutional knowledge is locked in retiring faculty and staff",
     ],
-    hasReport: false,
+    hasReport: true,
     category: "public",
   },
   {
@@ -167,7 +167,7 @@ export const industries: Industry[] = [
       "Prior authorization requests take 14+ days with manual processing",
       "Medical research synthesis requires weeks of manual literature review",
     ],
-    hasReport: false,
+    hasReport: true,
     category: "corporate",
   },
   {
@@ -195,7 +195,7 @@ export const industries: Industry[] = [
       "Policy impact analysis is done manually across thousands of pages of regulation",
       "Inter-agency data sharing is blocked by incompatible systems and formats",
     ],
-    hasReport: false,
+    hasReport: true,
     category: "government",
   },
   {
@@ -209,7 +209,7 @@ export const industries: Industry[] = [
       "Procurement processes take 18+ months from requirement to contract award",
       "Compliance auditing is reactive, not continuous — risks surface too late",
     ],
-    hasReport: false,
+    hasReport: true,
     category: "government",
   },
 ];
