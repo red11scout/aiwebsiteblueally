@@ -55,7 +55,7 @@ export default function Footer() {
               <img
                 src="/images/blueally-logo.png"
                 alt="BlueAlly"
-                className="h-8 w-auto"
+                className="h-8 w-auto dark:brightness-100 brightness-0"
               />
               <span
                 className="text-[#00B34A] font-bold text-2xl tracking-tight"

@@ -97,7 +97,7 @@ export default function Navigation() {
             <img
               src="/images/blueally-logo.png"
               alt="BlueAlly"
-              className="h-6 md:h-8 w-auto"
+              className="h-6 md:h-8 w-auto dark:brightness-100 brightness-0"
             />
             <span
               className="text-[#00A3E0] font-medium text-xl md:text-2xl tracking-tight"
@@ -155,7 +155,7 @@ export default function Navigation() {
                     <img
                       src="/images/blueally-logo.png"
                       alt="BlueAlly"
-                      className="h-6 w-auto"
+                      className="h-6 w-auto dark:brightness-100 brightness-0"
                     />
                     <span
                       className="text-[#00A3E0] font-medium text-xl tracking-tight"
