@@ -9,6 +9,18 @@ import chatRouter from "./routes/chat.js";
 import contactRouter from "./routes/contact.js";
 import signupRouter from "./routes/signup.js";
 
+// Top-level crash handlers — catches import/module errors before startServer()
+process.on("uncaughtException", (err) => {
+  console.error("UNCAUGHT EXCEPTION:", err);
+  process.exit(1);
+});
+process.on("unhandledRejection", (reason) => {
+  console.error("UNHANDLED REJECTION:", reason);
+  process.exit(1);
+});
+
+console.log("=== Server module loaded ===");
+
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
