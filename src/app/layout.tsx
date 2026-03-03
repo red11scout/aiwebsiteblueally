@@ -33,6 +33,9 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
   },
+  icons: {
+    icon: "/favicon-32x32.png",
+  },
   robots: {
     index: true,
     follow: true,

@@ -20,11 +20,11 @@ const stats = [
   { number: "Zero", label: "Failed Deployments in 2024" },
 ];
 
-function LogoPlaceholder({ name }: { name: string }) {
+function PartnerLogo({ name }: { name: string }) {
   return (
-    <div className="w-32 h-10 bg-bg-surface rounded border border-border-subtle flex items-center justify-center text-text-muted text-xs shrink-0 grayscale hover:filter-none transition duration-300">
+    <span className="font-mono text-sm tracking-wider text-text-muted/50 uppercase shrink-0 hover:text-text-secondary transition duration-300 px-4">
       {name}
-    </div>
+    </span>
   );
 }
 
@@ -41,10 +41,10 @@ export function SocialProofWall() {
           <div className="overflow-hidden">
             <div className="flex gap-12 items-center animate-marquee w-max">
               {partnerNames.map((name) => (
-                <LogoPlaceholder key={`a-${name}`} name={name} />
+                <PartnerLogo key={`a-${name}`} name={name} />
               ))}
               {partnerNames.map((name) => (
-                <LogoPlaceholder key={`b-${name}`} name={name} />
+                <PartnerLogo key={`b-${name}`} name={name} />
               ))}
             </div>
           </div>

@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useCallback } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { Menu, X } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useDrawer } from "@/hooks/useDrawer";
@@ -44,14 +45,18 @@ export function Navbar() {
     >
       <div className="max-w-7xl mx-auto px-6 h-full flex items-center justify-between">
         {/* Logo */}
-        <Link href="/" className="flex items-center gap-0.5 shrink-0">
-          <span className="font-bold text-xl text-text-primary">
-            Blue
-          </span>
-          <span className="font-bold text-xl text-text-primary">
-            Ally
-          </span>
-          <span className="w-1.5 h-1.5 rounded-full bg-accent-primary ml-0.5 mb-2" />
+        <Link href="/" className="shrink-0">
+          <Image
+            src="/images/blueally-logo.png"
+            alt="BlueAlly"
+            width={140}
+            height={44}
+            priority
+            className={cn(
+              "transition-all duration-300",
+              isCompact ? "h-7 w-auto" : "h-9 w-auto"
+            )}
+          />
         </Link>
 
         {/* Desktop nav */}

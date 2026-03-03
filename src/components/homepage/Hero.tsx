@@ -83,12 +83,14 @@ export function Hero() {
             ))}
           </div>
 
-          <div className="flex gap-4 items-center justify-center mt-6">
-            {Array.from({ length: 4 }).map((_, i) => (
-              <div
-                key={i}
-                className="w-24 h-8 bg-bg-surface rounded opacity-40"
-              />
+          <div className="flex gap-6 items-center justify-center mt-6">
+            {["NVIDIA", "AWS", "Dell", "Cisco"].map((name) => (
+              <span
+                key={name}
+                className="font-mono text-xs tracking-wider text-text-muted/60 uppercase"
+              >
+                {name}
+              </span>
             ))}
           </div>
         </div>

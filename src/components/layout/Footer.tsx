@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 
 const quickLinks = [
   { label: "Industries", href: "/industries" },
@@ -15,16 +16,14 @@ export function Footer() {
       <div className="max-w-7xl mx-auto px-6 space-y-8">
         {/* Top row: Logo + tagline */}
         <div>
-          <div className="flex items-center gap-0.5">
-            <span className="font-bold text-xl text-text-primary">
-              Blue
-            </span>
-            <span className="font-bold text-xl text-text-primary">
-              Ally
-            </span>
-            <span className="w-1.5 h-1.5 rounded-full bg-accent-primary ml-0.5 mb-2" />
-          </div>
-          <p className="text-text-muted text-sm mt-1">
+          <Image
+            src="/images/blueally-logo.png"
+            alt="BlueAlly"
+            width={140}
+            height={44}
+            className="h-8 w-auto"
+          />
+          <p className="text-text-muted text-sm mt-2">
             Full-Stack AI Transformation
           </p>
         </div>
