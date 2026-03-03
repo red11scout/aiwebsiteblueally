@@ -1,80 +1,83 @@
-# BlueAlly AI Website — Claude Code Reference
+# BlueAlly "Go Faster with AI" — Claude Code Reference
 
 ## Quick Start
 ```bash
 npm install
-npm run dev     # Dev server on port 3000
-npm run build   # Production build
-npm run start   # Production server
+npm run dev       # Dev server on port 3000
+npm run build     # Production build (static pages)
+npm run typecheck # TypeScript verification
 ```
 
 ## Stack
-- Frontend: React 19, Vite 5, TypeScript, Tailwind CSS v4, shadcn/ui
-- Backend: Express.js + Anthropic Claude SDK
-- Animations: Framer Motion
-- Routing: Wouter (SPA)
-- Font: DM Sans (300, 400, 500, 700) exclusively
+- Framework: Next.js 15 (App Router)
+- Deployment: Vercel
+- Styling: Tailwind CSS 4
+- Animation: Framer Motion
+- Charts: Recharts (scatter plot on industry pages)
+- Forms: React Hook Form + Zod validation
+- Calendar: Calendly embed (placeholder in V1)
+- Fonts: Inter (sans) + JetBrains Mono (mono) via next/font
+- Icons: Lucide React
+- State: React useState/context (no external state lib)
 
-## Brand Colors (OFFICIAL — never deviate)
-- Dark Blue: `#003B73` (primary, headers, nav)
-- Light Blue: `#00A3E0` (accents, CTAs, interactive)
-- Green: `#00B34A` (success states, secondary CTAs)
-- Charcoal: `#2C2C2C` (body text on light backgrounds)
-- Light Gray: `#F5F5F5` (foreground text on dark backgrounds)
-- Medium Gray: `#999999` (secondary text, muted)
-
-## Theme System
-- Day/night mode via ThemeContext (`client/src/contexts/ThemeContext.tsx`)
-- Toggle component: `client/src/components/ThemeToggle.tsx`
-- CSS variables in `client/src/index.css` — `:root` / `.dark` for dark, `.light` for light
-- Default: dark mode. Persisted in localStorage key `blueally-theme`.
-- NEVER use `bg-white/[0.03]` or similar opacity whites/blacks. Use semantic tokens:
-  - `bg-card`, `bg-background`, `bg-muted` for surfaces
-  - `border-border` for borders
-  - `text-foreground`, `text-muted-foreground` for text
-  - `glass-card` CSS class for subtle cards (theme-aware)
-
-## IMPORTANT Rules
-- NEVER use oklch() colors. Always use hex from official palette above.
-- DM Sans font exclusively. No font substitution.
-- All API calls go through Express routes in server/
-- Claude API key must be in ANTHROPIC_API_KEY env var
-- Server gracefully handles missing API key (AI features disabled)
+## Design System — Dark Engineering Theme
+- bg-primary: `#0A0E1A` (page backgrounds)
+- bg-surface: `#111827` (cards, panels)
+- accent-primary: `#3B82F6` (CTAs, links)
+- accent-glow: `#06B6D4` (data viz, cyan)
+- accent-success: `#10B981` (positive metrics)
+- accent-danger: `#EF4444` (problem states)
+- text-primary: `#F8FAFC` (headlines)
+- text-secondary: `#94A3B8` (body)
+- text-muted: `#64748B` (captions)
+- border-subtle: `#1E293B` (borders)
+- Use `font-mono` for all metrics/numbers (JetBrains Mono)
+- Use `MonoText` component from `@/components/shared/MonoText`
 
 ## Project Structure
 ```
-client/src/pages/                # Home, IndustryReport, NotFound
-client/src/components/           # Navigation, Footer, ThemeToggle
-client/src/components/sections/  # HeroSection, IndustriesSection, etc. (14 sections)
-client/src/components/report/    # Native report rendering (ReportPage, ValueDriverCards, etc.)
-client/src/components/ui/        # shadcn/ui components (50+)
-client/src/contexts/             # ThemeContext
-client/src/data/                 # industries.ts, report-types.ts
-client/src/data/reports/         # Per-industry report data (energy-utilities.ts, entertainment.ts)
-client/src/hooks/                # Custom hooks
-server/                          # Express API
-server/routes/                   # Chat, contact, signup endpoints
+src/
+├── app/
+│   ├── layout.tsx              # Root layout: fonts, nav, footer, drawer
+│   ├── page.tsx                # Homepage (8 sections)
+│   ├── globals.css             # Tailwind + design tokens
+│   ├── sitemap.ts / robots.ts  # SEO
+│   ├── industries/[slug]/page.tsx  # Dynamic industry pages (14)
+│   └── api/lead/route.ts      # Lead capture webhook
+├── components/
+│   ├── layout/                 # Navbar, Footer, StickyCtaBanner
+│   ├── homepage/               # Hero, StakesGrid, MethodologyTimeline, etc.
+│   ├── industry/               # IndustryHero, FrictionMap, ValueReadinessMatrix, etc.
+│   ├── conversion/             # DrawerForm, ExitIntentOverlay
+│   └── shared/                 # ScrollReveal, MonoText, FlipCard, IndustryCard
+├── data/
+│   ├── industries.ts           # 14 industries metadata
+│   ├── report-types.ts         # TypeScript interfaces for report data
+│   └── reports/*.ts            # Per-industry report data (14 files)
+├── lib/
+│   ├── types.ts                # Component-facing type definitions
+│   ├── utils.ts                # cn(), formatCurrency(), formatMillions()
+│   ├── calculator.ts           # Trapped value calculation logic
+│   └── industry-adapter.ts     # Maps report data → component props
+└── hooks/
+    └── useDrawer.tsx           # Drawer state context + provider
 ```
 
-## Industries (14)
-Single source of truth: `client/src/data/industries.ts`
-Categories: corporate, public, government (for tab display)
-Reports live in `client/src/data/reports/` — add new `.ts` files and register in `reports/index.ts`
-
-Currently with live reports: Energy & Utilities, Entertainment
-Coming soon: Construction, Manufacturing, Retail, Transportation, Technology & Information,
-Finance & Insurance, Real Estate, Professional Services, Education, Healthcare, State & Local, Federal
-
-## Routes
-- `/` — Home page (14 sections, includes Industries tab section)
-- `/industries/:slug` — Industry report page (native render or coming-soon)
-- `/industries` — Redirects to `/#industries`
+## Key Patterns
+- Industry data: rich reports in `data/reports/*.ts` → adapted via `industry-adapter.ts`
+- Conversion: DrawerForm opens via `useDrawer()` context from any CTA
+- Scroll animations: wrap sections in `<ScrollReveal>` (Framer Motion)
+- All industry pages statically generated via `generateStaticParams`
 
 ## Environment Variables
-- `ANTHROPIC_API_KEY` — Claude API for chat widget
-- `PORT` — Server port (default 3000)
+```
+LEAD_WEBHOOK_URL           # Webhook for form submissions
+NEXT_PUBLIC_CALENDLY_URL   # Calendly scheduling link
+NEXT_PUBLIC_GTM_ID         # Google Tag Manager
+NEXT_PUBLIC_SITE_URL       # https://explore.gofasterwithai.com
+```
 
 ## Deployment
-- Configured for Replit via `.replit` and `replit.nix`
-- Build: `npm run build` (Vite frontend + esbuild server)
-- Start: `npm run start` (serves from dist/)
+- Vercel project: drew-godwins-projects/blueally-ai-website
+- GitHub: red11scout/aiwebsiteblueally
+- Auto-deploys on push to main
